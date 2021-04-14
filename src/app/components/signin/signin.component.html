@@ -1,0 +1,32 @@
+<header></header>
+
+<mat-toolbar color="primary">
+    <span>Sign in to Faculty of Science Curriculum Planner</span>
+</mat-toolbar>
+
+<body class="main-wrapper" fxLayout="row" fxLayoutAlign="center">
+
+    <mat-card class="box" fxFlex="25%" style="height: 400px; vertical-align: middle; margin-top: 140px;">
+        <mat-card-header>
+            <mat-card-title style="margin-left: 30px;">SIGN IN TO YOUR ACCOUNT</mat-card-title>
+        </mat-card-header>
+        <form class="example-form">
+            <mat-card-content>
+                <mat-form-field class="example-full-width" style="margin-top: 32px; margin-left: 50px; font-size: 24px;">
+                    <input matInput placeholder="Username">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" style="margin-top: 16px; margin-left: 50px; font-size: 24px;">
+                    <input matInput placeholder="Password">
+                </mat-form-field>
+                <mat-card-actions>
+                    <a routerLink="/admin-page">
+                        <button mat-button type='button' (click)="goToAdmin('/admin-page'); " style="background-color: blue; color: antiquewhite; margin-left: 60px;">SIGN IN</button>
+                    </a>
+                </mat-card-actions>
+            </mat-card-content>
+        </form>
+    </mat-card>
+</body>
+<router-outlet></router-outlet>
+<footer></footer>

@@ -1,0 +1,45 @@
+<header></header>
+
+<mat-toolbar color="primary">
+    <span>Welcome to Wits Faculty of Science Curriculum Planner</span>
+</mat-toolbar>
+
+<body fxLayout="row" fxLayoutAlign="center" fxLayoutGap="24px">
+
+    <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
+        <mat-card-header>
+            <mat-card-title>VISITORS
+            </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="./../assets/images/VisitorImage.png">
+        <mat-card-content>
+            <p style="font-size: 20px;">
+                Say something nice here...
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button style="background-color: blue; color: antiquewhite; margin-top: 200px;">EXPLORE</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card fxFlex="25%" style="height: 600px;">
+        <mat-card-header>
+            <mat-card-title>STUDENTS AND ADMINISTRATORS
+            </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="./../assets/images/AdminImage.jpg">
+        <mat-card-content>
+            <p style="font-size: 20px;">
+                Say something nice here...
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <a routerLink="/signin">
+                <button mat-button (click)="goToPage('/signin'); " style="background-color: blue; color: antiquewhite; margin-top: 250px;">SIGN IN</button>
+            </a>
+        </mat-card-actions>
+    </mat-card>
+</body>
+
+<router-outlet></router-outlet>
+<footer></footer>

@@ -1,0 +1,146 @@
+<header fxLayout="row" style="padding-top: 16px;">
+    <div style="padding-left: 24px;">
+        <h1 style="padding-left: 16px;">VIEW COURSE</h1>
+        <button style="padding-left: 16px; padding-top: 6px;" mat-button [matMenuTriggerFor]="menu" id="select_course">SELECT COURSE</button>
+            <mat-menu #menu="matMenu" style="padding-left: 16px;">
+                <button style="padding-left: 16px;" mat-menu-item>COMS3000</button>
+                <button style="padding-left: 16px;" mat-menu-item>COMS4002</button>
+                <button style="padding-left: 16px;" mat-menu-item>COMS2002</button>
+            </mat-menu>
+    </div>
+
+    <div style="padding-left: 400px;">
+        <h1>SELECTED COURSE</h1>
+        <span>
+        <p id="course_code">COURSE CODE:
+          <mat-form-field style="padding-left: 12px;">
+            <mat-label>Course code prints here</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="5"></textarea>
+          </mat-form-field>
+        </p>
+        </span> 
+        
+        <span>
+            <p id="course_name">COURSE NAME:
+              <mat-form-field style="padding-left: 12px;">
+                <mat-label>Course name prints here</mat-label>
+                <textarea matInput
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          cdkAutosizeMinRows="1"
+                          cdkAutosizeMaxRows="5"></textarea>
+              </mat-form-field>
+            </p>
+            </span>
+
+        <span>
+            <p id="course_des">COURSE DESCRIPTION:
+                <mat-form-field style="padding-left: 12px;">
+                <mat-label>Course description prints here</mat-label>
+                <textarea matInput
+                            cdkTextareaAutosize
+                            #autosize="cdkTextareaAutosize"
+                            cdkAutosizeMinRows="1"
+                            cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
+            </p>
+            </span>
+
+            <span>
+                <p id="nqf">NQF LEVEL:
+                    <mat-form-field style="padding-left: 12px;">
+                    <mat-label>NQF level prints here</mat-label>
+                    <textarea matInput
+                                cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize"
+                                cdkAutosizeMinRows="1"
+                                cdkAutosizeMaxRows="5"></textarea>
+                    </mat-form-field>
+                </p>
+                </span>
+    </div>
+</header>
+
+<div style="padding-left: 36px; padding-top: 24px;">
+    <h1>ADD COURSE</h1>
+    <p>
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label>COURSE NAME</mat-label>
+            <input matInput placeholder="Placeholder">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label>COURSE CODE</mat-label>
+            <input matInput placeholder="Placeholder">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label>NQF LEVEL</mat-label>
+            <input matInput placeholder="Placeholder">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label>COURSE DESCRIPTION</mat-label>
+            <input matInput placeholder="Placeholder">
+        </mat-form-field>
+
+        <button mat-mini-fab color="accent" >
+            <mat-icon >add</mat-icon>
+        </button>
+    </p>  
+</div>
+
+<div style="padding-left: 36px; padding-top: 24px;">
+    <h1>DELETE COURSE</h1>
+    <p>
+        <mat-form-field>
+            <mat-label>COURSE</mat-label>
+            <mat-select #fontSize value="16px">
+              <mat-option value="NO COURSE">NONE</mat-option>
+              <mat-option value="COURSE A">COURSE A</mat-option>
+              <mat-option value="COURSE B">COURSE B</mat-option>
+              <mat-option value="COURSE C">COURSE C</mat-option>
+              <mat-option value="COURSE D">COURSE D</mat-option>
+              <mat-option value="COURSE E">COURSE E</mat-option>
+              <mat-option value="COURSE F">COURSE F</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-mini-fab color="accent" >
+            <mat-icon >delete</mat-icon>
+        </button>
+    </p>
+</div>
+
+<div style="padding-left: 36px; padding-top: 24px;">
+    <h1>UPDATE COURSE</h1>
+    <p>
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label>COURSE NAME</mat-label>
+            <input matInput placeholder="Placeholder">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label>COURSE CODE</mat-label>
+            <input matInput placeholder="Placeholder">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label>NQF LEVEL</mat-label>
+            <input matInput placeholder="Placeholder">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label>COURSE DESCRIPTION</mat-label>
+            <input matInput placeholder="Placeholder">
+        </mat-form-field>
+
+        <button mat-mini-fab color="accent">
+            <mat-icon>done</mat-icon>
+        </button>
+    </p>  
+</div>
