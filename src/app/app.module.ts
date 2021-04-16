@@ -15,6 +15,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AdminPageComponent } from './components/admin-page/admin-page.component
     AdminPageComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
