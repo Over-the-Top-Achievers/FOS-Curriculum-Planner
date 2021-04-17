@@ -16,6 +16,8 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     AngularMaterialModule,
     FormsModule, 
     ReactiveFormsModule,
+    TextFieldModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
