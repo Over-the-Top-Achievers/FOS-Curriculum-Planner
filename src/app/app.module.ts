@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+//import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import "node_modules/bootstrap/scss/bootstrap.scss"
 import { AppRoutingModule } from './app-routing.module';
@@ -12,12 +12,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AngularMaterialModule } from './angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SigninComponent } from './components/signin/signin.component';
-import { RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,  HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatMenuModule} from '@angular/material/menu';
+import { fakeBackendProvider } from './helpers';
+import { JwtInterceptor, ErrorInterceptor } from './helpers';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
+
 
 @NgModule({
   declarations: [
@@ -28,7 +33,6 @@ import { MatMenuModule} from '@angular/material/menu';
   ],
   imports: [
     HttpClientModule,
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
@@ -40,8 +44,13 @@ import { MatMenuModule} from '@angular/material/menu';
     ReactiveFormsModule,
     TextFieldModule,
     MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    fakeBackendProvider],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
