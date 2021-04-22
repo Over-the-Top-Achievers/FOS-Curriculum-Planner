@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthGuard } from '/home/stinger28/Projects/Curriculum Planner/FOS-Curriculum-Planner/src/app/services/auth-gaurd.service';
+import { AuthGuard } from '../services/auth-gaurd.service';
 
 describe('AuthGaurdService', () => {
   let service: AuthGuard;

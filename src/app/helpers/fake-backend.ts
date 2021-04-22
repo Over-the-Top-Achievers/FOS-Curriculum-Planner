@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
-import { environment } from '/home/stinger28/Projects/Curriculum Planner/FOS-Curriculum-Planner/src/environments/environment';
+import { environment } from '../../environments/environment';
 
 let users = [{ id: 1, firstName: 'Dennis', lastName: 'Yuan', username: 'Dennissss', password: 'test123' }];
 
