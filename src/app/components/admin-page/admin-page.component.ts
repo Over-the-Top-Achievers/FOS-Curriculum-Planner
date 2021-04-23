@@ -6,6 +6,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatDialogRef} from '@angular/material/dialog/dialog-ref'
 import { CourseService } from 'src/app/shared/services/course.services';
 import { Course } from 'src/app/shared/models';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-page',
@@ -21,6 +24,7 @@ export class AdminPageComponent implements OnInit {
     private activatedRoute:ActivatedRoute,
     private courseService: CourseService, //dependency injection
     private dialog: MatDialog,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -32,14 +36,32 @@ export class AdminPageComponent implements OnInit {
     this.selectedCourse = courseCode;
     //this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent, {data: this.selectedCourse});    
   }
+
+
+  
+
   courseToDelete?: Course;
   deleteCourse(courseCode?:any){
     this.courseToDelete = courseCode;
     if (courseCode === undefined){
       throw new Error("No course to delete");
-    }else{
+    }
+    
+    else{
+      var options = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+        body: {courseCode:courseCode.Course_Code},
+      };
+
       console.log(courseCode);      
-      //delete stuff here      
+      //delete stuff here 
+      console.log(courseCode.Course_Code);
+      this.http.request('DELETE','http://localhost:8080/courses', options).subscribe((s) => {
+        console.log(s);
+      });
+      
     }    
   }
 }
