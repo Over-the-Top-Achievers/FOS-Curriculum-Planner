@@ -83,12 +83,12 @@
     <p>
         <mat-form-field>
             <mat-label>COURSE</mat-label>
-            <mat-select #fontSize value="16px">
-              <mat-option *ngFor = "let course of courses$ | async;" mat-option-item (click)="deleteCourse(course)">{{course.Course_Code}}</mat-option>
+            <mat-select #fontSize value="16px" [(ngModel)]='courseToDelete'>
+              <mat-option *ngFor = "let course of courses$ | async;" mat-option-item [value]="course" >{{course.Course_Code}}</mat-option>
             </mat-select>
-          </mat-form-field>
+        </mat-form-field>
 
-          <button mat-mini-fab color="accent" >
+        <button mat-mini-fab color="accent" (click)="deleteCourse(courseToDelete)">
             <mat-icon >delete</mat-icon>
         </button>
     </p>
