@@ -32,4 +32,14 @@ export class AdminPageComponent implements OnInit {
     this.selectedCourse = courseCode;
     //this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent, {data: this.selectedCourse});    
   }
+  courseToDelete?: Course;
+  deleteCourse(courseCode?:any){
+    this.courseToDelete = courseCode;
+    if (courseCode === undefined){
+      throw new Error("No course to delete");
+    }else{
+      console.log(courseCode);      
+      //delete stuff here      
+    }    
+  }
 }
