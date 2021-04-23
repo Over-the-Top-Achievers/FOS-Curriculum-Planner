@@ -15,7 +15,7 @@ import { Course } from 'src/app/shared/models';
 export class AdminPageComponent implements OnInit {
 
   courses$ = this.courseService.getCourses();//this is an observable
-
+  
   constructor(
     private router:Router,
     private activatedRoute:ActivatedRoute,
@@ -31,5 +31,6 @@ export class AdminPageComponent implements OnInit {
   displayCourseInfo(courseCode:any){
     this.selectedCourse = courseCode;
     //this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent, {data: this.selectedCourse});    
+    console.log('courseCode')
   }
 }
