@@ -72,7 +72,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "FOS-Curriculum-Planner:build"
+            "browserTarget": "FOS-Curriculum-Planner:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {

@@ -4,7 +4,7 @@
         <h1 style="padding-left: 16px;">VIEW COURSE</h1>
         <button style="padding-left: 16px; padding-top: 6px;" mat-button [matMenuTriggerFor]="menu" id="select_course">SELECT COURSE</button>
             <mat-menu #menu="matMenu" style="padding-left: 16px;">              
-                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="displayCourseInfo(course)">{{course.courseCode}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
+                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="displayCourseInfo(course)">{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
             </mat-menu>
     </div> 
 
@@ -15,7 +15,7 @@
             <span>
             <p id="course_code">COURSE CODE:
               <mat-form-field style="padding-left: 12px;">
-                <mat-text>{{selectedCourse.courseCode}}</mat-text>
+                <mat-text>{{selectedCourse.Course_Code}}</mat-text>
               </mat-form-field>
             </p>
             </span> 
@@ -40,7 +40,7 @@
                 <span>
                     <p id="nqf">NQF LEVEL:
                         <mat-form-field style="padding-left: 12px;">
-                        <mat-text>{{selectedCourse.nqf}}</mat-text>
+                        <mat-text>{{selectedCourse.NQF}}</mat-text>
                         </mat-form-field>
                     </p>
                     </span>
@@ -84,13 +84,7 @@
         <mat-form-field>
             <mat-label>COURSE</mat-label>
             <mat-select #fontSize value="16px">
-              <mat-option value="NO COURSE">NONE</mat-option>
-              <mat-option value="COURSE A">COURSE A</mat-option>
-              <mat-option value="COURSE B">COURSE B</mat-option>
-              <mat-option value="COURSE C">COURSE C</mat-option>
-              <mat-option value="COURSE D">COURSE D</mat-option>
-              <mat-option value="COURSE E">COURSE E</mat-option>
-              <mat-option value="COURSE F">COURSE F</mat-option>
+              <mat-option *ngFor = "let course of courses$ | async;" mat-option-item (click)="deleteCourse(course)">{{course.Course_Code}}</mat-option>
             </mat-select>
           </mat-form-field>
 
