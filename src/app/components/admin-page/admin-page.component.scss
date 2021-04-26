@@ -1,5 +1,8 @@
 .menudemoBasicUsage .md-menu-demo {
     padding: 24px; }
   
-  .menudemoBasicUsage .menu-demo-container {
-    min-height: 200px; }
+    .menudemoBasicUsage .menu-demo-container {
+      min-height: 200px; }
+  ::ng-deep .my-menu{
+    width: 125px;
+  }

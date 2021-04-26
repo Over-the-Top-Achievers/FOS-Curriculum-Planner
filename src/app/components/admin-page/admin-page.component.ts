@@ -54,10 +54,7 @@ export class AdminPageComponent implements OnInit {
   displayCourseInfo(courseCode:any){
     this.selectedCourse = courseCode;
     //this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent, {data: this.selectedCourse});    
-  }
-
-
-  
+  }  
 
   courseToDelete?: Course;
   deleteCourse(courseCode?:any){
@@ -118,4 +115,9 @@ addCourse(): void {
 
   this.checkoutForm.reset();
 }
+  close(){    
+    console.log('Close button clicked');
+    //this.router.navigate(['/admin-page']);
+    window.location.reload();
+  }
 }
