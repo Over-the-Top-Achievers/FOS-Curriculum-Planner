@@ -96,32 +96,60 @@
 </header>
 
 <div style="padding-left: 36px; padding-top: 24px;">
-    <h1>ADD COURSE</h1>
-    <p>
+    <h1 >ADD COURSE</h1>
+
+    <form [formGroup]="checkoutForm" (ngSubmit)="addCourse()" >
+        
         <mat-form-field appearance="outline" style="padding-left: 16px;">
-            <mat-label>COURSE NAME</mat-label>
-            <input matInput placeholder="Placeholder">
+            <mat-label for="Course_Name">COURSE NAME</mat-label>
+            <input matInput placeholder="Placeholder" formControlName='Course_Name' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
         </mat-form-field>
     
         <mat-form-field appearance="outline" style="padding-left: 16px;">
-            <mat-label>COURSE CODE</mat-label>
-            <input matInput placeholder="Placeholder">
-        </mat-form-field>
-    
-        <mat-form-field appearance="outline" style="padding-left: 16px;">
-            <mat-label>NQF LEVEL</mat-label>
-            <input matInput placeholder="Placeholder">
-        </mat-form-field>
-    
-        <mat-form-field appearance="outline" style="padding-left: 16px;">
-            <mat-label>COURSE DESCRIPTION</mat-label>
-            <input matInput placeholder="Placeholder">
+            <mat-label for="Course_Code">COURSE CODE</mat-label>
+            <input matInput placeholder="Placeholder" formControlName='Course_Code' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
         </mat-form-field>
 
-        <button mat-mini-fab color="accent" >
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label for="Credits">CREDITS</mat-label>
+            <input matInput placeholder="Placeholder" formControlName='Credits' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label for="NQF">NQF LEVEL</mat-label>
+            <input matInput placeholder="Placeholder" formControlName='NQF' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label for="Slot">Slot</mat-label>
+            <input matInput placeholder="Placeholder" formControlName='Slot' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label for="Semester">Semester</mat-label>
+            <input matInput placeholder="Placeholder" formControlName='Semester' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label for="Year">Year</mat-label>
+            <input matInput placeholder="Placeholder" formControlName='Year' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="padding-left: 16px;">
+            <mat-label for="Pre_Requisite">PRE REQUISITE</mat-label>
+            <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Pre_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="padding-left: 16px; padding-right: 16px;">
+            <mat-label for="Co_Requisite">CO REQUISITE</mat-label>
+            <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Co_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+        </mat-form-field>
+
+        <button mat-mini-fab color="accent" type="submit" >
             <mat-icon >add</mat-icon>
         </button>
-    </p>  
+    </form>
+ 
 </div>
 
 <div style="padding-left: 36px; padding-top: 24px;">
@@ -134,7 +162,7 @@
             </mat-select>
         </mat-form-field>
 
-        <button mat-mini-fab color="accent" (click)="deleteCourse(courseToDelete)">
+        <button mat-mini-fab color="accent" (click)="deleteCourse(courseToDelete)" (click)="refresh()">
             <mat-icon >delete</mat-icon>
         </button>
     </p>

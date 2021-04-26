@@ -3,12 +3,17 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import {ActivatedRoute, Router} from '@angular/router'
 import "node_modules/bootstrap/scss/bootstrap.scss"
 import {MatDialog} from '@angular/material/dialog';
-import {MatDialogRef} from '@angular/material/dialog/dialog-ref'
+import {MatDialogRef} from '@angular/material/dialog/dialog-ref';
+
 import { CourseService } from 'src/app/shared/services/course.services';
+
 import { Course } from 'src/app/shared/models';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-admin-page',
@@ -19,12 +24,26 @@ export class AdminPageComponent implements OnInit {
 
   courses$ = this.courseService.getCourses();//this is an observable
 
+  items = this.courseService.getCourses();
+  checkoutForm = this.formbuilder.group({
+    Course_Code:'',
+    Course_Name:'',
+    Credits:'',
+    NQF:'',
+    Slot:'',
+    Semester:'',
+    Year:'',
+    Pre_requisite:'',
+    Co_requisite:'',
+  });
+
   constructor(
     private router:Router,
     private activatedRoute:ActivatedRoute,
     private courseService: CourseService, //dependency injection
     private dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private formbuilder:FormBuilder,
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +81,40 @@ export class AdminPageComponent implements OnInit {
     }    
   }
 
+  refresh(): void {
+    window.location.reload();
+}
+
+
+// this is for the adding course function
+// using checkout form modules to record the user input. 
+addCourse(): void {
+  // Process checkout data here
+  //this.items = this.courseService.clearCart();
+  console.warn('Course is being added to the database.', this.checkoutForm.value);
+
+  var options = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+    body: {Course_Code:this.checkoutForm.value.Course_Code,
+      Course_Name:this.checkoutForm.value.Course_Name,
+      Credits:this.checkoutForm.value.Credits,
+      NQF:this.checkoutForm.value.NQF,
+      Slot:this.checkoutForm.value.Slot,
+      Semester:this.checkoutForm.value.Semester,
+      Year:this.checkoutForm.value.Year,
+      Pre_requisite:this.checkoutForm.value.Pre_requisite,
+      Co_requsite:this.checkoutForm.value.Co_requisite},
+    
+  };
+
+  this.http.post('http://localhost:8080/courses', options.body).subscribe((s) => {
+    console.log(s);
+  });
+
+  this.checkoutForm.reset();
+}
   close(){    
     console.log('Close button clicked');
     //this.router.navigate(['/admin-page']);
