@@ -145,7 +145,7 @@
             <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Co_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
         </mat-form-field>
 
-        <button mat-mini-fab color="accent" type="submit" >
+        <button mat-mini-fab color="accent" type="submit" (click)='refresh()'>
             <mat-icon >add</mat-icon>
         </button>
     </form>
