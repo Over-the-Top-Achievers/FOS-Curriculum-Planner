@@ -12,7 +12,9 @@
             </p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button style="background-color: blue; color: antiquewhite; margin-top: 200px;">EXPLORE</button>
+            <a routerLink="/user-page">
+                <button mat-button (click)="goToPage('/user-page'); " style="background-color: blue; color: antiquewhite; margin-top: 250px;">EXPLORE</button>
+            </a>
         </mat-card-actions>
     </mat-card>
 

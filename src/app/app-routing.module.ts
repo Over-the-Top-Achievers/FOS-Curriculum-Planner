@@ -5,11 +5,13 @@ import {HomeComponent} from './components/home/home.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import "node_modules/bootstrap/scss/bootstrap.scss"
 import { AuthGuard } from './services/auth-gaurd.service';
+import { UserPageComponent } from './components/user-page/user-page.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},  
   {path: 'admin-page', component: AdminPageComponent,canActivate:[AuthGuard]},
   { path: 'signin', component: SigninComponent},
+  {path:'user-page',component:UserPageComponent},
   { path: '', pathMatch: 'full', redirectTo: '/home' },
 
   //otherwise redirect to home page
