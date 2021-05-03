@@ -1,0 +1,96 @@
+<header fxLayout="row" style="padding-top: 16px; padding-bottom: 32px;">
+    <!-- <pre>{{courseService.courses$ | async | json}}</pre> -->
+    <div style="padding-left: 24px;">
+        <h1 style="padding-left: 16px;">VIEW COURSE</h1>
+        <button style="padding-left: 16px; padding-top: 6px; " mat-button [matMenuTriggerFor]="menu" id="select_course">SELECT COURSE</button>
+            <mat-menu #menu="matMenu" style="padding-left: 16px;">              
+                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="displayCourseInfo(course)" style="column-width: 120px;">{{course.Course_Code}} </button> <!-- its like a bag of marbles/ or a vomiting man-->
+            </mat-menu>
+    </div> 
+
+    <div *ngIf='selectedCourse' style='padding-left: 64px; padding-top: 48px;'>
+        <mat-dialog-content>
+        <mat-card>
+                <mat-card-title>SELECTED COURSE</mat-card-title>
+            
+                <span>
+                <p>COURSE CODE:
+                <mat-form-field style="padding-left: 12px;">
+                    <mat-text>{{selectedCourse.Course_Code}}</mat-text>
+                </mat-form-field>
+                </p>
+                </span> 
+                
+                <span>
+                    <p>COURSE NAME:
+                    <mat-form-field style="padding-left: 12px;">
+                        <mat-text>{{selectedCourse.Course_Name}}</mat-text>
+                    </mat-form-field>
+                    </p>
+                </span>
+            
+                <span>
+                    <!--make a dropdown of co-reqs/pre-reqs-->
+                    <p>CREDITS:
+                        <mat-form-field style="padding-left: 12px;">
+                        <mat-text>{{selectedCourse.Credits}}</mat-text>
+                        </mat-form-field>
+                    </p>
+                </span>
+            
+                <span>
+                    <p>NQF LEVEL:
+                        <mat-form-field style="padding-left: 12px;">
+                        <mat-text>{{selectedCourse.NQF}}</mat-text>
+                        </mat-form-field>
+                    </p>
+                </span>
+
+                <span>
+                    <p>SLOT:
+                        <mat-form-field style="padding-left: 12px;">
+                        <mat-text>{{selectedCourse.Slot}}</mat-text>
+                        </mat-form-field>
+                    </p>
+                </span>
+
+                <span>
+                    <p>SEMESTER:
+                        <mat-form-field style="padding-left: 12px;">
+                        <mat-text>{{selectedCourse.Semester}}</mat-text>
+                        </mat-form-field>
+                    </p>
+                </span>
+
+                <span>
+                    <p>YEAR:
+                        <mat-form-field style="padding-left: 12px;">
+                        <mat-text>{{selectedCourse.Year}}</mat-text>
+                        </mat-form-field>
+                    </p>
+                </span>
+
+                <span>
+                    <p>CO-REQUISITE:
+                        <mat-form-field style="padding-left: 12px;">
+                        <mat-text>{{selectedCourse.Co_requisite}}</mat-text>
+                        </mat-form-field>
+                    </p>
+                </span>
+
+                <span>
+                    <p>PRE-REQUISITE:
+                        <mat-form-field>
+                            <mat-text>{{selectedCourse.Pre_requisite}}</mat-text>                    
+                        </mat-form-field>
+                    </p>
+                </span> 
+            <mat-card-actions>
+                <button mat-mini-fab color="accent" (click)="close()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-card-actions>            
+        </mat-card>
+    </mat-dialog-content>
+    </div>
+</header>
