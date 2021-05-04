@@ -2,9 +2,9 @@
     <!-- <pre>{{courseService.courses$ | async | json}}</pre> -->
     <div style="padding-left: 24px;">
         <h1 style="padding-left: 16px;">VIEW COURSE</h1>
-        <button style="padding-left: 16px; padding-top: 6px;" mat-button [matMenuTriggerFor]="menu" id="select_course">SELECT COURSE</button>
+        <button style="padding-left: 16px; padding-top: 6px; " mat-button [matMenuTriggerFor]="menu" id="select_course">SELECT COURSE</button>
             <mat-menu #menu="matMenu" style="padding-left: 16px;">              
-                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="displayCourseInfo(course)">{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
+                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="displayCourseInfo(course)" style="column-width: 120px;">{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
             </mat-menu>
     </div> 
 

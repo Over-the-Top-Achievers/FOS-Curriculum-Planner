@@ -22,6 +22,7 @@ import { fakeBackendProvider } from './helpers';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { UserPageComponent } from './components/user-page/user-page.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     SigninComponent,
     HomeComponent,
     AdminPageComponent,
+    UserPageComponent,
   ],
   imports: [
     HttpClientModule,
