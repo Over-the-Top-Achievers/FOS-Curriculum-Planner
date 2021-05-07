@@ -32,8 +32,9 @@ export class CourseService {
         return this.http.get(`${API.apiRoot}/coursesData`);
     }
 
-
-
+    getCSV() : Observable<any> {
+        return this.http.get(`${API.apiRoot}/coursesCSV`);
+    }
     ngOnInit(): void {
     //   this.Courses = this.getCourses();
     }
