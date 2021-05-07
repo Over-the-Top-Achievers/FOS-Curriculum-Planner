@@ -23,7 +23,8 @@ import { FormBuilder } from '@angular/forms';
 export class AdminPageComponent implements OnInit {
 
   courses$ = this.courseService.getCourses();//this is an observable
-
+  csv$ = this.courseService.getCSV();
+  csvdata :string | undefined;
   items = this.courseService.getCourses();
   checkoutForm = this.formbuilder.group({
     Course_Code:'',
@@ -45,7 +46,25 @@ export class AdminPageComponent implements OnInit {
     private http: HttpClient,
     private formbuilder:FormBuilder,
   ) { }
+  getCSV():any{
+    this.csv$.subscribe((data) => { 
+      this.downloadCSV(data);
+      this.csvdata = data} 
+      );
+  }
+  downloadCSV(data:Blob):void {
+    const blob: Blob = new Blob([data], { type: 'text/csv' });
+    const fileName = 'budget.csv';
+    const objectUrl: string = URL.createObjectURL(blob);
+    const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
 
+    a.href = objectUrl;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+
+    console.log(this.csvdata)
+  }
   ngOnInit(): void {
     
   }
@@ -120,4 +139,5 @@ addCourse(): void {
     //this.router.navigate(['/admin-page']);
     window.location.reload();
   }
+
 }
