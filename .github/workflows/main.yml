@@ -26,7 +26,7 @@ jobs:
         npm install -g @angular/cli 
         npm install @angular-devkit/build-angular@latest
         npm install
-        ng test --browsers ChromeHeadless
+        ng test --browsers ChromeHeadless --code-coverage 
         npm config set user 0
         npm config set unsafe-perm true
     - name: Push badges
