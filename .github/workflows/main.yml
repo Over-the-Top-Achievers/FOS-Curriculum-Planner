@@ -33,6 +33,7 @@ jobs:
       run: |
         git config --global user.name 'Sushil Ragoonath'
         git config --global user.email 'SushilRagoonath@users.noreply.github.com'
+        git fetch origin badges
         git checkout badges
         git add -A
         git commit -a -m "badge update"
