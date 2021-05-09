@@ -22,8 +22,8 @@ jobs:
     - name: Run testing
       continue-on-error: true
       run: |
-        ssh -T SushilRagoonath@github.com
-        npm ci
+        npm config set unsafe-perm true
+        npm ci -dd
         ng test --browsers ChromeHeadless
         npm config set user 0
         npm config set unsafe-perm true
