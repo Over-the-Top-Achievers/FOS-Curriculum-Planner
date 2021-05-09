@@ -31,12 +31,12 @@ jobs:
         npm config set unsafe-perm true
     - name: Push badges
       run: |
+        rm .gitignore
+        rm -r node_modules/
+        rm -r .github/
         git config --global user.name 'Sushil Ragoonath'
         git config --global user.email 'SushilRagoonath@users.noreply.github.com'
-        git remote update
-        git fetch 
-        git checkout --track origin/badges
-        git checkout badges
         git add -A
         git commit -a -m "badge update"
-        git push --force
+        git push origin badges --force
+
