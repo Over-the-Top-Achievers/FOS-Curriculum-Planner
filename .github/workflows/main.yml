@@ -17,14 +17,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install jest-coverage-badges
-      run: npm install --global jest-coverage-badges
+    - name: Install
+      run: npm ci
     - name: Run testing
       continue-on-error: true
       run: |
-        ng test --browsers ChromeHeadless
         npm config set user 0
         npm config set unsafe-perm true
+        ng test --browsers ChromeHeadless
+
     - name: Push badges
       run: |
         git config --global user.name 'Sushil Ragoonath'
