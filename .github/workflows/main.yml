@@ -22,7 +22,6 @@ jobs:
     - name: Run testing
       continue-on-error: true
       run: |
-        npm install -g @angular/cli
         npm install
         ng test --browsers ChromeHeadless
         npm config set user 0
