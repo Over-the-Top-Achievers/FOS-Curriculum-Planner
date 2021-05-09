@@ -1,3 +1,8 @@
+[![Angular tests](https://github.com/Over-the-Top-Achievers/FOS-Curriculum-Planner/actions/workflows/main.yml/badge.svg)](https://github.com/Over-the-Top-Achievers/FOS-Curriculum-Planner/actions/workflows/main.yml)
+
+[![Code coverage]](https://raw.githubusercontent.com/Over-the-Top-Achievers/FOS-Curriculum-Planner/badges/coverage/badge-functions.svg?token=ALSWVB7NV7OJ5TAQYRSPBCDASW5DS)
+
+
 # FOSCurriculumPlanner
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6.

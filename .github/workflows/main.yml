@@ -1,0 +1,43 @@
+name: angular testing
+
+on:
+  [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install jest-coverage-badges
+      run: npm install --global jest-coverage-badges
+    - name: Run testing
+      continue-on-error: true
+      run: |
+        npm install -g @angular/cli
+        npm install -g @angular-devkit/build-angular
+        npm install
+        ng test --browsers ChromeHeadless
+        npm config set user 0
+        npm config set unsafe-perm true
+    - name: Create badges
+      run: jest-coverage-badges
+    - name: Push badges
+      run: |
+        git config --global user.name 'Sushil Ragoonath'
+        git config --global user.email 'SushilRagoonath@users.noreply.github.com'
+        git remote update
+        git fetch 
+        git checkout --track origin/badges
+        git checkout badges
+        git add -A
+        git commit -a -m "badge update"
+        git push --force
