@@ -29,6 +29,8 @@ jobs:
         ng test --code-coverage  --browsers ChromeHeadless 
         npm config set user 0
         npm config set unsafe-perm true
+    - name: Create badges
+      run: jest-coverage-badges
     - name: Push badges
       run: |
         rm .gitignore
