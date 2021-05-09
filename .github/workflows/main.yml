@@ -23,7 +23,7 @@ jobs:
       continue-on-error: true
       run: |
         npm config set unsafe-perm true
-        npm ci 
+        npm install -g @angular/cli 
         ng test --browsers ChromeHeadless
         npm config set user 0
         npm config set unsafe-perm true
