@@ -23,8 +23,6 @@ jobs:
       continue-on-error: true
       run: |
         npm install -g @angular/cli
-        npm cache clear --force
-        npm install -g @angular-devkit/build-angular
         npm install
         ng test --browsers ChromeHeadless
         npm config set user 0
