@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/FOS-Curriculum-Planner'),
+      dir: require('path').join(__dirname, './coverage/'),
       subdir: '.',
       reporters: [
         { type: 'html' },
@@ -45,7 +45,7 @@ module.exports = function (config) {
         flags: ['--no-sandbox']
       }
     },
-    singleRun: false,
+    singleRun: true,
     restartOnFileChange: true
   });
 };
