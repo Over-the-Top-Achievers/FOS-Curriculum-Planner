@@ -100,11 +100,6 @@ export class AdminPageComponent implements OnInit {
     }    
   }
 
-  refresh(): void {
-    window.location.reload();
-}
-
-
 // this is for the adding course function
 // using checkout form modules to record the user input. 
 addCourse(): void {
@@ -134,6 +129,12 @@ addCourse(): void {
 
   this.checkoutForm.reset();
 }
+
+  refresh(): void {
+    window.location.reload();
+}
+
+
   close(){    
     console.log('Close button clicked');
     //this.router.navigate(['/admin-page']);
