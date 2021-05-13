@@ -13,6 +13,8 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 
+import {FormControl} from '@angular/forms';
+
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
@@ -20,7 +22,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class UserPageComponent implements OnInit {
 
-  courses$ = this.courseService.getCourses();//this is an observable
+  /*courses$ = this.courseService.getCourses();//this is an observable
 
   items = this.courseService.getCourses();
   checkoutForm = this.formbuilder.group({
@@ -57,5 +59,14 @@ export class UserPageComponent implements OnInit {
     console.log('Close button clicked');
     //this.router.navigate(['/admin-page']);
     window.location.reload();
+  }*/
+
+  ngOnInit(): void {
+    
   }
+
+  majors: string[] = [
+    'Computer Science Major I', 'Mathematics Major I', 'Physics Major I', 'Computational and Applied Mathematics Major I'
+  ]
+  
 }

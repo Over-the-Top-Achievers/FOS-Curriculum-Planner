@@ -4,16 +4,14 @@ import {ActivatedRoute, Router} from '@angular/router'
 import "node_modules/bootstrap/scss/bootstrap.scss"
 import {MatDialog} from '@angular/material/dialog';
 import {MatDialogRef} from '@angular/material/dialog/dialog-ref';
-
+import {API} from '../../shared/services/api'
 import { CourseService } from 'src/app/shared/services/course.services';
-
+import {MatTableDataSource} from '@angular/material/table';
 import { Course } from 'src/app/shared/models';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
-
-
 
 @Component({
   selector: 'app-admin-page',
@@ -22,6 +20,10 @@ import { FormBuilder } from '@angular/forms';
 })
 export class AdminPageComponent implements OnInit {
 
+  displayedColumns: string[] = ['Course_Code', 'Course_Name', 'Credits', 'NQF', 'Slot',
+                                        'Semester', 'Year'];
+  dataSource: any = [];
+  data: Course[] = [];
   courses$ = this.courseService.getCourses();//this is an observable
   csv$ = this.courseService.getCSV();
   csvdata :string | undefined;
@@ -45,6 +47,7 @@ export class AdminPageComponent implements OnInit {
     private dialog: MatDialog,
     private http: HttpClient,
     private formbuilder:FormBuilder,
+    //private api: API
   ) { }
   getCSV():any{
     this.csv$.subscribe((data) => { 
@@ -67,6 +70,12 @@ export class AdminPageComponent implements OnInit {
   }
   ngOnInit(): void {
     
+    this.http.get('http://localhost:8080/coursesData').subscribe(
+      data => {
+        this.data = data as Course[];
+      }
+    )
+    this.dataSource = new MatTableDataSource(this.data);
   }
 
   selectedCourse?: Course;
@@ -136,8 +145,25 @@ addCourse(): void {
 }
   close(){    
     console.log('Close button clicked');
-    //this.router.navigate(['/admin-page']);
     window.location.reload();
   }
 
+  years: string[] = [
+    'First year',
+    'Second Year',
+    'Third Year'
+  ];
+
+  selectedYear?: string;
+  displaySelectedYearCourses(yos: string){
+    this.selectedYear = yos;
+    /*if (this.selectedYear === 'First Year'){
+      this.Data();
+    }*/
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }
