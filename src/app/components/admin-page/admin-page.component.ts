@@ -21,22 +21,9 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./admin-page.component.scss'],
 })
 export class AdminPageComponent implements OnInit {
-
-  courses$ = this.courseService.getCourses();//this is an observable
-  csv$ = this.courseService.getCSV();
-  csvdata :string | undefined;
-  items = this.courseService.getCourses();
-  checkoutForm = this.formbuilder.group({
-    Course_Code:'',
-    Course_Name:'',
-    Credits:'',
-    NQF:'',
-    Slot:'',
-    Semester:'',
-    Year:'',
-    Pre_requisite:'',
-    Co_requisite:'',
-  });
+  // courses$ = this.courseService.getCourses();
+  courses:any;
+  courses$ = this.courseService.getCourses$();//this is an observable
 
   constructor(
     private router:Router,
@@ -46,27 +33,25 @@ export class AdminPageComponent implements OnInit {
     private http: HttpClient,
     private formbuilder:FormBuilder,
   ) { }
-  getCSV():any{
-    this.csv$.subscribe((data) => { 
-      this.downloadCSV(data);
-      this.csvdata = data} 
-      );
-  }
-  downloadCSV(data:Blob):void {
-    const blob: Blob = new Blob([data], { type: 'text/csv' });
-    const fileName = 'budget.csv';
-    const objectUrl: string = URL.createObjectURL(blob);
-    const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
 
-    a.href = objectUrl;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
 
-    console.log(this.csvdata)
+  downloadCSV():void {
+    this.courseService.getCSV$().subscribe( (data)=>{
+
+      const blob: Blob = new Blob( [data], { type: 'text/csv' });
+      const fileName = 'budget.csv';
+      const objectUrl: string = URL.createObjectURL(blob);
+      const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+  
+      a.href = objectUrl;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+  
+    },(err)=> console.log(err)
+    );
   }
   ngOnInit(): void {
-    
   }
 
   selectedCourse?: Course;
@@ -75,48 +60,47 @@ export class AdminPageComponent implements OnInit {
     //this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent, {data: this.selectedCourse});    
   }  
 
+
   courseToDelete?: Course;
   deleteCourse(courseCode?:any){
     this.courseToDelete = courseCode;
+    console.log(courseCode)
     if (courseCode === undefined){
       throw new Error("No course to delete");
     }
-    
-    else{
-      var options = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-        }),
-        body: {courseCode:courseCode.Course_Code},
-      };
 
-      console.log(courseCode);      
-      //delete stuff here 
-      console.log(courseCode.Course_Code);
-      this.http.request('DELETE','http://localhost:8080/courses', options).subscribe((s) => {
-        console.log(s);
-      });
-      
-    }    
+    else{
+      var body =  {courseCode:courseCode.Course_Code};
+      this.courseService.deleteCourse(courseCode.Course_Code);
+
+    }
+    this.refresh();
   }
 
   refresh(): void {
     window.location.reload();
-}
-
+  }
 
 // this is for the adding course function
 // using checkout form modules to record the user input. 
+checkoutForm = this.formbuilder.group({
+  Course_Code:'',
+  Course_Name:'',
+  Credits:'',
+  NQF:'',
+  Slot:'',
+  Semester:'',
+  Year:'',
+  Pre_requisite:'',
+  Co_requisite:'',
+});
 addCourse(): void {
   // Process checkout data here
   //this.items = this.courseService.clearCart();
   console.warn('Course is being added to the database.', this.checkoutForm.value);
 
-  var options = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-    body: {Course_Code:this.checkoutForm.value.Course_Code,
+  var body=
+     {Course_Code:this.checkoutForm.value.Course_Code,
       Course_Name:this.checkoutForm.value.Course_Name,
       Credits:this.checkoutForm.value.Credits,
       NQF:this.checkoutForm.value.NQF,
@@ -124,17 +108,44 @@ addCourse(): void {
       Semester:this.checkoutForm.value.Semester,
       Year:this.checkoutForm.value.Year,
       Pre_requisite:this.checkoutForm.value.Pre_requisite,
-      Co_requsite:this.checkoutForm.value.Co_requisite},
-    
-  };
+      Co_requsite:this.checkoutForm.value.Co_requisite};
 
-  this.http.post('http://localhost:8080/courses', options.body).subscribe((s) => {
-    console.log(s);
-  });
 
+  this.courseService.addCourse(body);
   this.checkoutForm.reset();
+  this.refresh();
 }
-  close(){    
+updateForm = this.formbuilder.group({
+  Course_Code:'',
+  Course_Name:'',
+  Credits:'',
+  NQF:'',
+  Slot:'',
+  Semester:'',
+  Year:'',
+  Pre_requisite:'',
+  Co_requisite:'',
+});
+
+updateCourse():void{
+  var body=
+  {
+    oldCourseCode:this.updateForm.value.Course_Code, //means never changes the course code right now 
+    newCourseCode:this.updateForm.value.Course_Code,//but add one for field new name
+    newCourseName:this.updateForm.value.Course_Name,
+    newCred:this.updateForm.value.Credits,
+    newNQF:this.updateForm.value.NQF,
+    newSlot:this.updateForm.value.Slot,
+    newSem:this.updateForm.value.Semester,
+    newYear:this.updateForm.value.Year,
+    newPreReq:this.updateForm.value.Pre_requisite,
+    newCoReq:this.updateForm.value.Co_requisite};
+  this.courseService.updateCourse(body);
+  this.updateForm.reset();
+  this.refresh();
+}
+
+close(){    
     console.log('Close button clicked');
     //this.router.navigate(['/admin-page']);
     window.location.reload();

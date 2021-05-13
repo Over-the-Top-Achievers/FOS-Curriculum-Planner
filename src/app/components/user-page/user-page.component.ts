@@ -20,9 +20,9 @@ import { FormBuilder } from '@angular/forms';
 })
 export class UserPageComponent implements OnInit {
 
-  courses$ = this.courseService.getCourses();//this is an observable
+  courses$ = this.courseService.getCourses$();//this is an observable
 
-  items = this.courseService.getCourses();
+
   checkoutForm = this.formbuilder.group({
     Course_Code:'',
     Course_Name:'',
