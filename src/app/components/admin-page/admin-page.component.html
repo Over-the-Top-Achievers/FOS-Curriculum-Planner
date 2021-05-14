@@ -6,7 +6,7 @@
             <mat-label>Choose a Year of Study</mat-label>
             <mat-select>
               <mat-option>None</mat-option>
-              <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
+              <mat-option *ngFor="let year of years" [value]="year" (click)='displayYearCourse(year)'>{{year}}</mat-option>
             </mat-select>
           </mat-form-field>
 
@@ -16,6 +16,68 @@
                 <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="displayCourseInfo(course)" style="column-width: 120px;">{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
             </mat-menu>
     </div> 
+    
+    <div style="padding-left: 36px;" *ngIf='selectedYear'>
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput type="text" (keyup)="applyFilter($event)" placeholder="Enter something" #input>
+        </mat-form-field>
+    
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef='Course_Code'>
+                <th mat-header-cell *matHeaderCellDef> Couse Code </th>
+                <td mat-cell *matCellDef="let element"> {{element.Course_Code}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef='Course_Name'>
+                <th mat-header-cell *matHeaderCellDef> Course Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.Course_Name}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef='Credits'>
+                <th mat-header-cell *matHeaderCellDef> Credits </th>
+                <td mat-cell *matCellDef="let element"> {{element.Credits}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef='NQF'>
+                <th mat-header-cell *matHeaderCellDef> NQF </th>
+                <td mat-cell *matCellDef="let element"> {{element.NQF}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef='Slot'>
+                <th mat-header-cell *matHeaderCellDef> Slot </th>
+                <td mat-cell *matCellDef="let element"> {{element.Slot}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef='Semester'>
+                <th mat-header-cell *matHeaderCellDef> Semester </th>
+                <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef='Year'>
+                <th mat-header-cell *matHeaderCellDef> Year </th>
+                <td mat-cell *matCellDef="let element"> {{element.Year}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef='Co_requisite'>
+                <th mat-header-cell *matHeaderCellDef> Co-requisite </th>
+                <td mat-cell *matCellDef="let element"> {{element.Co_requisite}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef='Pre_requisite'>
+                <th mat-header-cell *matHeaderCellDef> Pre-requisite </th>
+                <td mat-cell *matCellDef="let element"> {{element.Pre_requisite}} </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
+    </div>
+    <!-- -->
     
 
     <div *ngIf='selectedCourse' style='padding-left: 64px; padding-top: 48px;'>

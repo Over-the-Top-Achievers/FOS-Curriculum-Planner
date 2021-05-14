@@ -24,6 +24,8 @@ export class AdminPageComponent implements OnInit {
                                         'Semester','Year', 'Co_requisite', 'Pre_requisite'];
   dataSource: any = [];
   dataSource2: any = [];
+  yearCourses: any = [];
+
   data: Course[] = [];
   courses$ = this.courseService.getCourses();//this is an observable
   csv$ = this.courseService.getCSV();
@@ -74,7 +76,6 @@ export class AdminPageComponent implements OnInit {
     this.http.get('http://localhost:8080/coursesData').subscribe(
       data => {
         this.dataSource = data as Course[];
-        this.dataSource2 = data as Course[];
         console.log(this.dataSource)
       }
     )
@@ -157,13 +158,6 @@ addCourse(): void {
     'Third Year'
   ];
 
-  selectedYear?: string;
-  displaySelectedYearCourses(yos: string){
-    this.selectedYear = yos;
-    /*if (this.selectedYear === 'First Year'){
-      this.Data();
-    }*/
-  }
   
   applyFilter(event: Event) {
     //this.dataSource = new MatTableDataSource(this.dataSource)
@@ -171,14 +165,59 @@ addCourse(): void {
       data => {
         this.dataSource = data as Course[];
         //this.dataSource2 = data as Course[];
-        console.log(this.dataSource);
+
         this.dataSource = new MatTableDataSource(this.dataSource)
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
-        console.log(filterValue)
+
       }
     )
     
     //console.log(this.dataSource[0].Course_Code)
+  }
+
+  selectedYear?:string
+  displayYearCourse(year: string){
+    
+    this.http.get('http://localhost:8080/coursesData').subscribe(
+      data => {
+        console.log(this.yearCourses.length)
+
+        this.dataSource = data as Course[];
+        this.dataSource2 = data as Course[];
+
+        this.selectedYear = year
+        this.yearCourses = []
+        if(this.selectedYear === this.years[0]){
+          for(var i = 0; i < (this.dataSource2).length; i++){
+            if(this.dataSource2[i].Year === '1'){
+              this.yearCourses.push(this.dataSource2[i]);
+            }
+          } 
+        }
+
+        if(this.selectedYear === this.years[1]){
+          for(var i = 0; i < (this.dataSource2).length; i++){
+            if(this.dataSource2[i].Year === '2'){
+              this.yearCourses.push(this.dataSource2[i]);
+            }
+          } 
+        }
+
+        if(this.selectedYear === this.years[2]){
+          for(var i = 0; i < (this.dataSource2).length; i++){
+            if(this.dataSource2[i].Year === '3'){
+              this.yearCourses.push(this.dataSource2[i]);
+            }
+          } 
+        }
+
+        this.yearCourses = new MatTableDataSource(this.yearCourses)
+        this.dataSource = this.yearCourses;
+
+        console.log(this.yearCourses)
+
+      }
+    )
   }
 }
