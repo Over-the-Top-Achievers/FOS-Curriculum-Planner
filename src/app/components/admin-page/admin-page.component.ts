@@ -21,8 +21,9 @@ import { FormBuilder } from '@angular/forms';
 export class AdminPageComponent implements OnInit {
 
   displayedColumns: string[] = ['Course_Code', 'Course_Name', 'Credits', 'NQF', 'Slot',
-                                        'Semester', 'Year'];
+                                        'Semester','Year', 'Co_requisite', 'Pre_requisite'];
   dataSource: any = [];
+  dataSource2: any = [];
   data: Course[] = [];
   courses$ = this.courseService.getCourses();//this is an observable
   csv$ = this.courseService.getCSV();
@@ -72,10 +73,11 @@ export class AdminPageComponent implements OnInit {
     
     this.http.get('http://localhost:8080/coursesData').subscribe(
       data => {
-        this.data = data as Course[];
+        this.dataSource = data as Course[];
+        this.dataSource2 = data as Course[];
+        console.log(this.dataSource)
       }
     )
-    this.dataSource = new MatTableDataSource(this.data);
   }
 
   selectedCourse?: Course;
@@ -161,9 +163,21 @@ addCourse(): void {
       this.Data();
     }*/
   }
-
+  
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    //this.dataSource = new MatTableDataSource(this.dataSource)
+    this.http.get('http://localhost:8080/coursesData').subscribe(
+      data => {
+        this.dataSource = data as Course[];
+        //this.dataSource2 = data as Course[];
+        console.log(this.dataSource);
+        this.dataSource = new MatTableDataSource(this.dataSource)
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+        console.log(filterValue)
+      }
+    )
+    
+    //console.log(this.dataSource[0].Course_Code)
   }
 }
