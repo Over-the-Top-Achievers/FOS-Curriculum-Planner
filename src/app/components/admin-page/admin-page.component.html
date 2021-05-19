@@ -292,7 +292,7 @@
     <p>
         <mat-form-field>
             <mat-label>COURSE</mat-label>
-            <mat-select #fontSize value="16px" [(ngModel)]='courseToDelete'>
+            <mat-select #fontSize value="16px"   name = 'coursesToDelete'  ngDefaultControl [(ngModel)]='courseToDelete'>
               <mat-option *ngFor = "let course of courses$ | async;" mat-option-item [value]="course" >{{course.Course_Code}}</mat-option>
             </mat-select>
         </mat-form-field>
