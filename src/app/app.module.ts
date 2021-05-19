@@ -23,6 +23,10 @@ import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { UserPageComponent } from './components/user-page/user-page.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
+
+
 
 
 @NgModule({
@@ -48,6 +52,8 @@ import { UserPageComponent } from './components/user-page/user-page.component';
     MatMenuModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDialogModule,
+    RouterModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
