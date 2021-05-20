@@ -29,18 +29,23 @@ export class UserPageComponent implements OnInit {
   year1Courses: Course[] = [];
   year2Courses:Course[] = [];
   year3Courses:Course[]= [];
-
+  displayedColumns= ['Course_Code','Course_Name','Semester']
   constructor(private dialog:MatDialog,private userService:UserService){
     
   }
   ngOnInit(): void {
     this.userService.currentCourse.subscribe((message:any) => {
     
-    if(message.Year =="1"){
-      this.year1Courses.push(message);
-
+    if(this.message =="1"){
+      this.year1Courses=message;
     }
-    console.log(this.year1Courses)
+    if(this.message =="2"){
+      this.year2Courses=message;
+    }
+    if(this.message =="3"){
+      this.year3Courses=message;
+    }
+    console.log(this.year1Courses,this.year2Courses,this.year3Courses)
     })
   }
   openCourseView(year:string):void{

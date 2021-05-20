@@ -6,14 +6,29 @@
         <mat-card-header>
             <mat-card-title>FIRST YEAR</mat-card-title>
         </mat-card-header>
+        
+    <table mat-table [dataSource]="year1Courses" >
+        <ng-container matColumnDef='Course_Code' >
+            <th mat-header-cell *matHeaderCellDef> Couse Code </th>
+            <td mat-cell *matCellDef="let element " > {{element.Course_Code}} </td>
+        </ng-container>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Majors</mat-label>
-            <mat-select>
-              <mat-option>None</mat-option>
-              <mat-option *ngFor="let major of majors" [value]="major">{{major}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+        <ng-container matColumnDef='Course_Name'>
+            <th mat-header-cell *matHeaderCellDef > Course Name </th>
+            <td mat-cell *matCellDef="let element" > {{element.Course_Name}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef='Semester'>
+            <th mat-header-cell *matHeaderCellDef> Semester </th>
+            <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4"> no course</td>
+        </tr>
+    </table>
 
     </mat-card>
 
@@ -23,6 +38,28 @@
             <mat-card-title>SECOND YEAR</mat-card-title>
         </mat-card-header>
 
+        <table mat-table [dataSource]="year2Courses" >
+            <ng-container matColumnDef='Course_Code' >
+                <th mat-header-cell *matHeaderCellDef> Couse Code </th>
+                <td mat-cell *matCellDef="let element " > {{element.Course_Code}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef='Course_Name'>
+                <th mat-header-cell *matHeaderCellDef > Course Name </th>
+                <td mat-cell *matCellDef="let element" > {{element.Course_Name}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef='Semester'>
+                <th mat-header-cell *matHeaderCellDef> Semester </th>
+                <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4"> no course</td>
+            </tr>
+        </table>
     </mat-card>
 
     <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
@@ -31,5 +68,27 @@
             <mat-card-title>THIRD YEAR</mat-card-title>
         </mat-card-header>
 
+        <table mat-table [dataSource]="year3Courses" >
+            <ng-container matColumnDef='Course_Code' >
+                <th mat-header-cell *matHeaderCellDef> Couse Code </th>
+                <td mat-cell *matCellDef="let element " > {{element.Course_Code}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef='Course_Name'>
+                <th mat-header-cell *matHeaderCellDef > Course Name </th>
+                <td mat-cell *matCellDef="let element" > {{element.Course_Name}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef='Semester'>
+                <th mat-header-cell *matHeaderCellDef> Semester </th>
+                <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4"> no course</td>
+            </tr>
+        </table>
     </mat-card>
 </body>
