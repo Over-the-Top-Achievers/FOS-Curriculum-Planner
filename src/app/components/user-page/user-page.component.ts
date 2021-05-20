@@ -1,5 +1,5 @@
 import { ArrayType } from '@angular/compiler';
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router'
 import "node_modules/bootstrap/scss/bootstrap.scss"
 import {MatDialog} from '@angular/material/dialog';
@@ -14,57 +14,49 @@ import { HttpHeaders } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 
 import {FormControl} from '@angular/forms';
-
+import {ViewCourseComponent} from 'src/app/components/view-course/view-course.component';
+import { UserService } from 'src/app/shared/services/user.services';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
   styleUrls: ['./user-page.component.scss']
 })
 export class UserPageComponent implements OnInit {
-
-  /*courses$ = this.courseService.getCourses();//this is an observable
-
-  items = this.courseService.getCourses();
-  checkoutForm = this.formbuilder.group({
-    Course_Code:'',
-    Course_Name:'',
-    Credits:'',
-    NQF:'',
-    Slot:'',
-    Semester:'',
-    Year:'',
-    Pre_requisite:'',
-    Co_requisite:'',
-  });
-
-  constructor(
-    private router:Router,
-    private activatedRoute:ActivatedRoute,
-    private courseService: CourseService, //dependency injection
-    private dialog: MatDialog,
-    private http: HttpClient,
-    private formbuilder:FormBuilder,
-  ) { }
-
-  ngOnInit(): void {
+  viewDetailsDialogRef!: MatDialogRef<ViewCourseComponent>;
+  message='yo';
+  subscription: Subscription | undefined;
+  year1Courses: Course[] = [];
+  year2Courses:Course[] = [];
+  year3Courses:Course[]= [];
+  displayedColumns= ['Course_Code','Course_Name','Semester']
+  constructor(private dialog:MatDialog,private userService:UserService){
     
   }
-
-  selectedCourse?: Course;
-  displayCourseInfo(courseCode:any){
-    this.selectedCourse = courseCode;
-    //this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent, {data: this.selectedCourse});    
-  }  
-  close(){    
-    console.log('Close button clicked');
-    //this.router.navigate(['/admin-page']);
-    window.location.reload();
-  }*/
-
   ngOnInit(): void {
+    this.userService.currentCourse.subscribe((message:any) => {
     
+    if(this.message =="1"){
+      this.year1Courses=message;
+    }
+    if(this.message =="2"){
+      this.year2Courses=message;
+    }
+    if(this.message =="3"){
+      this.year3Courses=message;
+    }
+    console.log(this.year1Courses,this.year2Courses,this.year3Courses)
+    })
   }
+  openCourseView(year:string):void{
 
+    this.subscription = this.userService.currentMessage.subscribe((message:any) => this.message = message)
+    this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent);
+    this.newMessage(year);
+  }
+  newMessage(message:string) {
+    this.userService.changeMessage(message)
+  }
   majors: string[] = [
     'Computer Science Major I', 'Mathematics Major I', 'Physics Major I', 'Computational and Applied Mathematics Major I'
   ]
