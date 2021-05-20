@@ -1,6 +1,8 @@
 <h1 style="text-align: center; color: white; font-size: 36px; padding-top: 16px;">Faculty Of Science Curriculum Planner</h1>
-<body fxLayout="column" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
+<body fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
+    
     <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
+        <button mat-button (click)="openCourseView('1')">year 1</button>
         <mat-card-header>
             <mat-card-title>FIRST YEAR</mat-card-title>
         </mat-card-header>
@@ -16,6 +18,7 @@
     </mat-card>
 
     <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
+        <button mat-button (click)="openCourseView('2')">year 2</button>
         <mat-card-header>
             <mat-card-title>SECOND YEAR</mat-card-title>
         </mat-card-header>
@@ -23,6 +26,7 @@
     </mat-card>
 
     <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
+        <button mat-button (click)="openCourseView('3')">year 3</button>
         <mat-card-header>
             <mat-card-title>THIRD YEAR</mat-card-title>
         </mat-card-header>

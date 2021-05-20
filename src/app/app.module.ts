@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ViewCourseComponent } from './components/view-course/view-course.component';
 
 
 
@@ -36,6 +37,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HomeComponent,
     AdminPageComponent,
     UserPageComponent,
+    ViewCourseComponent,
   ],
   imports: [
     HttpClientModule,

@@ -1,5 +1,5 @@
 import { ArrayType } from '@angular/compiler';
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router'
 import "node_modules/bootstrap/scss/bootstrap.scss"
 import {MatDialog} from '@angular/material/dialog';
@@ -14,57 +14,25 @@ import { HttpHeaders } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 
 import {FormControl} from '@angular/forms';
-
+import {ViewCourseComponent} from 'src/app/components/view-course/view-course.component';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
   styleUrls: ['./user-page.component.scss']
 })
 export class UserPageComponent implements OnInit {
-
-  /*courses$ = this.courseService.getCourses();//this is an observable
-
-  items = this.courseService.getCourses();
-  checkoutForm = this.formbuilder.group({
-    Course_Code:'',
-    Course_Name:'',
-    Credits:'',
-    NQF:'',
-    Slot:'',
-    Semester:'',
-    Year:'',
-    Pre_requisite:'',
-    Co_requisite:'',
-  });
-
-  constructor(
-    private router:Router,
-    private activatedRoute:ActivatedRoute,
-    private courseService: CourseService, //dependency injection
-    private dialog: MatDialog,
-    private http: HttpClient,
-    private formbuilder:FormBuilder,
-  ) { }
-
+  viewDetailsDialogRef!: MatDialogRef<ViewCourseComponent>;
+  selectedYear = '1';
+  constructor(private dialog:MatDialog){
+    
+  }
   ngOnInit(): void {
     
   }
-
-  selectedCourse?: Course;
-  displayCourseInfo(courseCode:any){
-    this.selectedCourse = courseCode;
-    //this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent, {data: this.selectedCourse});    
-  }  
-  close(){    
-    console.log('Close button clicked');
-    //this.router.navigate(['/admin-page']);
-    window.location.reload();
-  }*/
-
-  ngOnInit(): void {
-    
+  openCourseView(year:string):void{
+    this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent);
+    this.selectedYear =year;
   }
-
   majors: string[] = [
     'Computer Science Major I', 'Mathematics Major I', 'Physics Major I', 'Computational and Applied Mathematics Major I'
   ]
