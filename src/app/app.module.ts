@@ -23,8 +23,9 @@ import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { UserPageComponent } from './components/user-page/user-page.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ViewCourseComponent } from './components/view-course/view-course.component';
+import { UserService } from './shared/services/user.services';
 
 
 
@@ -59,8 +60,13 @@ import { ViewCourseComponent } from './components/view-course/view-course.compon
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },     {
+          provide: MatDialogRef,
+          useValue: {}
+        },
+        {provide:UserService},
     fakeBackendProvider],
+    
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

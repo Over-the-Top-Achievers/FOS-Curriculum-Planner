@@ -1,8 +1,10 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { Course } from 'src/app/shared/models';
 import { CourseService } from 'src/app/shared/services/course.services';
+import { UserService } from 'src/app/shared/services/user.services';
 
 @Component({
   selector: 'app-view-course',
@@ -13,79 +15,44 @@ export class ViewCourseComponent implements OnInit {
   dataSource: any;
   displayedColumns: string[] = ['Course_Code', 'Course_Name', 'Credits', 'NQF', 'Slot',
   'Semester','Year', 'Co_requisite', 'Pre_requisite'];
-  http: any;
   yearCourses: any;
   dataSource2: any;
   years: string[] = ['1','2','3'];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public parentData: any,
-    public dialogRef: MatDialogRef<ViewCourseComponent>,private courseService:CourseService) {}
+  selectedYear:string | undefined;
+  subscription: Subscription | undefined;
 
-  ngOnInit(): void {
-  }
+  constructor(
+    public dialogRef: MatDialogRef<ViewCourseComponent>,private courseService:CourseService,private userService:UserService) {}
 
+    ngOnInit() {
+      this.subscription = this.userService.currentMessage.subscribe( (message:any) => this.selectedYear = message)
+      this.applyFilter("");
+    }
   close(): void {
     this.dialogRef.close();
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: any) {
 
    this.courseService.getCourses().subscribe(
       data => {
-        this.dataSource = data as Course[];
+        const filteredData = data.filter((t: any)=>t.Year ===this.selectedYear)
 
+        this.dataSource = filteredData as Course[];
 
         this.dataSource = new MatTableDataSource(this.dataSource)
-        const filterValue = (event.target as HTMLInputElement).value;
+        const filterValue = (event.target as HTMLInputElement).value; 
         this.dataSource.filter = filterValue.trim().toLowerCase();
-
+        // this.dataSource.Year.filter= this.selectedYear;
       }
     )
 
 }
-selectedYear?:string
+addCourse(course:any){
+  this.userService.changeCourse(course);
+}
 displayYearCourse(year: string){
-  
-  this.courseService.getCourses().subscribe(
-    (    data: any) => {
 
-      console.log(data)
-
-      this.dataSource = data as Course[];
-      this.dataSource2 = data as Course[];
-
-      this.selectedYear = year
-      this.yearCourses = []
-      if(this.selectedYear === this.years[0]){
-        for(var i = 0; i < (this.dataSource2).length; i++){
-          if(this.dataSource2[i].Year === '1'){
-            this.yearCourses.push(this.dataSource2[i]);
-          }
-        } 
-      }
-
-      if(this.selectedYear === this.years[1]){
-        for(var i = 0; i < (this.dataSource2).length; i++){
-          if(this.dataSource2[i].Year === '2'){
-            this.yearCourses.push(this.dataSource2[i]);
-          }
-        } 
-      }
-
-      if(this.selectedYear === this.years[2]){
-        for(var i = 0; i < (this.dataSource2).length; i++){
-          if(this.dataSource2[i].Year === '3'){
-            this.yearCourses.push(this.dataSource2[i]);
-          }
-        } 
-      }
-
-      this.yearCourses = new MatTableDataSource(this.yearCourses)
-      this.dataSource = this.yearCourses;
-
-      console.log(this.yearCourses)
-
-    }
-  )
 }
 }

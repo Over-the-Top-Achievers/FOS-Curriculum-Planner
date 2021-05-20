@@ -1,17 +1,8 @@
 <section style="padding: 15px;">
     <div matDialogTitle>
-        <div class="mat-h1">Some heading</div>
-        <div class="mat-subheading-1">abc</div>
+        <div class="mat-h1">Choose course for year {{selectedYear}}</div>
     </div>
-    <mat-dialog-content>
-        <div><strong>Course:</strong> this, that</div>
-        <div><strong>Description:</strong> some description</div>
-    </mat-dialog-content>
-    <mat-dialog-actions>
-        <span fxFlex></span>
-        <button (click)="close()" color="warn" mat-button type="button">Close</button>
-        <span fxFlex></span>
-    </mat-dialog-actions>
+
 </section>
 
     <mat-form-field>
@@ -20,14 +11,19 @@
     </mat-form-field>
 <div class = "scrollable">
     <table mat-table [dataSource]="dataSource"   >
+
+
         <ng-container matColumnDef='Course_Code' >
             <th mat-header-cell *matHeaderCellDef> Couse Code </th>
-            <td mat-cell *matCellDef="let element"> {{element.Course_Code}} </td>
+            <button mat-button *matCellDef="let element " (click) ="addCourse(element)">
+                
+                {{element.Course_Code}}
+            </button>
         </ng-container>
 
         <ng-container matColumnDef='Course_Name'>
-            <th mat-header-cell *matHeaderCellDef> Course Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.Course_Name}} </td>
+            <th mat-header-cell *matHeaderCellDef > Course Name </th>
+            <td mat-cell *matCellDef="let element" (click)="addCourse(element)"> {{element.Course_Name}} </td>
         </ng-container>
 
         <ng-container matColumnDef='Credits'>
