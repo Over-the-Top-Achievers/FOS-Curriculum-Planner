@@ -5,7 +5,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Choose a Year of Study</mat-label>
             <mat-select>
-              <mat-option>None</mat-option>
+              <mat-option (click)="refresh()">None</mat-option>
               <mat-option *ngFor="let year of years" [value]="year" (click)='displayYearCourse(year)'>{{year}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -16,7 +16,7 @@
                 <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="displayCourseInfo(course)" style="column-width: 120px;">{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
             </mat-menu>
     </div> 
-    
+
     <div *ngIf='selectedCourse' style='padding-left: 64px; padding-top: 48px;'>
         <mat-dialog-content>
         <mat-card>
