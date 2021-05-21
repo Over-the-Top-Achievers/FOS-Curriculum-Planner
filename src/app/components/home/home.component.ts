@@ -16,8 +16,8 @@ export class HomeComponent implements OnInit {
       private activatedRoute:ActivatedRoute
     ){}
 
-  goToPage(pageName:string):void{
-    console.log("Sign in button clicked");  //to see if the button responds correctly
-    this.router.navigate(['`${pageName}`']);
-  }
+  // goToPage(pageName:string):void{
+  //   console.log("Sign in button clicked");  //to see if the button responds correctly
+  //   this.router.navigate(['`${pageName}`']);
+  // }
 }

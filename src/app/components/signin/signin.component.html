@@ -12,7 +12,7 @@
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="padding-top: 16px;">
                 <div class="form-group" style="width:100%; height: 90%;">
                     <label for="username">Username</label>
-                    <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                    <input id="username" type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
                     <!--<ng-content></ng-content>-->
                     <div *ngIf="submitted && f.username.errors" class="invalid-feedback" style="width:20%">
                         <div *ngIf="f.username.errors.required" style="width:20%">Username is required</div>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group" style="width:100%; height: 90%; padding-top: 16;">
                     <label for="password">Password</label>
-                    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                     <!--<ng-content></ng-content>-->
                     <div *ngIf="submitted && f.password.errors" class="invalid-feedback" style="width:20%">
                         <div *ngIf="f.password.errors.required" style="width:20%">Password is required</div>

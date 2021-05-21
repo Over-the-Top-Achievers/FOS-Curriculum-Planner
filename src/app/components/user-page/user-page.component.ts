@@ -29,6 +29,9 @@ export class UserPageComponent implements OnInit {
   year1Courses: Course[] = [];
   year2Courses:Course[] = [];
   year3Courses:Course[]= [];
+  MissingSecondYear:String[]= [];
+  MissingThirdYear:String[]= [];
+  MissingFirstYear:String[]= [];
   displayedColumns= ['Course_Code','Course_Name','Semester']
   constructor(private dialog:MatDialog,private userService:UserService){
     
@@ -70,9 +73,7 @@ export class UserPageComponent implements OnInit {
     let CoReqs2:string="";
     let PreReqs3:string="";
     let CoReqs3:string="";
-    let MissingSecondYear:String[]= [];
-    let MissingThirdYear:String[]= [];
-    let MissingFirstYear:String[]= [];
+
     for(let i=0;i<this.year1Courses.length;i++){
       PreReqs1 = PreReqs1.concat(this.year1Courses[i].Pre_requisite)
       CoReqs1 = CoReqs1.concat(this.year1Courses[i].Co_requisite)
@@ -122,8 +123,8 @@ export class UserPageComponent implements OnInit {
     for(let i=0;i<FirstCoReqs.length;i++){ 
       if(!AllFirstYearCourses.includes(FirstCoReqs[i])){
         console.warn('Missing CoReq 1')
-        if(!MissingFirstYear.includes(FirstCoReqs[i])){
-          MissingFirstYear.push(FirstCoReqs[i])
+        if(!this.MissingFirstYear.includes(FirstCoReqs[i])){
+          this.MissingFirstYear.push(FirstCoReqs[i])
         }
       }
     }
@@ -132,16 +133,16 @@ export class UserPageComponent implements OnInit {
       for(let i=0;i<SecondPreReqs.length;i++){ 
         if(!AllFirstYearCourses.includes(SecondPreReqs[i])){
           console.warn('Missing PreReq 2')
-          if(!MissingFirstYear.includes(SecondPreReqs[i])){
-            MissingFirstYear.push(SecondPreReqs[i])
+          if(!this.MissingFirstYear.includes(SecondPreReqs[i])){
+            this.MissingFirstYear.push(SecondPreReqs[i])
           }
         }
       }
       for(let i=0;i<SecondCoReqs.length;i++){ 
         if(!AllSecondYearCourses.includes(SecondCoReqs[i])){
           console.warn('Missing CoReq 2')
-          if(!MissingSecondYear.includes(SecondCoReqs[i])){
-            MissingSecondYear.push(SecondCoReqs[i])
+          if(!this.MissingSecondYear.includes(SecondCoReqs[i])){
+            this.MissingSecondYear.push(SecondCoReqs[i])
           }
         }
       }
@@ -150,20 +151,20 @@ export class UserPageComponent implements OnInit {
   for(let i=0;i<ThirdPreReqs.length;i++){ 
     if(!AllSecondYearCourses.includes(ThirdPreReqs[i])){
       console.warn('Missing PreReq 3')
-      if(!MissingSecondYear.includes(ThirdPreReqs[i])){
-        MissingSecondYear.push(ThirdPreReqs[i])
+      if(!this.MissingSecondYear.includes(ThirdPreReqs[i])){
+        this.MissingSecondYear.push(ThirdPreReqs[i])
       }
     }
   }
   for(let i=0;i<ThirdCoReqs.length;i++){ 
     if(!AllThirdYearCourses.includes(ThirdCoReqs[i])){
       console.warn('Missing CoReq 3')
-      if(!MissingThirdYear.includes(ThirdCoReqs[i])){
-        MissingThirdYear.push(ThirdCoReqs[i])
+      if(!this.MissingThirdYear.includes(ThirdCoReqs[i])){
+        this.MissingThirdYear.push(ThirdCoReqs[i])
       }
     }
   }
-  console.log(MissingFirstYear,MissingSecondYear,MissingThirdYear)
+  console.log(this.MissingFirstYear,this.MissingSecondYear,this.MissingThirdYear)
   }
   majors: string[] = [
     'Computer Science Major I', 'Mathematics Major I', 'Physics Major I', 'Computational and Applied Mathematics Major I'
