@@ -13,10 +13,10 @@ import { UserService } from 'src/app/shared/services/user.services';
   styleUrls: ['./view-course.component.scss']
 })
 export class ViewCourseComponent implements OnInit {
-  dataSource: Course [] = [];
+  dataSource: any;
   displayedColumns: string[] = ['select','Course_Code', 'Course_Name', 'Credits', 'NQF', 'Slot','Semester','Year', 'Co_requisite', 'Pre_requisite'];
   yearCourses: any;
-  dataSource2: any;
+
   years: string[] = ['1','2','3'];
 
   selectedYear:string | undefined;
@@ -37,13 +37,25 @@ export class ViewCourseComponent implements OnInit {
 
    this.courseService.getCourses().subscribe(
       data => {
-        const filteredData = data.filter((t: any)=>t.Year ===this.selectedYear)
+        let filteredData;
+        if(this.selectedYear!='0'){
+          filteredData = data.filter((t: any)=>t.Year ===this.selectedYear)
+        }
+        else{
+          filteredData = data
+        }
+        
 
         this.dataSource = filteredData as Course[];
 
-        // this.dataSource = new MatTableDataSource(this.dataSource)
-        // const filterValue = (event.target as HTMLInputElement).value; 
-        // this.dataSource.filter = filterValue.trim().toLowerCase();
+        this.dataSource = new MatTableDataSource(this.dataSource)
+        let filterValue;
+        if(event.target){
+          filterValue = (event.target as HTMLInputElement).value;
+        }else{
+          filterValue =""
+        }
+        this.dataSource.filter = filterValue.trim().toLowerCase();
         // this.dataSource.Year.filter= this.selectedYear;
       }
     )
