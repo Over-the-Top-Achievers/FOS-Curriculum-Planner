@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
+import { UserService } from 'src/app/shared/services/user.services';
+import { ViewCourseComponent } from '../view-course/view-course.component';
 
 @Component({
   selector: 'app-admin-page',
@@ -31,6 +33,10 @@ export class AdminPageComponent implements OnInit {
   csv$ = this.courseService.getCSV();
   csvdata :string | undefined;
   items = this.courseService.getCourses();
+ 
+
+  currentReqHolder:string ="";//holds the actual COMS;APPM kinds of values
+  currentEdit:string="";// holds Pre_requisite or Co_requisite for editing
   checkoutForm = this.formbuilder.group({
     Course_Code:'',
     Course_Name:'',
@@ -42,7 +48,9 @@ export class AdminPageComponent implements OnInit {
     Pre_requisite:'',
     Co_requisite:'',
   });
-
+  subscription: any;
+  viewDetailsDialogRef!: MatDialogRef<unknown, any>;
+  message: any;
   constructor(
     private router:Router,
     private activatedRoute:ActivatedRoute,
@@ -50,8 +58,25 @@ export class AdminPageComponent implements OnInit {
     private dialog: MatDialog,
     private http: HttpClient,
     private formbuilder:FormBuilder,
+    private userService:UserService
     //private api: API
   ) { }
+
+  openCourseView(paramater:string):void{//opens the course viewer
+
+    this.subscription = this.userService.currentMessage.subscribe((message:any) => this.message = message)
+    this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent);
+    this.userService.changeMessage(paramater);
+  }
+  //change the form input to change
+  setPreReqs():void{
+    this.openCourseView('0')
+    this.currentEdit="Pre_requisite"
+  }
+  setCoReqs():void {
+    this.openCourseView('0')
+    this.currentEdit="Co_requisite"
+  }
   getCSV():any{
     this.csv$.subscribe((data) => { 
       this.downloadCSV(data);
@@ -71,14 +96,33 @@ export class AdminPageComponent implements OnInit {
 
     console.log(this.csvdata)
   }
+
   ngOnInit(): void {
     
-    this.http.get('http://localhost:8080/coursesData').subscribe(
+    this.courseService.getCourses().subscribe(
       data => {
         this.dataSource = data as Course[];
         console.log(this.dataSource)
       }
     )
+
+
+    //Turns the inputs grey
+    this.checkoutForm.get('Pre_requisite')!.disable();
+    this.checkoutForm.get('Co_requisite')!.disable();
+    this.userService.currentCourse.subscribe((message:any) => {
+    
+      //uses an observable because this happens async. changing this may lead to no changes due to value changing after expected
+      message = message as Course[];
+      this.currentReqHolder="";
+      for(let i=0;i<message.length;i++){
+       if(message[i].Course_Code){//Checks if valid entry
+         this.currentReqHolder =this.currentReqHolder.concat(message[i].Course_Code+';')
+       }
+     }
+     this.checkoutForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
+
+      })
   }
 
   selectedCourse?: Course;
@@ -102,11 +146,12 @@ export class AdminPageComponent implements OnInit {
         body: {courseCode:courseCode.Course_Code},
       };
 
-      console.log(courseCode);      
+     
       //delete stuff here 
       console.log(courseCode.Course_Code);
-      this.http.request('DELETE','http://localhost:8080/courses', options).subscribe((s) => {
+      this.http.delete('http://localhost:8080/courses', options).subscribe((s) => {
         console.log(s);
+        this.refresh()
       });
       
     }    
@@ -117,6 +162,8 @@ export class AdminPageComponent implements OnInit {
 addCourse(): void {
   // Process checkout data here
   //this.items = this.courseService.clearCart();
+  // this.checkoutForm.get('Pre_requisite')!.enable();
+  // this.checkoutForm.get('Co_requisite')!.enable();
   console.warn('Course is being added to the database.', this.checkoutForm.value);
 
   var options = {
@@ -131,11 +178,12 @@ addCourse(): void {
       Semester:this.checkoutForm.value.Semester,
       Year:this.checkoutForm.value.Year,
       Pre_requisite:this.checkoutForm.value.Pre_requisite,
-      Co_requsite:this.checkoutForm.value.Co_requisite},
+      Co_requisite:this.checkoutForm.value.Co_requisite
+    },
     
   };
 
-  this.http.post('http://localhost:8080/courses', options.body).subscribe((s) => {
+  this.courseService.addCourse(options.body).subscribe((s) => {
     console.log(s);
   });
 
@@ -161,7 +209,7 @@ addCourse(): void {
   
   applyFilter(event: Event) {
     //this.dataSource = new MatTableDataSource(this.dataSource)
-    this.http.get('http://localhost:8080/coursesData').subscribe(
+    this.courseService.getCourses().subscribe(
       data => {
         this.dataSource = data as Course[];
         //this.dataSource2 = data as Course[];
@@ -179,7 +227,7 @@ addCourse(): void {
   selectedYear?:string
   displayYearCourse(year: string){
     
-    this.http.get('http://localhost:8080/coursesData').subscribe(
+    this.courseService.getCourses().subscribe(
       data => {
         console.log(this.yearCourses.length)
 
@@ -220,4 +268,5 @@ addCourse(): void {
       }
     )
   }
+
 }

@@ -31,7 +31,9 @@ export class CourseService {
     getCourses() : Observable<any> { //returns an observable which emitting/publishing the result of the get request
         return this.http.get(`${API.apiRoot}/coursesData`);
     }
-
+    addCourse(data:any): Observable<any>{
+        return this.http.post(`${API.apiRoot}/courses`,data);
+    }
     getCSV() : Observable<any> {
         return this.http.get(`${API.apiRoot}/coursesCSV`);
     }
