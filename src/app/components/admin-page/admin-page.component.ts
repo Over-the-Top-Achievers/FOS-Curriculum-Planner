@@ -162,8 +162,8 @@ export class AdminPageComponent implements OnInit {
 addCourse(): void {
   // Process checkout data here
   //this.items = this.courseService.clearCart();
-  // this.checkoutForm.get('Pre_requisite')!.enable();
-  // this.checkoutForm.get('Co_requisite')!.enable();
+  this.checkoutForm.get('Pre_requisite')!.enable();
+  this.checkoutForm.get('Co_requisite')!.enable();
   console.warn('Course is being added to the database.', this.checkoutForm.value);
 
   var options = {
