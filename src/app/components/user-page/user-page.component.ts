@@ -27,12 +27,17 @@ export class UserPageComponent implements OnInit {
   message='yo';
   subscription: Subscription | undefined;
   year1Courses: Course[] = [];
-  year2Courses:Course[] = [];
-  year3Courses:Course[]= [];
-  MissingSecondYear:String[]= [];
-  MissingThirdYear:String[]= [];
-  MissingFirstYear:String[]= [];
+
+  year2Courses: Course[] = [];
+  year3Courses: Course[]= [];
+
+  MissingSecondYear:String[]= []
+  MissingThirdYear:String[]= []
+  MissingFirstYear:String[]= []
   displayedColumns= ['Course_Code','Course_Name','Semester']
+
+
+
   constructor(private dialog:MatDialog,private userService:UserService){
     
   }
@@ -51,6 +56,7 @@ export class UserPageComponent implements OnInit {
     }
     console.log(this.year1Courses,this.year2Courses,this.year3Courses)
     })
+
   }
   openCourseView(year:string):void{
     
@@ -66,7 +72,11 @@ export class UserPageComponent implements OnInit {
     this.userService.changeMessage(message)
   }
 
-  ValidateCourseRequirements():void{
+  displayMissingCourse(): any[]{
+    return(this.ValidateCourseRequirements());
+  }
+
+  ValidateCourseRequirements(): any[] {
     let PreReqs1:string="";
     let CoReqs1:string="";
     let PreReqs2:string="";
@@ -164,8 +174,23 @@ export class UserPageComponent implements OnInit {
       }
     }
   }
-  console.log(this.MissingFirstYear,this.MissingSecondYear,this.MissingThirdYear)
+
+  if (MissingFirstYear.length == 0){
+    MissingFirstYear.push("None");
   }
+
+  if (MissingSecondYear.length == 0){
+    MissingSecondYear.push("None");
+  }
+
+  if (MissingThirdYear.length == 0){
+    MissingThirdYear.push("None");
+  }
+  console.log(MissingFirstYear, MissingSecondYear, MissingThirdYear)
+  return [MissingFirstYear, MissingSecondYear, MissingThirdYear] // returning the missing year courses for display purposes
+ 
+  }
+  
   majors: string[] = [
     'Computer Science Major I', 'Mathematics Major I', 'Physics Major I', 'Computational and Applied Mathematics Major I'
   ]
