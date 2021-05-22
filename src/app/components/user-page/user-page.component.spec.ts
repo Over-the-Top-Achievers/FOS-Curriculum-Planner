@@ -60,7 +60,7 @@ describe('UserPageComponent', () => {
       Pre_requisite: "1;",
     }]
     component.ValidateCourseRequirements()
-    expect(component.MissingFirstYear).toEqual([])
+    expect(component.MissingFirstYear).toEqual(['None'])
   })
   it('should have missing course 2',()=>{
 
@@ -91,6 +91,6 @@ describe('UserPageComponent', () => {
       Pre_requisite: "",
     }]
     component.ValidateCourseRequirements()
-    expect(component.MissingFirstYear).toEqual([])
+    expect(component.MissingFirstYear).toEqual(['None'])
   })
 });

@@ -31,9 +31,9 @@ export class UserPageComponent implements OnInit {
   year2Courses: Course[] = [];
   year3Courses: Course[]= [];
 
-  MissingSecondYear:String[]= []
-  MissingThirdYear:String[]= []
-  MissingFirstYear:String[]= []
+  MissingSecondYear:String[]= [];
+  MissingThirdYear:String[]= [];
+  MissingFirstYear:String[]= [];
   displayedColumns= ['Course_Code','Course_Name','Semester']
 
 
@@ -83,7 +83,9 @@ export class UserPageComponent implements OnInit {
     let CoReqs2:string="";
     let PreReqs3:string="";
     let CoReqs3:string="";
-
+    let MissingFirstYear:String[]= [];
+    let MissingSecondYear:String[]= [];
+    let MissingThirdYear:String[]= [];
     for(let i=0;i<this.year1Courses.length;i++){
       PreReqs1 = PreReqs1.concat(this.year1Courses[i].Pre_requisite)
       CoReqs1 = CoReqs1.concat(this.year1Courses[i].Co_requisite)
@@ -175,16 +177,16 @@ export class UserPageComponent implements OnInit {
     }
   }
 
-  if (MissingFirstYear.length == 0){
-    MissingFirstYear.push("None");
+  if (this.MissingFirstYear.length == 0){
+    this.MissingFirstYear.push("None");
   }
 
-  if (MissingSecondYear.length == 0){
-    MissingSecondYear.push("None");
+  if (this.MissingSecondYear.length == 0){
+    this.MissingSecondYear.push("None");
   }
 
-  if (MissingThirdYear.length == 0){
-    MissingThirdYear.push("None");
+  if (this.MissingThirdYear.length == 0){
+    this.MissingThirdYear.push("None");
   }
   console.log(MissingFirstYear, MissingSecondYear, MissingThirdYear)
   return [MissingFirstYear, MissingSecondYear, MissingThirdYear] // returning the missing year courses for display purposes
