@@ -1,49 +1,18 @@
 <h1 style="text-align: center; color: white; font-size: 36px; padding-top: 16px;">Faculty Of Science Curriculum Planner</h1>
-<body fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
-    
-    <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
-        <button mat-button (click)="openCourseView('1')">year 1</button>
-        <mat-card-header>
-            <mat-card-title>FIRST YEAR</mat-card-title>
-        </mat-card-header>
-        
-    <table mat-table [dataSource]="year1Courses" >
-        <ng-container matColumnDef='Course_Code' >
-            <th mat-header-cell *matHeaderCellDef> Couse Code </th>
-            <td mat-cell *matCellDef="let element " > {{element.Course_Code}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef='Course_Name'>
-            <th mat-header-cell *matHeaderCellDef > Course Name </th>
-            <td mat-cell *matCellDef="let element" > {{element.Course_Name}} </td>
-        </ng-container>
-        
-        <ng-container matColumnDef='Semester'>
-            <th mat-header-cell *matHeaderCellDef> Semester </th>
-            <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4"> no course</td>
-        </tr>
-    </table>
-
-    </mat-card>
-
-    <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
-        <button mat-button (click)="openCourseView('2')">year 2</button>
-        <mat-card-header>
-            <mat-card-title>SECOND YEAR</mat-card-title>
-        </mat-card-header>
-
-        <table mat-table [dataSource]="year2Courses" >
+<body>
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
+        <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
+            <button mat-button (click)="openCourseView('1')">year 1</button>
+            <mat-card-header>
+                <mat-card-title>FIRST YEAR</mat-card-title>
+            </mat-card-header>
+            
+        <table mat-table [dataSource]="year1Courses" >
             <ng-container matColumnDef='Course_Code' >
                 <th mat-header-cell *matHeaderCellDef> Couse Code </th>
                 <td mat-cell *matCellDef="let element " > {{element.Course_Code}} </td>
             </ng-container>
-    
+
             <ng-container matColumnDef='Course_Name'>
                 <th mat-header-cell *matHeaderCellDef > Course Name </th>
                 <td mat-cell *matCellDef="let element" > {{element.Course_Name}} </td>
@@ -53,42 +22,94 @@
                 <th mat-header-cell *matHeaderCellDef> Semester </th>
                 <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
             </ng-container>
-    
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             <tr class="mat-row" *matNoDataRow>
                 <td class="mat-cell" colspan="4"> no course</td>
             </tr>
         </table>
-    </mat-card>
 
-    <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
-        <button mat-button (click)="openCourseView('3')">year 3</button>
-        <mat-card-header>
-            <mat-card-title>THIRD YEAR</mat-card-title>
-        </mat-card-header>
+        </mat-card>
 
-        <table mat-table [dataSource]="year3Courses" >
-            <ng-container matColumnDef='Course_Code' >
-                <th mat-header-cell *matHeaderCellDef> Couse Code </th>
-                <td mat-cell *matCellDef="let element " > {{element.Course_Code}} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef='Course_Name'>
-                <th mat-header-cell *matHeaderCellDef > Course Name </th>
-                <td mat-cell *matCellDef="let element" > {{element.Course_Name}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef='Semester'>
-                <th mat-header-cell *matHeaderCellDef> Semester </th>
-                <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
-            </ng-container>
-    
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4"> no course</td>
-            </tr>
-        </table>
-    </mat-card>
+        <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
+            <button mat-button (click)="openCourseView('2')">year 2</button>
+            <mat-card-header>
+                <mat-card-title>SECOND YEAR</mat-card-title>
+            </mat-card-header>
+
+            <table mat-table [dataSource]="year2Courses" >
+                <ng-container matColumnDef='Course_Code' >
+                    <th mat-header-cell *matHeaderCellDef> Couse Code </th>
+                    <td mat-cell *matCellDef="let element " > {{element.Course_Code}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef='Course_Name'>
+                    <th mat-header-cell *matHeaderCellDef > Course Name </th>
+                    <td mat-cell *matCellDef="let element" > {{element.Course_Name}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef='Semester'>
+                    <th mat-header-cell *matHeaderCellDef> Semester </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
+                </ng-container>
+        
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4"> no course</td>
+                </tr>
+            </table>
+        </mat-card>
+
+        <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
+            <button mat-button (click)="openCourseView('3')">year 3</button>
+            <mat-card-header>
+                <mat-card-title>THIRD YEAR</mat-card-title>
+            </mat-card-header>
+
+            <table mat-table [dataSource]="year3Courses" >
+                <ng-container matColumnDef='Course_Code' >
+                    <th mat-header-cell *matHeaderCellDef> Couse Code </th>
+                    <td mat-cell *matCellDef="let element " > {{element.Course_Code}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef='Course_Name'>
+                    <th mat-header-cell *matHeaderCellDef > Course Name </th>
+                    <td mat-cell *matCellDef="let element" > {{element.Course_Name}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef='Semester'>
+                    <th mat-header-cell *matHeaderCellDef> Semester </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
+                </ng-container>
+        
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4"> no course</td>
+                </tr>
+            </table>
+        </mat-card>
+    </div>
+    <!-- this following mat-card is for displaying the missing/ required courses -->
+    <div fxLayout = 'column' style="padding-top: 16px; padding-left: 100px; padding-right: 100px;" fxLayoutAlign="center" fxLayoutGap="2%">
+        <mat-card>
+            <mat-card-title>missing courses</mat-card-title>
+                <h2>The courses missing for year 1: </h2>
+                    <div *ngFor="let item of displayMissingCourse()[0]" >
+                        {{item}}
+                    </div>
+
+                <h2>The courses missing for year 2: </h2>
+                    <div *ngFor="let item of displayMissingCourse()[1]" >
+                        {{item}}
+                    </div>
+
+                <h2>The courses missing for year 3: </h2>
+                    <div *ngFor="let item of displayMissingCourse()[2]" >
+                        {{item}}
+                    </div>
+        </mat-card>
+    </div>
 </body>
