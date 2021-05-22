@@ -54,11 +54,11 @@ export class AdminPageComponent implements OnInit {
   constructor(
     private router:Router,
     private activatedRoute:ActivatedRoute,
-    private courseService: CourseService, //dependency injection
+    public courseService: CourseService, //dependency injection
     private dialog: MatDialog,
     private http: HttpClient,
     private formbuilder:FormBuilder,
-    private userService:UserService
+    public userService:UserService
     //private api: API
   ) { }
 
@@ -83,18 +83,18 @@ export class AdminPageComponent implements OnInit {
       this.csvdata = data} 
       );
   }
-  downloadCSV(data:Blob):void {
+  downloadCSV(data:Blob):HTMLElement{
     const blob: Blob = new Blob([data], { type: 'text/csv' });
     const fileName = 'budget.csv';
     const objectUrl: string = URL.createObjectURL(blob);
     const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
-
+    a.id= "download"
     a.href = objectUrl;
     a.download = fileName;
     document.body.appendChild(a);
     a.click();
-
     console.log(this.csvdata)
+    return a;
   }
 
   ngOnInit(): void {
@@ -206,67 +206,48 @@ addCourse(): void {
     'Third Year'
   ];
 
-  
-  applyFilter(event: Event) {
-    //this.dataSource = new MatTableDataSource(this.dataSource)
+
+  applyFilter(event: any) {
+
     this.courseService.getCourses().subscribe(
-      data => {
-        this.dataSource = data as Course[];
-        //this.dataSource2 = data as Course[];
-
-        this.dataSource = new MatTableDataSource(this.dataSource)
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-
-      }
-    )
-    
-    //console.log(this.dataSource[0].Course_Code)
-  }
-
-  selectedYear?:string
-  displayYearCourse(year: string){
-    
-    this.courseService.getCourses().subscribe(
-      data => {
-        console.log(this.yearCourses.length)
-
-        this.dataSource = data as Course[];
-        this.dataSource2 = data as Course[];
-
-        this.selectedYear = year
-        this.yearCourses = []
-        if(this.selectedYear === this.years[0]){
-          for(var i = 0; i < (this.dataSource2).length; i++){
-            if(this.dataSource2[i].Year === '1'){
-              this.yearCourses.push(this.dataSource2[i]);
-            }
-          } 
-        }
-
-        if(this.selectedYear === this.years[1]){
-          for(var i = 0; i < (this.dataSource2).length; i++){
-            if(this.dataSource2[i].Year === '2'){
-              this.yearCourses.push(this.dataSource2[i]);
-            }
-          } 
-        }
-
-        if(this.selectedYear === this.years[2]){
-          for(var i = 0; i < (this.dataSource2).length; i++){
-            if(this.dataSource2[i].Year === '3'){
-              this.yearCourses.push(this.dataSource2[i]);
-            }
-          } 
-        }
-
-        this.yearCourses = new MatTableDataSource(this.yearCourses)
-        this.dataSource = this.yearCourses;
-
-        console.log(this.yearCourses)
-
-      }
-    )
-  }
+       data => {
+         let filteredData;
+         if(this.selectedYear!='0'){
+           filteredData = data.filter((t: any)=>t.Year ===this.selectedYear)
+         }
+         else{
+           filteredData = data
+         }
+         
+ 
+         this.dataSource = filteredData as Course[];
+ 
+         this.dataSource = new MatTableDataSource(this.dataSource)
+         let filterValue;
+         if(event.target){
+           filterValue = (event.target as HTMLInputElement).value;
+         }else{
+           filterValue =""
+         }
+         this.dataSource.filter = filterValue.trim().toLowerCase();
+         // this.dataSource.Year.filter= this.selectedYear;
+       }
+     )
+ 
+   }
+   selectedYear?:string;
+   displayYearCourse(year:string){
+     if(year===this.years[0]){
+       this.selectedYear= '1'
+     }
+     if(year===this.years[1]){
+      this.selectedYear= '2'
+    }
+    if(year===this.years[2]){
+      this.selectedYear= '3'
+    }
+    this.applyFilter("")
+   }
+ 
 
 }

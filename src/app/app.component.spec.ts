@@ -5,6 +5,7 @@ import "node_modules/bootstrap/scss/bootstrap.scss"
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
   let httpmock:HttpTestingController;
@@ -12,7 +13,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,HttpClientTestingModule,MatMenuModule
+        RouterTestingModule,HttpClientTestingModule,MatMenuModule,BrowserAnimationsModule
       ],
       declarations: [
         AppComponent

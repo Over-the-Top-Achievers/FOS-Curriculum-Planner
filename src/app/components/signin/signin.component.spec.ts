@@ -26,4 +26,22 @@ describe('SigninComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('test submit empty',()=>{
+    // component.onSubmit()
+    expect(component.loginForm.invalid===true)
+  })
+  it('test submit random',()=>{
+    // component.onSubmit()
+    component.loginForm.setValue({username:'asdasd','password':'1234'})
+
+    expect(component.loginForm.invalid===true)
+  })
+  it('should render input elements', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    const usernameInput = compiled.querySelector('input[id="username"]');
+    const passwordInput = compiled.querySelector('input[id="password"]');
+
+    expect(usernameInput).toBeTruthy();
+    expect(passwordInput).toBeTruthy();
+  });
 });

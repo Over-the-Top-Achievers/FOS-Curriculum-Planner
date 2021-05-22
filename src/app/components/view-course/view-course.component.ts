@@ -23,7 +23,7 @@ export class ViewCourseComponent implements OnInit {
   subscription: Subscription | undefined;
   selection = new SelectionModel<Course>(true, []);
   constructor(
-    public dialogRef: MatDialogRef<ViewCourseComponent>,private courseService:CourseService,private userService:UserService) {}
+    public dialogRef: MatDialogRef<ViewCourseComponent>,public courseService:CourseService,public userService:UserService) {}
 
     ngOnInit() {
       this.subscription = this.userService.currentMessage.subscribe( (message:any) => this.selectedYear = message)
