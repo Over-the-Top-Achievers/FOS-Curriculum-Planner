@@ -7,6 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { UserService } from 'src/app/shared/services/user.services';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 describe('UserPageComponent', () => {
   let component: UserPageComponent;
   let fixture: ComponentFixture<UserPageComponent>;
@@ -14,7 +15,7 @@ describe('UserPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,HttpClientTestingModule,MatDialogModule,ReactiveFormsModule,MatMenuModule
+        RouterTestingModule,HttpClientTestingModule,MatDialogModule,ReactiveFormsModule,MatMenuModule,BrowserAnimationsModule
       ],
       providers:[UserService],
       declarations: [ UserPageComponent ]
@@ -31,6 +32,16 @@ describe('UserPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('openCourseView should call service',()=>{
+    const userServiceSpy= spyOn(component.userService, 'changeMessage').and.callThrough();
+    expect(userServiceSpy).not.toHaveBeenCalled()
+    component.openCourseView("0")
+    expect(userServiceSpy).toHaveBeenCalled()
+    component.viewDetailsDialogRef.close()
+  })
+
+  
   it('should have missing course 1',()=>{
 
     component.year1Courses =[{
@@ -93,4 +104,51 @@ describe('UserPageComponent', () => {
     component.ValidateCourseRequirements()
     expect(component.MissingFirstYear).toEqual(['None'])
   })
+  it('should have missing course 3',()=>{
+
+    component.year1Courses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year3",
+      Course_Name:"test3" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "year31",
+      Pre_requisite: "",
+    },
+    {
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year31",
+      Course_Name:"test2" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "",
+      Pre_requisite: "year2",
+    }, 
+       {
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year2",
+      Course_Name:"test2" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "",
+      Pre_requisite: "",
+    }]
+    component.ValidateCourseRequirements()
+    expect(component.MissingSecondYear).toEqual(['None'])
+
+  })
+
+
 });

@@ -257,6 +257,57 @@
     </mat-card>
 
     <mat-card fxFlex="25%" style="height:1000px; vertical-align: middle;">
+        <form [formGroup]="updateForm" (ngSubmit)="updateCourse()"  >
+            <h1>UPDATE COURSE</h1>
+            <p>
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Course_Code">COURSE CODE</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Course_Code' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Course_Name">COURSE NAME</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Course_Name' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Credits">CREDITS</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Credits' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="NQF">NQF LEVEL</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='NQF' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Slot">Slot</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Slot' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Semester">Semester</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Semester' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Year">Year</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Year' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Pre_Requisite">PRE REQUISITE</mat-label>
+                    <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Pre_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" style="padding-left: 16px; padding-right: 16px;">
+                    <mat-label for="Co_Requisite">CO REQUISITE</mat-label>
+                    <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Co_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+        
+                <button mat-mini-fab color="accent" type="submit" (click)='refresh()' >
+                    <mat-icon >done</mat-icon>
+                </button>
+            </p>
+        </form>
+    </mat-card>
+    <mat-card fxFlex="25%" style="height:1000px; vertical-align: middle;">
         <mat-card-header>
             <mat-card-title>DELETE COURSE</mat-card-title>
         </mat-card-header>
@@ -268,51 +319,10 @@
                     <mat-option *ngFor = "let course of courses$ | async;" mat-option-item [value]="course" >{{course.Course_Code}}</mat-option>
                 </mat-select>
             </mat-form-field>
-    
-            <button mat-mini-fab color="accent" (click)="deleteCourse(courseToDelete)" >
-                <mat-icon >delete</mat-icon>
-            </button>
         </div>
-
+        <button mat-mini-fab color="accent" (click)="deleteCourse(courseToDelete)" >
+            <mat-icon >delete</mat-icon>
+        </button>
     </mat-card>
 
-    <mat-card fxFlex="25%" style="height: 1000px; vertical-align: middle;">
-        <mat-card-header>
-            <mat-card-title>MODIFY COURSE</mat-card-title>
-        </mat-card-header>
-
-            <div>
-            <mat-form-field appearance="outline" style="padding-left: 16px;">
-                <mat-label>COURSE NAME</mat-label>
-                <input matInput placeholder="Placeholder">
-            </mat-form-field>
-            </div>
-
-            <div>
-            <mat-form-field appearance="outline" style="padding-left: 16px;">
-                <mat-label>COURSE CODE</mat-label>
-                <input matInput placeholder="Placeholder">
-            </mat-form-field>
-            </div>
-        
-            <div>
-            <mat-form-field appearance="outline" style="padding-left: 16px;">
-                <mat-label>NQF LEVEL</mat-label>
-                <input matInput placeholder="Placeholder">
-            </mat-form-field>
-            </div>
-
-            <div>
-            <mat-form-field appearance="outline" style="padding-left: 16px; padding-right: 16px;">
-                <mat-label>COURSE DESCRIPTION</mat-label>
-                <input matInput placeholder="Placeholder">
-            </mat-form-field>
-            </div>
-    
-            <div>
-            <button mat-mini-fab color="accent">
-                <mat-icon>done</mat-icon>
-            </button>
-            </div>
-    </mat-card>
 </body>

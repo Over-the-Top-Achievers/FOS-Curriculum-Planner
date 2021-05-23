@@ -111,6 +111,11 @@ it('openCourseView should call service',()=>{
   component.viewDetailsDialogRef.close()
   expect(userServiceSpy).toHaveBeenCalled()
 })
-
+it('openCourseView should call service',()=>{
+  const courseServiceSpy= spyOn(component.courseService, 'updateCourse').and.callThrough();
+  expect(courseServiceSpy).not.toHaveBeenCalled()
+  component.updateCourse()
+  expect(courseServiceSpy).toHaveBeenCalled()
+})
 
 });

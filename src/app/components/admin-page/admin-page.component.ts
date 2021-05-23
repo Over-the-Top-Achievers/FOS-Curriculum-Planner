@@ -249,5 +249,32 @@ addCourse(): void {
     this.applyFilter("")
    }
  
-
+   updateForm = this.formbuilder.group({
+    Course_Code:'',
+    Course_Name:'',
+    Credits:'',
+    NQF:'',
+    Slot:'',
+    Semester:'',
+    Year:'',
+    Pre_requisite:'',
+    Co_requisite:'',
+  });
+  
+  updateCourse():void{
+    var body=
+    {
+      oldCourseCode:this.updateForm.value.Course_Code, //means never changes the course code right now 
+      newCourseCode:this.updateForm.value.Course_Code,//but add one for field new name
+      newCourseName:this.updateForm.value.Course_Name,
+      newCred:this.updateForm.value.Credits,
+      newNQF:this.updateForm.value.NQF,
+      newSlot:this.updateForm.value.Slot,
+      newSem:this.updateForm.value.Semester,
+      newYear:this.updateForm.value.Year,
+      newPreReq:this.updateForm.value.Pre_requisite,
+      newCoReq:this.updateForm.value.Co_requisite};
+    this.courseService.updateCourse(body);
+    this.updateForm.reset();
+  }
 }
