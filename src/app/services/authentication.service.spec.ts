@@ -22,4 +22,7 @@ describe('AuthenticationService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+  it('should fail on empty credentials',()=>{
+
+  })
 });

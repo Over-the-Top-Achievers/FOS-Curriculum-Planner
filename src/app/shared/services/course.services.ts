@@ -1,5 +1,5 @@
 import {API} from './api';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, Subscriber, Subscription } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Course } from '../models';
@@ -40,6 +40,17 @@ export class CourseService {
     ngOnInit(): void {
     //   this.Courses = this.getCourses();
     }
+    updateCourse(body:any): void{     
+        var options = {
+             headers: new HttpHeaders({
+                 'Content-Type': 'application/json',
+                }),
+                body: body,
+            };
+        console.log(options);
+        this.http.put(`${API.apiRoot}/courses`, options.body).subscribe((s) => {},(err)=> console.log(err));
+       }
+
 
 }
 

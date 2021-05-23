@@ -38,7 +38,7 @@ export class UserPageComponent implements OnInit {
 
 
 
-  constructor(private dialog:MatDialog,private userService:UserService){
+  constructor(private dialog:MatDialog,public userService:UserService){
     
   }
 
@@ -83,9 +83,9 @@ export class UserPageComponent implements OnInit {
     let CoReqs2:string="";
     let PreReqs3:string="";
     let CoReqs3:string="";
-    let MissingFirstYear:String[]= [];
-    let MissingSecondYear:String[]= [];
-    let MissingThirdYear:String[]= [];
+    this.MissingFirstYear= [];
+    this.MissingSecondYear= [];
+    this.MissingThirdYear= [];
     for(let i=0;i<this.year1Courses.length;i++){
       PreReqs1 = PreReqs1.concat(this.year1Courses[i].Pre_requisite)
       CoReqs1 = CoReqs1.concat(this.year1Courses[i].Co_requisite)
@@ -177,19 +177,19 @@ export class UserPageComponent implements OnInit {
     }
   }
 
-  if (this.MissingFirstYear.length == 0){
+  if (this.MissingFirstYear.length === 0){
     this.MissingFirstYear.push("None");
   }
 
-  if (this.MissingSecondYear.length == 0){
+  if (this.MissingSecondYear.length === 0){
     this.MissingSecondYear.push("None");
   }
 
-  if (this.MissingThirdYear.length == 0){
+  if (this.MissingThirdYear.length === 0){
     this.MissingThirdYear.push("None");
   }
-  console.log(MissingFirstYear, MissingSecondYear, MissingThirdYear)
-  return [MissingFirstYear, MissingSecondYear, MissingThirdYear] // returning the missing year courses for display purposes
+  console.log(this.MissingFirstYear, this.MissingSecondYear, this.MissingThirdYear)
+  return [this.MissingFirstYear, this.MissingSecondYear, this.MissingThirdYear] // returning the missing year courses for display purposes
  
   }
   

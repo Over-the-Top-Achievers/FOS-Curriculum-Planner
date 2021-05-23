@@ -20,7 +20,7 @@ export class SigninComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
+        public authenticationService: AuthenticationService
     ) { }
 
     ngOnInit() {
