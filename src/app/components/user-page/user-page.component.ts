@@ -36,15 +36,18 @@ export class UserPageComponent implements OnInit {
   MissingFirstYear:String[]= [];
   displayedColumns= ['Course_Code','Course_Name','Semester']
 
+  selectedCourse:any;
+  creditCounter:number = 0;
 
+  constructor(private dialog:MatDialog,
+    public userService:UserService
+    ){
 
-  constructor(private dialog:MatDialog,public userService:UserService){
-    
   }
 
   ngOnInit(): void {
     this.userService.currentCourse.subscribe((message:any) => {
-    
+   
     if(this.message =="1"){
       this.year1Courses=message;
     }
@@ -54,7 +57,11 @@ export class UserPageComponent implements OnInit {
     if(this.message =="3"){
       this.year3Courses=message;
     }
-    console.log(this.year1Courses,this.year2Courses,this.year3Courses)
+   // console.log(this.year1Courses,this.year2Courses,this.year3Courses)
+    })
+
+    this.userService.currentCourse.subscribe((selectedCourse:any) =>{
+      this.selectedCourse = selectedCourse
     })
 
   }
@@ -76,9 +83,20 @@ export class UserPageComponent implements OnInit {
     return(this.ValidateCourseRequirements());
   }
 
+  countcoursecredits(): any{
+    let counter:number = 0;
+    for (let i =0;i<this.selectedCourse.length;i++){
+      counter += Number(this.selectedCourse[i].Credits)
+    }
+    this.creditCounter = counter;
+    return(this.creditCounter)
+    //console.log(counter)
+  }
+
   ValidateCourseRequirements(): any[] {
     let PreReqs1:string="";
     let CoReqs1:string="";
+    let firstyearcredits:string="";
     let PreReqs2:string="";
     let CoReqs2:string="";
     let PreReqs3:string="";
@@ -89,11 +107,14 @@ export class UserPageComponent implements OnInit {
     for(let i=0;i<this.year1Courses.length;i++){
       PreReqs1 = PreReqs1.concat(this.year1Courses[i].Pre_requisite)
       CoReqs1 = CoReqs1.concat(this.year1Courses[i].Co_requisite)
+      firstyearcredits = firstyearcredits.concat(this.year1Courses[i].Credits)
     }
     let FirstPreReqs:string[] =PreReqs1.split(";");
     let FirstCoReqs:string[] =CoReqs1.split(";");
+    let FirstCredits:string[] = firstyearcredits.split(" ");
     FirstPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
     FirstCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    FirstCredits.pop();
 
 
     for(let i=0;i<this.year2Courses.length;i++){
@@ -118,6 +139,7 @@ export class UserPageComponent implements OnInit {
     let AllThirdYearCourses:String[] =[];
     let AllSecondYearCourses:String[] =[];
     let AllFirstYearCourses:String[] =[];
+    let AllFirstYearCredits:String[] = [];
     //garthers all 2nd year courses in array
     for(let i=0;i<this.year1Courses.length;i++){ 
       AllFirstYearCourses.push(this.year1Courses[i].Course_Code)
@@ -129,9 +151,12 @@ export class UserPageComponent implements OnInit {
     for(let i=0;i<this.year3Courses.length;i++){ 
       AllThirdYearCourses.push(this.year3Courses[i].Course_Code)
     }
+
+    for(let i=0;i<this.year1Courses.length;i++){ 
+      AllFirstYearCredits.push(this.year1Courses[i].Credits)
+    }
     
     //first yearchecks
-
     for(let i=0;i<FirstCoReqs.length;i++){ 
       if(!AllFirstYearCourses.includes(FirstCoReqs[i])){
         console.warn('Missing CoReq 1')
@@ -197,3 +222,5 @@ export class UserPageComponent implements OnInit {
     'Computer Science Major I', 'Mathematics Major I', 'Physics Major I', 'Computational and Applied Mathematics Major I'
   ]
 }
+
+
