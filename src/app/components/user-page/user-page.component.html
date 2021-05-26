@@ -29,7 +29,7 @@
                 <td class="mat-cell" colspan="4"> no course</td>
             </tr>
         </table>
-
+        
         </mat-card>
 
         <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
@@ -60,6 +60,7 @@
                     <td class="mat-cell" colspan="4"> no course</td>
                 </tr>
             </table>
+
         </mat-card>
 
         <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
@@ -96,6 +97,10 @@
     <div fxLayout = 'column' style="padding-top: 16px; padding-left: 100px; padding-right: 100px;" fxLayoutAlign="center" fxLayoutGap="2%">
         <mat-card>
             <mat-card-title>missing courses</mat-card-title>
+                <h2>Credits</h2>
+                    <div *ngIf="countcoursecredits()">
+                        {{countcoursecredits()}} out of 144
+                    </div>
                 <h2>The courses missing for year 1: </h2>
                     <div *ngFor="let item of displayMissingCourse()[0]" >
                         {{item}}

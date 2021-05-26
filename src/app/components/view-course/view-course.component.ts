@@ -61,9 +61,14 @@ export class ViewCourseComponent implements OnInit {
     )
 
   }
-  submitSelection():void {
 
+  selectedArray():Course[]{
+    return(this.selection.selected);
+  }
+
+  submitSelection():void {
     this.userService.changeCourse(this.selection.selected);
+    //console.log(this.selection.selected);
     this.close()
   }
   // addCourse(course:any){
