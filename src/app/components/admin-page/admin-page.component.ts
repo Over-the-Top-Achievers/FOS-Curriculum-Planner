@@ -61,7 +61,10 @@ export class AdminPageComponent implements OnInit {
     public userService:UserService
     //private api: API
   ) { }
-
+  populateUpdate(course:any){
+   delete course._id
+    this.updateForm.setValue(course)
+  }
   openCourseView(paramater:string):void{//opens the course viewer
 
     this.subscription = this.userService.currentMessage.subscribe((message:any) => this.message = message)

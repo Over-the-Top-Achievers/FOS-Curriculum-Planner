@@ -38,7 +38,8 @@ export class UserPageComponent implements OnInit {
 
   selectedCourse:any;
   creditCounter:number = 0;
-
+  sharable = [ "COMS","MATH","STAT"];
+  diagonals = ["A","B","C","D","E"];
   constructor(private dialog:MatDialog,
     public userService:UserService
     ){
@@ -72,6 +73,7 @@ export class UserPageComponent implements OnInit {
     this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent);//opens view-course
     this.viewDetailsDialogRef.afterClosed().subscribe((s:any)=>{ //validation of pre/co reqs
       this.ValidateCourseRequirements()
+      this.ValidateDiagonals();
     });
     this.newMessage(year); //submits year to view-course component
   }
@@ -92,7 +94,38 @@ export class UserPageComponent implements OnInit {
     return(this.creditCounter)
     //console.log(counter)
   }
+  ValidateDiagonals() :void{
+    //check prefix e.g COMS.APPM
 
+    let AClashes=[];
+    let BClashes=[];
+    let CClashes=[];
+    let DClashes=[];
+    let EClashes=[];
+    let PTClashes=[];
+
+    for(let i=0;i<this.year1Courses.length;++i){
+      if(this.year1Courses[i].Slot.includes("A") ){
+        AClashes.push(this.year1Courses[i].Course_Code)
+      }
+      if(this.year1Courses[i].Slot.includes("B")){
+        BClashes.push(this.year1Courses[i].Course_Code)
+      }
+      if(this.year1Courses[i].Slot.includes("C")){
+        CClashes.push(this.year1Courses[i].Course_Code)
+      }
+      if(this.year1Courses[i].Slot.includes("D")){
+        DClashes.push(this.year1Courses[i].Course_Code)
+      }
+      if(this.year1Courses[i].Slot.includes("E")){
+        EClashes.push(this.year1Courses[i].Course_Code)
+      }
+      if(this.year1Courses[i].Slot.includes("PT")){
+        PTClashes.push(this.year1Courses[i].Course_Code)
+      }
+    }
+    console.log(AClashes,BClashes)
+  }
   ValidateCourseRequirements(): any[] {
     let PreReqs1:string="";
     let CoReqs1:string="";
@@ -213,7 +246,6 @@ export class UserPageComponent implements OnInit {
   if (this.MissingThirdYear.length === 0){
     this.MissingThirdYear.push("None");
   }
-  console.log(this.MissingFirstYear, this.MissingSecondYear, this.MissingThirdYear)
   return [this.MissingFirstYear, this.MissingSecondYear, this.MissingThirdYear] // returning the missing year courses for display purposes
  
   }

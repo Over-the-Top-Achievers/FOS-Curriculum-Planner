@@ -11,6 +11,7 @@ import { By } from '@angular/platform-browser';
 import { Course } from 'src/app/shared/models';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionPanelActionRow } from '@angular/material/expansion';
 
 
 describe('AdminPageComponent', () => {
@@ -117,5 +118,36 @@ it('openCourseView should call service',()=>{
   component.updateCourse()
   expect(courseServiceSpy).toHaveBeenCalled()
 })
+it('should populate update form',()=>{
+  let course:any = {
+    //look u model view controller mvc
+    _id : "",
+    Course_Code:"1",
+    Course_Name:"test1" ,
+    Credits:"",
+    NQF: "",
+    Slot: "",
+    Semester: "",
+    Year: "1",
+    Co_requisite: "",
+    Pre_requisite: "",
+  }
+  const spy = spyOn(component.updateForm,'setValue')
+  component.populateUpdate({
+    //look u model view controller mvc
+    _id : "",
+    Course_Code:"1",
+    Course_Name:"test1" ,
+    Credits:"",
+    NQF: "",
+    Slot: "",
+    Semester: "",
+    Year: "1",
+    Co_requisite: "",
+    Pre_requisite: "",
+  })
+  delete course._id
+  expect(spy).toHaveBeenCalledWith(course)
 
+})
 });
