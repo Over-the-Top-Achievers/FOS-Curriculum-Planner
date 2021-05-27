@@ -263,8 +263,7 @@ export class UserPageComponent implements OnInit {
   if (this.MissingThirdYear.length === 0){
     this.MissingThirdYear.push("None");
   }
-  console.log("testing")
-  console.log(this.MissingFirstYear, this.MissingSecondYear, this.MissingThirdYear)
+ 
   return [this.MissingFirstYear, this.MissingSecondYear, this.MissingThirdYear] // returning the missing year courses for display purposes
  
   }
