@@ -14,7 +14,7 @@
         <button style="padding-left: 16px; padding-top: 6px; " mat-button [matMenuTriggerFor]="menu" id="select_course">SELECT COURSE</button>
             <mat-menu #menu="matMenu" style="padding-left: 16px;"> 
                 <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="displayCourseInfo(course)" style="column-width: 120px;">{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
-            </mat-menu>
+            </mat-menu>  
     </div> 
 
     <div *ngIf='selectedCourse' style='padding-left: 64px; padding-top: 48px;'>
@@ -257,8 +257,14 @@
     </mat-card>
 
     <mat-card fxFlex="25%" style="height:1000px; vertical-align: middle;">
+
+
         <form [formGroup]="updateForm" (ngSubmit)="updateCourse()"  >
             <h1>UPDATE COURSE</h1>
+            <button style="padding-left: 16px; padding-top: 6px; " mat-button [matMenuTriggerFor]="modify" id="select_course">SELECT COURSE</button>
+            <mat-menu #modify="matMenu" > 
+              <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
+          </mat-menu>
             <p>
                 <mat-form-field appearance="outline" style="padding-left: 16px;">
                     <mat-label for="Course_Code">COURSE CODE</mat-label>
