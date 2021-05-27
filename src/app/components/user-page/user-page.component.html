@@ -96,24 +96,27 @@
     <!-- this following mat-card is for displaying the missing/ required courses -->
     <div fxLayout = 'column' style="padding-top: 16px; padding-left: 100px; padding-right: 100px;" fxLayoutAlign="center" fxLayoutGap="2%">
         <mat-card>
-            <mat-card-title>missing courses</mat-card-title>
-                <h2>Credits</h2>
-                    <div *ngIf="countcoursecredits()">
-                        {{countcoursecredits()}} out of 144
-                    </div>
-                <h2>The courses missing for year 1: </h2>
+            <mat-card-title>missing courses and credits</mat-card-title>
+                <h2>The courses and credits missing for year 1: </h2>
                     <div *ngFor="let item of displayMissingCourse()[0]" >
                         {{item}}
                     </div>
-
-                <h2>The courses missing for year 2: </h2>
+                    <div *ngFor="let credit of countcoursecredits1()[0]">
+                        {{credit}} credits out of 144
+                    </div>
+                <h2>The courses and credits missing for year 2: </h2>
                     <div *ngFor="let item of displayMissingCourse()[1]" >
                         {{item}}
                     </div>
-
-                <h2>The courses missing for year 3: </h2>
+                    <div *ngFor="let credit of countcoursecredits2()[0]">
+                        {{credit}} credits out of 144
+                    </div>
+                <h2>The courses and credits missing for year 3: </h2>
                     <div *ngFor="let item of displayMissingCourse()[2]" >
                         {{item}}
+                    </div>
+                    <div *ngFor="let credit of countcoursecredits3()[0]">
+                        {{credit}} credits out of 144
                     </div>
         </mat-card>
     </div>

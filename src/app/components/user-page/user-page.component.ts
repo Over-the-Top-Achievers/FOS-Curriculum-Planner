@@ -37,9 +37,17 @@ export class UserPageComponent implements OnInit {
   displayedColumns= ['Course_Code','Course_Name','Semester']
 
   selectedCourse:any;
-  creditCounter:number = 0;
+
+  SelectedFirstYearCourses:any[] = [];
+  SelectedSecondYearCourses:any[] = [];
+  SelectedThirdYearCourses:any[] = [];
+  creditCounter1:number = 0;
+  creditCounter2:number = 0;
+  creditCounter3:number = 0;
+
   sharable = [ "COMS","MATH","STAT"];
   diagonals = ["A","B","C","D","E"];
+
   constructor(private dialog:MatDialog,
     public userService:UserService
     ){
@@ -63,6 +71,26 @@ export class UserPageComponent implements OnInit {
 
     this.userService.currentCourse.subscribe((selectedCourse:any) =>{
       this.selectedCourse = selectedCourse
+      if (this.selectedCourse[0].Year == "1"){
+        this.SelectedFirstYearCourses = [];
+      }
+      if (this.selectedCourse[0].Year == "2"){
+        this.SelectedSecondYearCourses = [];
+      }
+      if (this.selectedCourse[0].Year == "3"){
+        this.SelectedThirdYearCourses = [];
+      }
+      for (let i = 0;i<this.selectedCourse.length;i++){
+        if (this.selectedCourse[i].Year == "1"){
+          this.SelectedFirstYearCourses.push(this.selectedCourse[i])
+        }
+        if (this.selectedCourse[i].Year == "2"){
+          this.SelectedSecondYearCourses.push(this.selectedCourse[i])
+        }
+        if (this.selectedCourse[i].Year == "3"){
+          this.SelectedThirdYearCourses.push(this.selectedCourse[i])
+        }
+      }
     })
 
   }
@@ -85,13 +113,37 @@ export class UserPageComponent implements OnInit {
     return(this.ValidateCourseRequirements());
   }
 
-  countcoursecredits(): any{
-    let counter:number = 0;
-    for (let i =0;i<this.selectedCourse.length;i++){
-      counter += Number(this.selectedCourse[i].Credits)
+  countcoursecredits1(): any[]{
+    let counter1:number = 0;
+    for (let i =0;i<this.SelectedFirstYearCourses.length;i++){
+      if (this.SelectedFirstYearCourses[i].Year == "1"){
+        counter1 += Number(this.SelectedFirstYearCourses[i].Credits)
+      }
     }
-    this.creditCounter = counter;
-    return(this.creditCounter)
+    this.creditCounter1 = counter1;
+    return[[this.creditCounter1]]
+    //console.log(counter)
+  }
+  countcoursecredits2(): any[]{
+    let counter2:number = 0;
+    for (let i =0;i<this.SelectedSecondYearCourses.length;i++){
+      if (this.SelectedSecondYearCourses[i].Year == "2"){
+        counter2 += Number(this.SelectedSecondYearCourses[i].Credits)
+      }
+    }
+    this.creditCounter2 = counter2;
+    return[[this.creditCounter2]]
+    //console.log(counter)
+  }
+  countcoursecredits3(): any[]{
+    let counter3:number = 0;
+    for (let i =0;i<this.SelectedThirdYearCourses.length;i++){
+      if (this.SelectedThirdYearCourses[i].Year == "3"){
+        counter3 += Number(this.SelectedThirdYearCourses[i].Credits)
+      }
+    }
+    this.creditCounter3 = counter3;
+    return[[this.creditCounter3]]
     //console.log(counter)
   }
   ValidateDiagonals() :void{
@@ -246,6 +298,7 @@ export class UserPageComponent implements OnInit {
   if (this.MissingThirdYear.length === 0){
     this.MissingThirdYear.push("None");
   }
+
   return [this.MissingFirstYear, this.MissingSecondYear, this.MissingThirdYear] // returning the missing year courses for display purposes
  
   }
