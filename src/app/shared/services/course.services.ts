@@ -46,8 +46,9 @@ export class CourseService {
                  'Content-Type': 'application/json',
                 }),
                 body: body,
+                
             };
-        console.log(options);
+        console.log(options.body);
         this.http.put(`${API.apiRoot}/courses`, options.body).subscribe((s) => {},(err)=> console.log(err));
        }
 

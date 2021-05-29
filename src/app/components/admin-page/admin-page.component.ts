@@ -14,6 +14,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.services';
 import { ViewCourseComponent } from '../view-course/view-course.component';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-admin-page',
@@ -37,6 +38,7 @@ export class AdminPageComponent implements OnInit {
 
   currentReqHolder:string ="";//holds the actual COMS;APPM kinds of values
   currentEdit:string="";// holds Pre_requisite or Co_requisite for editing
+  currentForm:string=""; // determines which forms to change
   checkoutForm = this.formbuilder.group({
     Course_Code:'',
     Course_Name:'',
@@ -62,8 +64,13 @@ export class AdminPageComponent implements OnInit {
     //private api: API
   ) { }
   populateUpdate(course:any){
-   delete course._id
+
+    delete course._id
     this.updateForm.setValue(course)
+    if(this.currentForm === '0'){
+      this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
+     }
+     console.log(this.updateForm)
   }
   openCourseView(paramater:string):void{//opens the course viewer
 
@@ -72,13 +79,15 @@ export class AdminPageComponent implements OnInit {
     this.userService.changeMessage(paramater);
   }
   //change the form input to change
-  setPreReqs():void{
+  setPreReqs(x:string):void{
     this.openCourseView('0')
     this.currentEdit="Pre_requisite"
+    this.currentForm = x
   }
-  setCoReqs():void {
+  setCoReqs(x:string):void {
     this.openCourseView('0')
     this.currentEdit="Co_requisite"
+    this.currentForm = x
   }
   getCSV():any{
     this.csv$.subscribe((data) => { 
@@ -113,6 +122,10 @@ export class AdminPageComponent implements OnInit {
     //Turns the inputs grey
     this.checkoutForm.get('Pre_requisite')!.disable();
     this.checkoutForm.get('Co_requisite')!.disable();
+
+    this.updateForm.get('Pre_requisite')!.disable();
+    this.updateForm.get('Co_requisite')!.disable();
+
     this.userService.currentCourse.subscribe((message:any) => {
     
       //uses an observable because this happens async. changing this may lead to no changes due to value changing after expected
@@ -123,7 +136,13 @@ export class AdminPageComponent implements OnInit {
          this.currentReqHolder =this.currentReqHolder.concat(message[i].Course_Code+';')
        }
      }
-     this.checkoutForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
+     if(this.currentForm === '1'){
+      this.checkoutForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
+     }
+     
+     if(this.currentForm === '0'){
+      this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
+     }
 
       })
   }
@@ -275,9 +294,11 @@ addCourse(): void {
       newSlot:this.updateForm.value.Slot,
       newSem:this.updateForm.value.Semester,
       newYear:this.updateForm.value.Year,
-      newPreReq:this.updateForm.value.Pre_requisite,
-      newCoReq:this.updateForm.value.Co_requisite};
+      newCoReq:(this.updateForm.value.Co_requisite),
+      newPreReq:this.updateForm.value.Pre_requisite
+    };
     this.courseService.updateCourse(body);
+    
     this.updateForm.reset();
   }
 }
