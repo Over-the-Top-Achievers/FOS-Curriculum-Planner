@@ -64,7 +64,8 @@ export class AdminPageComponent implements OnInit {
     //private api: API
   ) { }
   populateUpdate(course:any){
-
+    this.updateForm.get('Pre_requisite')!.enable();
+    this.updateForm.get('Co_requisite')!.enable();
     delete course._id
     this.updateForm.setValue(course)
     if(this.currentForm === '0'){
