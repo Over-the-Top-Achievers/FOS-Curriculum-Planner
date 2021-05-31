@@ -68,9 +68,9 @@ export class AdminPageComponent implements OnInit {
     this.updateForm.get('Co_requisite')!.enable();
     delete course._id
     this.updateForm.setValue(course)
-    if(this.currentForm === '0'){
-      this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
-     }
+    // if(this.currentForm === '0'){
+    //   this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
+    //  }
      console.log(this.updateForm)
   }
   openCourseView(paramater:string):void{//opens the course viewer
@@ -142,7 +142,10 @@ export class AdminPageComponent implements OnInit {
      }
      
      if(this.currentForm === '0'){
-      this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
+      let something =  this.updateForm.value.Course_Code
+      this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder, Course_Code: something}) //changes the form value 
+      console.log("brbjfsoddijoijdasijaosdjadsidasd")
+      console.log(something)
      }
 
       })
@@ -300,6 +303,6 @@ addCourse(): void {
     };
     this.courseService.updateCourse(body);
     
-    this.updateForm.reset();
+    //this.updateForm.reset();
   }
 }
