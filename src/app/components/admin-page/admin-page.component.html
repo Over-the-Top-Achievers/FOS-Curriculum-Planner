@@ -178,8 +178,8 @@
             <mat-card-title>ADD COURSE</mat-card-title>
         </mat-card-header>
     <div >
-        <button mat-flat-button  (click)="setPreReqs()" color="accent">Add Pre Requisite</button>
-        <button mat-flat-button  (click)="setCoReqs()" color="accent">Add Co Requisite</button>
+        <button mat-flat-button  (click)="setPreReqs('1')" color="accent">Add Pre Requisite</button>
+        <button mat-flat-button  (click)="setCoReqs('1')" color="accent">Add Co Requisite</button>
     </div>
     
 
@@ -258,9 +258,14 @@
 
     <mat-card fxFlex="25%" style="height:1000px; vertical-align: middle;">
 
-
         <form [formGroup]="updateForm" (ngSubmit)="updateCourse()"  >
             <h1>UPDATE COURSE</h1>
+
+            <div >
+                <button mat-flat-button  (click)="setPreReqs('0')" color="accent">Add Pre Requisite</button>
+                <button mat-flat-button  (click)="setCoReqs('0')" color="accent">Add Co Requisite</button>
+            </div>
+
             <button style="padding-left: 16px; padding-top: 6px; " mat-button [matMenuTriggerFor]="modify" id="select_course">SELECT COURSE</button>
             <mat-menu #modify="matMenu" > 
               <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
