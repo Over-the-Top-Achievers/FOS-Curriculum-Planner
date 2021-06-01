@@ -43,12 +43,12 @@ describe('AdminPageComponent', () => {
   })
   it('should open pre req dialog',()=>{
     const spy = spyOn(component, 'openCourseView');
-    component.setPreReqs()
+    component.setPreReqs("1")
     expect(spy).toHaveBeenCalled()
   })
   it('should open co req dialog',()=>{
     const spy = spyOn(component, 'openCourseView');
-    component.setCoReqs()
+    component.setCoReqs("1")
     expect(spy).toHaveBeenCalled()
   })
   it('download should create element',()=>{
