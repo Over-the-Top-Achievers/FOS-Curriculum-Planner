@@ -34,7 +34,7 @@ export class UserPageComponent implements OnInit {
   MissingSecondYear:String[]= [];
   MissingThirdYear:String[]= [];
   MissingFirstYear:String[]= [];
-  displayedColumns= ['Course_Code','Course_Name','Semester']
+  displayedColumns= ['Course_Code','Course_Name','Semester','button']
 
   selectedCourse:any;
 
@@ -53,7 +53,26 @@ export class UserPageComponent implements OnInit {
     ){
 
   }
-
+  removeCourse(course:Course):void{
+    if(course.Year==="1"){
+      this.message="1"
+      let index;
+      index = this.year1Courses.indexOf(course)
+      this.year1Courses = this.year1Courses.slice(0,index).concat(this.year1Courses.slice(index+1))
+    }
+    else if(course.Year==="2"){
+      this.message="2"
+      let index;
+      index = this.year2Courses.indexOf(course)
+      this.year2Courses = this.year2Courses.slice(0,index).concat(this.year2Courses.slice(index+1))
+    }
+    else if(course.Year==="3"){
+      this.message="3"
+      let index;
+      index = this.year3Courses.indexOf(course)
+      this.year3Courses = this.year3Courses.slice(0,index).concat(this.year3Courses.slice(index+1))
+    }
+  }
   ngOnInit(): void {
     this.userService.currentCourse.subscribe((message:any) => {
    
@@ -69,29 +88,29 @@ export class UserPageComponent implements OnInit {
    // console.log(this.year1Courses,this.year2Courses,this.year3Courses)
     })
 
-    this.userService.currentCourse.subscribe((selectedCourse:any) =>{
-      this.selectedCourse = selectedCourse
-      if (this.selectedCourse[0].Year == "1"){
-        this.SelectedFirstYearCourses = [];
-      }
-      if (this.selectedCourse[0].Year == "2"){
-        this.SelectedSecondYearCourses = [];
-      }
-      if (this.selectedCourse[0].Year == "3"){
-        this.SelectedThirdYearCourses = [];
-      }
-      for (let i = 0;i<this.selectedCourse.length;i++){
-        if (this.selectedCourse[i].Year == "1"){
-          this.SelectedFirstYearCourses.push(this.selectedCourse[i])
-        }
-        if (this.selectedCourse[i].Year == "2"){
-          this.SelectedSecondYearCourses.push(this.selectedCourse[i])
-        }
-        if (this.selectedCourse[i].Year == "3"){
-          this.SelectedThirdYearCourses.push(this.selectedCourse[i])
-        }
-      }
-    })
+    // this.userService.currentCourse.subscribe((selectedCourse:any) =>{
+    //   this.selectedCourse = selectedCourse
+    //   if (this.selectedCourse[0].Year == "1"){
+    //     this.SelectedFirstYearCourses = [];
+    //   }
+    //   if (this.selectedCourse[0].Year == "2"){
+    //     this.SelectedSecondYearCourses = [];
+    //   }
+    //   if (this.selectedCourse[0].Year == "3"){
+    //     this.SelectedThirdYearCourses = [];
+    //   }
+    //   for (let i = 0;i<this.selectedCourse.length;i++){
+    //     if (this.selectedCourse[i].Year == "1"){
+    //       this.SelectedFirstYearCourses.push(this.selectedCourse[i])
+    //     }
+    //     if (this.selectedCourse[i].Year == "2"){
+    //       this.SelectedSecondYearCourses.push(this.selectedCourse[i])
+    //     }
+    //     if (this.selectedCourse[i].Year == "3"){
+    //       this.SelectedThirdYearCourses.push(this.selectedCourse[i])
+    //     }
+    //   }
+    // })
 
   }
   openCourseView(year:string):void{

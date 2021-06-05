@@ -22,7 +22,14 @@
                 <th mat-header-cell *matHeaderCellDef> Semester </th>
                 <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
             </ng-container>
-
+            <ng-container matColumnDef='button' >
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element " > 
+                    <button mat-mini-fab color="primary" (click)="removeCourse(element)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                </td>
+            </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             <tr class="mat-row" *matNoDataRow>
@@ -53,7 +60,14 @@
                     <th mat-header-cell *matHeaderCellDef> Semester </th>
                     <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
                 </ng-container>
-        
+                <ng-container matColumnDef='button' >
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let element " > 
+                        <button mat-mini-fab color="primary" (click)="removeCourse(element)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                    </td>
+                </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 <tr class="mat-row" *matNoDataRow>
@@ -84,7 +98,14 @@
                     <th mat-header-cell *matHeaderCellDef> Semester </th>
                     <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
                 </ng-container>
-        
+                <ng-container matColumnDef='button' >
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let element " > 
+                        <button mat-mini-fab color="primary" (click)="removeCourse(element)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                    </td>
+                </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 <tr class="mat-row" *matNoDataRow>
