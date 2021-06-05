@@ -41,4 +41,9 @@ jobs:
         git add -A
         git commit -a -m "badge update"
         git push origin HEAD:badges --force
-
+    - uses: actions/checkout@master
+    - uses: codecov/codecov-action@v1
+    - name: upload code-cov
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        verbose: true # optional (default = false)
