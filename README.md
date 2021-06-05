@@ -1,6 +1,6 @@
 [![Angular tests](https://github.com/Over-the-Top-Achievers/FOS-Curriculum-Planner/actions/workflows/main.yml/badge.svg)](https://github.com/Over-the-Top-Achievers/FOS-Curriculum-Planner/actions/workflows/main.yml)
 
-[![Code coverage](https://raw.githubusercontent.com/Over-the-Top-Achievers/FOS-Curriculum-Planner/badges/coverage/badge-statements.svg?token=ALSWVB5Y7MVUROAXGFDY3XDAVOPHE)]
+[![codecov](https://codecov.io/gh/Over-the-Top-Achievers/FOS-Curriculum-Planner/branch/master/graph/badge.svg?token=O0DJVT68B3)](https://codecov.io/gh/Over-the-Top-Achievers/FOS-Curriculum-Planner)
 
 
 # FOSCurriculumPlanner
