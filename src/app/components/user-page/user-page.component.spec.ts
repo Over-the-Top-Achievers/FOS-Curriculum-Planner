@@ -41,7 +41,90 @@ describe('UserPageComponent', () => {
     component.viewDetailsDialogRef.close()
   })
 
-  
+  it('should total the course credits for 1st year',()=>{
+    component.SelectedFirstYearCourses=[{
+      _id : "",
+      Course_Code:"MATH1036",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "",
+      Semester: "",
+      Year: "1",
+      Co_requisite: "",
+      Pre_requisite: "",
+    },
+    {
+      _id : "",
+      Course_Code:"COMS1014",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "",
+      Semester: "",
+      Year: "1",
+      Co_requisite: "",
+      Pre_requisite: "",
+    }]
+    component.countcoursecredits1()
+    expect(component.creditCounter1).toEqual(32)
+  })
+  it('should total the course credits for 2nd year',()=>{
+    component.SelectedSecondYearCourses=[{
+      _id : "",
+      Course_Code:"MATH2036",
+      Course_Name:"" ,
+      Credits:"46",
+      NQF: "5",
+      Slot: "",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "",
+      Pre_requisite: "",
+    },
+    {
+      _id : "",
+      Course_Code:"COMS1014",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "",
+      Pre_requisite: "",
+    }]
+    component.countcoursecredits2()
+    expect(component.creditCounter2).toEqual(62)
+  })
+  it('should total the course credits for 3rd year',()=>{
+    component.SelectedThirdYearCourses=[{
+      _id : "",
+      Course_Code:"MATH3036",
+      Course_Name:"" ,
+      Credits:"32",
+      NQF: "5",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "",
+      Pre_requisite: "",
+    },
+    {
+      _id : "",
+      Course_Code:"COMS1014",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "",
+      Pre_requisite: "",
+    }]
+    component.countcoursecredits3()
+    expect(component.creditCounter3).toEqual(48)
+  })
   it('should have missing course 1',()=>{
 
     component.year1Courses =[{
@@ -73,6 +156,7 @@ describe('UserPageComponent', () => {
     component.ValidateCourseRequirements()
     expect(component.MissingFirstYear).toEqual(['None'])
   })
+
   it('should have missing course 2',()=>{
 
     component.year1Courses =[{
