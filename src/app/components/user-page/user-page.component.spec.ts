@@ -139,6 +139,7 @@ describe('UserPageComponent', () => {
       Year: "1",
       Co_requisite: "",
       Pre_requisite: "",
+      Shareable:"",
     }]
     component.year2Courses =[{
       //look u model view controller mvc
@@ -152,6 +153,7 @@ describe('UserPageComponent', () => {
       Year: "2",
       Co_requisite: "",
       Pre_requisite: "1;",
+      Shareable:"",
     }]
     component.ValidateCourseRequirements()
     expect(component.MissingFirstYear).toEqual(['None'])
@@ -171,6 +173,7 @@ describe('UserPageComponent', () => {
       Year: "1",
       Co_requisite: "test2",
       Pre_requisite: "",
+      Shareable:"",
     },
     {
       //look u model view controller mvc
@@ -184,6 +187,7 @@ describe('UserPageComponent', () => {
       Year: "1",
       Co_requisite: "1",
       Pre_requisite: "",
+      Shareable:"",
     }]
     component.ValidateCourseRequirements()
     expect(component.MissingFirstYear).toEqual(['None'])
@@ -202,6 +206,7 @@ describe('UserPageComponent', () => {
       Year: "3",
       Co_requisite: "year31",
       Pre_requisite: "",
+      Shareable:"",
     },
     {
       //look u model view controller mvc
@@ -215,6 +220,7 @@ describe('UserPageComponent', () => {
       Year: "3",
       Co_requisite: "",
       Pre_requisite: "year2",
+      Shareable:"",
     }, 
        {
       //look u model view controller mvc
@@ -228,10 +234,75 @@ describe('UserPageComponent', () => {
       Year: "2",
       Co_requisite: "",
       Pre_requisite: "",
+      Shareable:"",
     }]
     component.ValidateCourseRequirements()
     expect(component.MissingSecondYear).toEqual(['None'])
 
+  })
+
+  
+  it('should remove a course for first year',()=>{
+    
+    component.year1Courses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year1",
+      Course_Name:"test1" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "1",
+      Co_requisite: "year1",
+      Pre_requisite: "",
+      Shareable:"",
+    }]
+
+    component.removeCourse(component.year1Courses[0])
+    expect(component.year1Courses).toEqual([])
+  })
+
+  it('should remove a course for second year',()=>{
+    
+    component.year2Courses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year2",
+      Course_Name:"test2" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "year2",
+      Pre_requisite: "",
+      Shareable:"",
+    }]
+
+    component.removeCourse(component.year2Courses[0])
+    expect(component.year2Courses).toEqual([])
+  })
+
+  it('should remove a course for third year',()=>{
+    
+    component.year3Courses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year3",
+      Course_Name:"test3" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "year3",
+      Pre_requisite: "",
+      Shareable:"",
+    }]
+
+    component.removeCourse(component.year3Courses[0])
+    expect(component.year3Courses).toEqual([])
   })
 
 
