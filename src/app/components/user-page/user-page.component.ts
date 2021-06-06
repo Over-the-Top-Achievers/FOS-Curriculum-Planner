@@ -79,40 +79,40 @@ export class UserPageComponent implements OnInit {
     this.userService.currentCourse.subscribe((message:any) => {
    
     if(this.message =="1"){
-      this.year1Courses=message;
+      this.year1Courses=this.year1Courses.concat(message);
     }
     if(this.message =="2"){
-      this.year2Courses=message;
+      this.year2Courses=this.year2Courses.concat(message);
     }
     if(this.message =="3"){
-      this.year3Courses=message;
+      this.year3Courses=this.year3Courses.concat(message);
     }
    // console.log(this.year1Courses,this.year2Courses,this.year3Courses)
     })
 
-    // this.userService.currentCourse.subscribe((selectedCourse:any) =>{
-    //   this.selectedCourse = selectedCourse
-    //   if (this.selectedCourse[0].Year == "1"){
-    //     this.SelectedFirstYearCourses = [];
-    //   }
-    //   if (this.selectedCourse[0].Year == "2"){
-    //     this.SelectedSecondYearCourses = [];
-    //   }
-    //   if (this.selectedCourse[0].Year == "3"){
-    //     this.SelectedThirdYearCourses = [];
-    //   }
-    //   for (let i = 0;i<this.selectedCourse.length;i++){
-    //     if (this.selectedCourse[i].Year == "1"){
-    //       this.SelectedFirstYearCourses.push(this.selectedCourse[i])
-    //     }
-    //     if (this.selectedCourse[i].Year == "2"){
-    //       this.SelectedSecondYearCourses.push(this.selectedCourse[i])
-    //     }
-    //     if (this.selectedCourse[i].Year == "3"){
-    //       this.SelectedThirdYearCourses.push(this.selectedCourse[i])
-    //     }
-    //   }
-    // })
+    this.userService.currentCourse.subscribe((selectedCourse:any) =>{
+      this.selectedCourse = selectedCourse
+      if (this.selectedCourse[0].Year == "1"){
+        this.SelectedFirstYearCourses = [];
+      }
+      if (this.selectedCourse[0].Year == "2"){
+        this.SelectedSecondYearCourses = [];
+      }
+      if (this.selectedCourse[0].Year == "3"){
+        this.SelectedThirdYearCourses = [];
+      }
+      for (let i = 0;i<this.selectedCourse.length;i++){
+        if (this.selectedCourse[i].Year == "1"){
+          this.SelectedFirstYearCourses.push(this.selectedCourse[i])
+        }
+        if (this.selectedCourse[i].Year == "2"){
+          this.SelectedSecondYearCourses.push(this.selectedCourse[i])
+        }
+        if (this.selectedCourse[i].Year == "3"){
+          this.SelectedThirdYearCourses.push(this.selectedCourse[i])
+        }
+      }
+    })
 
   }
   openCourseView(year:string):void{
@@ -125,6 +125,7 @@ export class UserPageComponent implements OnInit {
       this.year1Clashes= this.ValidateDiagonals(this.year1Courses);
       this.year2Clashes= this.ValidateDiagonals(this.year2Courses);
       this.year3Clashes= this.ValidateDiagonals(this.year3Courses);
+
     });
     this.newMessage(year); //submits year to view-course component
   }
@@ -135,6 +136,7 @@ export class UserPageComponent implements OnInit {
   displayMissingCourse(): any[]{
     return(this.ValidateCourseRequirements());
   }
+
 
   countcoursecredits1(): any[]{
     let counter1:number = 0;
@@ -169,47 +171,8 @@ export class UserPageComponent implements OnInit {
     return[[this.creditCounter3]]
     //console.log(counter)
   }
-//   ValidateDiagonals(yearCourse:Course[]) :any{
-//     //no part time collision checks
-//    let clashes:Course[][] = [[],[],[],[],[],[]];
-//    for(let i=0;i<yearCourse.length;i++){
 
-//        if(yearCourse[i].Slot.includes("A")){
-//          clashes[0].push(yearCourse[i])
-//        }
-//        else if(yearCourse[i].Slot.includes("B")){
-//          clashes[1].push(yearCourse[i])
-//        }
-//        else if(yearCourse[i].Slot.includes("C")){
-//          clashes[2].push(yearCourse[i])
-//        }
-//        else if(yearCourse[i].Slot.includes("D")){
-//          clashes[3].push(yearCourse[i])
-//        }
-//        else if(yearCourse[i].Slot.includes("E")){
-//          clashes[4].push(yearCourse[i])
-//        }
- 
-//    }
-//    let codes:String[][]=[];
-//    for(let i =0;i<clashes.length;++i){
-//      codes.push(clashes[i].map(function(c){return c.Course_Code}))
-//    }
-//   //  console.log(codes)
-//    for(let slot=0;slot<clashes.length;++slot){
-
-//      for(let i =0 ;i<clashes[slot].length;++i){
-//         console.log(codes[slot],codes.length)
-//          if(codes[slot][i].includes(clashes[slot][i].Shareable)  ){
-//            clashes[slot] = clashes[slot].slice(0,i).concat(clashes[slot].slice(i+1))
-//          }
-//      }
-     
-//    }
-//    console.log(clashes)
-//    return clashes;
-//  }
-  ValidateDiagonalsBackup(yearCourse:Course[]) :any{
+  ValidateDiagonals(yearCourse:Course[]) :any{
     let AClashes=[];
     let BClashes=[];
     let CClashes=[];
@@ -239,43 +202,57 @@ export class UserPageComponent implements OnInit {
       }
     }
     let ACode:String[] = AClashes.map(function(c){return c.Course_Code})
-    let ASem:String[] = AClashes.map(function(c){return c.Semester})
+
     for(let i =0 ;i<AClashes.length;++i){
-      if(ACode.includes(AClashes[i].Shareable) || !ASem.includes(AClashes[i].Semester)){
+      if(ACode.includes(AClashes[i].Shareable) ){
         AClashes = AClashes.slice(0,i).concat(AClashes.slice(i+1))
       }
     }
     let BCode:String[] = BClashes.map(function(c){return c.Course_Code})
-    let BSem:String[] = BClashes.map(function(c){return c.Semester})
+
     for(let i =0 ;i<BClashes.length;++i){
-      if(BCode.includes(BClashes[i].Shareable) || !BSem.includes(BClashes[i].Semester)){
+      if(BCode.includes(BClashes[i].Shareable)){
         BClashes = BClashes.slice(0,i).concat(BClashes.slice(i+1))
       }
     }
     let CCode:String[] = CClashes.map(function(c){return c.Course_Code})
-    let CSem:String[] = CClashes.map(function(c){return c.Semester})
-    console.log(CSem)
+
     for(let i =0 ;i<CClashes.length;++i){
-      if(CCode.includes(CClashes[i].Shareable) || !CSem.includes(CClashes[i].Semester) ){//
+      if(CCode.includes(CClashes[i].Shareable) ){//
         CClashes = CClashes.slice(0,i).concat(CClashes.slice(i+1))
       }
     }
     let DCode:String[] = DClashes.map(function(c){return c.Course_Code})
-    let DSem:String[] = DClashes.map(function(c){return c.Semester})
+
     for(let i =0 ;i<DClashes.length;++i){
-      if(DCode.includes(DClashes[i].Shareable) || !DSem.includes(DClashes[i].Semester )){
+      if(DCode.includes(DClashes[i].Shareable)){
         DClashes = DClashes.slice(0,i).concat(DClashes.slice(i+1))
       }
     }
     let ECode:String[] = EClashes.map(function(c){return c.Course_Code})
-    let ESem:String[] = EClashes.map(function(c){return c.Semester})
+
     for(let i =0 ;i<EClashes.length;++i){
-      if(ECode.includes(EClashes[i].Shareable) || !ESem.includes(EClashes[i].Semester)){
+      if(ECode.includes(EClashes[i].Shareable) ){
         EClashes = EClashes.slice(0,i).concat(EClashes.slice(i+1))
       }
     }
+    if(AClashes.length===1){
+      AClashes.pop();
+    }
+    if(BClashes.length===1){
+      BClashes.pop()
+    }
+    if(CClashes.length===1){
+      CClashes.pop()
+    }
+    if(DClashes.length===1){
+      DClashes.pop()
+    }
+    if(EClashes.length===1){
+      EClashes.pop()
+    }
     console.log(AClashes,BClashes,CClashes,DClashes,EClashes)
-    return [AClashes,BClashes,CClashes,DClashes,EClashes]
+    return AClashes.concat(BClashes,CClashes,DClashes,EClashes)
   }
   
   ValidateCourseRequirements(): any[] {
@@ -289,6 +266,7 @@ export class UserPageComponent implements OnInit {
     this.MissingFirstYear= [];
     this.MissingSecondYear= [];
     this.MissingThirdYear= [];
+
     for(let i=0;i<this.year1Courses.length;i++){
       PreReqs1 = PreReqs1.concat(this.year1Courses[i].Pre_requisite)
       CoReqs1 = CoReqs1.concat(this.year1Courses[i].Co_requisite)

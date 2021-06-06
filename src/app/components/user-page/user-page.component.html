@@ -122,6 +122,10 @@
                     <div *ngFor="let item of displayMissingCourse()[0]" >
                         {{item}}
                     </div>
+                    <h3>Possible clashes:</h3>
+                    <div *ngFor="let item of year1Clashes;">
+                        {{item.Course_Code}}
+                    </div>
                     <div *ngFor="let credit of countcoursecredits1()[0]">
                         {{credit}} credits out of 144
                     </div>
@@ -129,12 +133,20 @@
                     <div *ngFor="let item of displayMissingCourse()[1]" >
                         {{item}}
                     </div>
+                    <h3>Possible clashes:</h3>
+                    <div *ngFor="let item of year2Clashes;">
+                        {{item.Course_Code}}
+                    </div>
                     <div *ngFor="let credit of countcoursecredits2()[0]">
                         {{credit}} credits out of 144
                     </div>
                 <h2>The courses and credits missing for year 3: </h2>
                     <div *ngFor="let item of displayMissingCourse()[2]" >
                         {{item}}
+                    </div>
+                    <h3>Possible clashes:</h3>
+                    <div *ngFor="let item of year3Clashes;">
+                        {{item.Course_Code}}
                     </div>
                     <div *ngFor="let credit of countcoursecredits3()[0]">
                         {{credit}} credits out of 144
