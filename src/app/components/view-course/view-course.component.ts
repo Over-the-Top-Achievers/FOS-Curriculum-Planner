@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { Course } from 'src/app/shared/models';
 import { CourseService } from 'src/app/shared/services/course.services';
 import { UserService } from 'src/app/shared/services/user.services';
-import {UserPageComponent} from 'src/app/components/user-page/user-page.component'
+//import {UserPageComponent} from 'src/app/components/user-page/user-page.component'
 
 @Component({
   selector: 'app-view-course',
@@ -26,8 +26,8 @@ export class ViewCourseComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ViewCourseComponent>,
     public courseService:CourseService,
-    public userService:UserService,
-    public oldSelected: UserPageComponent) {}
+    public userService:UserService,){}
+    //public oldSelected: UserPageComponent) {}
 
     ngOnInit() {
       this.subscription = this.userService.currentMessage.subscribe( (message:any) => this.selectedYear = message)
