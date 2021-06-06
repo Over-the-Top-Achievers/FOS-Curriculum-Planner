@@ -41,6 +41,13 @@ export class UserPageComponent implements OnInit {
   SelectedFirstYearCourses:any[] = [];
   SelectedSecondYearCourses:any[] = [];
   SelectedThirdYearCourses:any[] = [];
+
+
+  afterRemoveYear1:any = [];
+  afterRemoveYear2:any = [];
+  afterRemoveYear3:any = [];
+
+
   creditCounter1:number = 0;
   creditCounter2:number = 0;
   creditCounter3:number = 0;
@@ -59,19 +66,53 @@ export class UserPageComponent implements OnInit {
       let index;
       index = this.year1Courses.indexOf(course)
       this.year1Courses = this.year1Courses.slice(0,index).concat(this.year1Courses.slice(index+1))
+
+      for(var i = 0; i < this.SelectedFirstYearCourses.length; i++){
+        if(this.SelectedFirstYearCourses[i].Course_Code != course.Course_Code){
+          this.afterRemoveYear1.push(this.SelectedFirstYearCourses[i]);
+        }
+        
+      }
+
+      this.SelectedFirstYearCourses = this.afterRemoveYear1;
+      this.afterRemoveYear1 = []
+
+      // console.log(this.SelectedFirstYearCourses)
     }
     else if(course.Year==="2"){
       this.message="2"
       let index;
       index = this.year2Courses.indexOf(course)
       this.year2Courses = this.year2Courses.slice(0,index).concat(this.year2Courses.slice(index+1))
+
+      for(var i = 0; i < this.SelectedSecondYearCourses.length; i++){
+        if(this.SelectedSecondYearCourses[i].Course_Code != course.Course_Code){
+          this.afterRemoveYear2.push(this.SelectedSecondYearCourses[i]);
+        }
+        
+      }
+
+      this.SelectedSecondYearCourses = this.afterRemoveYear2;
+      this.afterRemoveYear2 = []
     }
     else if(course.Year==="3"){
       this.message="3"
       let index;
       index = this.year3Courses.indexOf(course)
       this.year3Courses = this.year3Courses.slice(0,index).concat(this.year3Courses.slice(index+1))
+
+      for(var i = 0; i < this.SelectedThirdYearCourses.length; i++){
+        if(this.SelectedThirdYearCourses[i].Course_Code != course.Course_Code){
+          this.afterRemoveYear3.push(this.SelectedThirdYearCourses[i]);
+        }
+        
+      }
+
+      this.SelectedThirdYearCourses = this.afterRemoveYear3;
+      this.afterRemoveYear3 = []
     }
+
+    
   }
   ngOnInit(): void {
     this.userService.currentCourse.subscribe((message:any) => {
@@ -88,29 +129,29 @@ export class UserPageComponent implements OnInit {
    // console.log(this.year1Courses,this.year2Courses,this.year3Courses)
     })
 
-    // this.userService.currentCourse.subscribe((selectedCourse:any) =>{
-    //   this.selectedCourse = selectedCourse
-    //   if (this.selectedCourse[0].Year == "1"){
-    //     this.SelectedFirstYearCourses = [];
-    //   }
-    //   if (this.selectedCourse[0].Year == "2"){
-    //     this.SelectedSecondYearCourses = [];
-    //   }
-    //   if (this.selectedCourse[0].Year == "3"){
-    //     this.SelectedThirdYearCourses = [];
-    //   }
-    //   for (let i = 0;i<this.selectedCourse.length;i++){
-    //     if (this.selectedCourse[i].Year == "1"){
-    //       this.SelectedFirstYearCourses.push(this.selectedCourse[i])
-    //     }
-    //     if (this.selectedCourse[i].Year == "2"){
-    //       this.SelectedSecondYearCourses.push(this.selectedCourse[i])
-    //     }
-    //     if (this.selectedCourse[i].Year == "3"){
-    //       this.SelectedThirdYearCourses.push(this.selectedCourse[i])
-    //     }
-    //   }
-    // })
+    this.userService.currentCourse.subscribe((selectedCourse:any) =>{
+      this.selectedCourse = selectedCourse
+      if (this.selectedCourse[0].Year == "1"){
+        this.SelectedFirstYearCourses = [];
+      }
+      if (this.selectedCourse[0].Year == "2"){
+        this.SelectedSecondYearCourses = [];
+      }
+      if (this.selectedCourse[0].Year == "3"){
+        this.SelectedThirdYearCourses = [];
+      }
+      for (let i = 0;i<this.selectedCourse.length;i++){
+        if (this.selectedCourse[i].Year == "1"){
+          this.SelectedFirstYearCourses.push(this.selectedCourse[i])
+        }
+        if (this.selectedCourse[i].Year == "2"){
+          this.SelectedSecondYearCourses.push(this.selectedCourse[i])
+        }
+        if (this.selectedCourse[i].Year == "3"){
+          this.SelectedThirdYearCourses.push(this.selectedCourse[i])
+        }
+      }
+    })
 
   }
   openCourseView(year:string):void{
@@ -263,7 +304,7 @@ export class UserPageComponent implements OnInit {
     //first yearchecks
     for(let i=0;i<FirstCoReqs.length;i++){ 
       if(!AllFirstYearCourses.includes(FirstCoReqs[i])){
-        console.warn('Missing CoReq 1')
+
         if(!this.MissingFirstYear.includes(FirstCoReqs[i])){
           this.MissingFirstYear.push(FirstCoReqs[i])
         }
@@ -273,7 +314,7 @@ export class UserPageComponent implements OnInit {
   
       for(let i=0;i<SecondPreReqs.length;i++){ 
         if(!AllFirstYearCourses.includes(SecondPreReqs[i])){
-          console.warn('Missing PreReq 2')
+
           if(!this.MissingFirstYear.includes(SecondPreReqs[i])){
             this.MissingFirstYear.push(SecondPreReqs[i])
           }
@@ -281,7 +322,7 @@ export class UserPageComponent implements OnInit {
       }
       for(let i=0;i<SecondCoReqs.length;i++){ 
         if(!AllSecondYearCourses.includes(SecondCoReqs[i])){
-          console.warn('Missing CoReq 2')
+
           if(!this.MissingSecondYear.includes(SecondCoReqs[i])){
             this.MissingSecondYear.push(SecondCoReqs[i])
           }
@@ -291,7 +332,7 @@ export class UserPageComponent implements OnInit {
   
   for(let i=0;i<ThirdPreReqs.length;i++){ 
     if(!AllSecondYearCourses.includes(ThirdPreReqs[i])){
-      console.warn('Missing PreReq 3')
+
       if(!this.MissingSecondYear.includes(ThirdPreReqs[i])){
         this.MissingSecondYear.push(ThirdPreReqs[i])
       }
@@ -299,7 +340,7 @@ export class UserPageComponent implements OnInit {
   }
   for(let i=0;i<ThirdCoReqs.length;i++){ 
     if(!AllThirdYearCourses.includes(ThirdCoReqs[i])){
-      console.warn('Missing CoReq 3')
+
       if(!this.MissingThirdYear.includes(ThirdCoReqs[i])){
         this.MissingThirdYear.push(ThirdCoReqs[i])
       }
