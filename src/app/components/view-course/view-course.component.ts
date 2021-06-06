@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Course } from 'src/app/shared/models';
 import { CourseService } from 'src/app/shared/services/course.services';
 import { UserService } from 'src/app/shared/services/user.services';
+//import {UserPageComponent} from 'src/app/components/user-page/user-page.component'
 
 @Component({
   selector: 'app-view-course',
@@ -23,11 +24,15 @@ export class ViewCourseComponent implements OnInit {
   subscription: Subscription | undefined;
   selection = new SelectionModel<Course>(true, []);
   constructor(
-    public dialogRef: MatDialogRef<ViewCourseComponent>,public courseService:CourseService,public userService:UserService) {}
+    public dialogRef: MatDialogRef<ViewCourseComponent>,
+    public courseService:CourseService,
+    public userService:UserService,){}
+    //public oldSelected: UserPageComponent) {}
 
     ngOnInit() {
       this.subscription = this.userService.currentMessage.subscribe( (message:any) => this.selectedYear = message)
       this.applyFilter("");
+    
     }
   close(): void {
     this.dialogRef.close();
@@ -69,6 +74,7 @@ export class ViewCourseComponent implements OnInit {
   submitSelection():void {
     this.userService.changeCourse(this.selection.selected);
     //console.log(this.selection.selected);
+    // console.log(this.oldSelected.SelectedFirstYearCourses)
     this.close()
   }
   // addCourse(course:any){
