@@ -131,6 +131,7 @@ export class UserPageComponent implements OnInit {
    // console.log(this.year1Courses,this.year2Courses,this.year3Courses)
     })
 
+
     this.userService.currentCourse.subscribe((selectedCourse:any) =>{
       this.selectedCourse = selectedCourse
       if (this.selectedCourse[0].Year == "1"){
@@ -181,9 +182,9 @@ export class UserPageComponent implements OnInit {
 
   countcoursecredits1(): any[]{
     let counter1:number = 0;
-    for (let i =0;i<this.SelectedFirstYearCourses.length;i++){
-      if (this.SelectedFirstYearCourses[i].Year == "1"){
-        counter1 += Number(this.SelectedFirstYearCourses[i].Credits)
+    for (let i =0;i<this.year1Courses.length;i++){
+      if (this.year1Courses[i].Year == "1"){
+        counter1 += Number(this.year1Courses[i].Credits)
       }
     }
     this.creditCounter1 = counter1;
@@ -192,9 +193,9 @@ export class UserPageComponent implements OnInit {
   }
   countcoursecredits2(): any[]{
     let counter2:number = 0;
-    for (let i =0;i<this.SelectedSecondYearCourses.length;i++){
-      if (this.SelectedSecondYearCourses[i].Year == "2"){
-        counter2 += Number(this.SelectedSecondYearCourses[i].Credits)
+    for (let i =0;i<this.year2Courses.length;i++){
+      if (this.year2Courses[i].Year == "2"){
+        counter2 += Number(this.year2Courses[i].Credits)
       }
     }
     this.creditCounter2 = counter2;
@@ -203,9 +204,9 @@ export class UserPageComponent implements OnInit {
   }
   countcoursecredits3(): any[]{
     let counter3:number = 0;
-    for (let i =0;i<this.SelectedThirdYearCourses.length;i++){
-      if (this.SelectedThirdYearCourses[i].Year == "3"){
-        counter3 += Number(this.SelectedThirdYearCourses[i].Credits)
+    for (let i =0;i<this.year3Courses.length;i++){
+      if (this.year3Courses[i].Year == "3"){
+        counter3 += Number(this.year3Courses[i].Credits)
       }
     }
     this.creditCounter3 = counter3;
@@ -222,7 +223,7 @@ export class UserPageComponent implements OnInit {
     let PTClashes=[];
 
     for(let i=0;i<yearCourse.length;++i){
-      console.log('shareable, ',yearCourse[i].Shareable)
+      // console.log('shareable, ',yearCourse[i].Shareable)
       if(yearCourse[i].Slot.includes("A") ){
         AClashes.push(yearCourse[i])
       }
@@ -292,7 +293,8 @@ export class UserPageComponent implements OnInit {
     if(EClashes.length===1){
       EClashes.pop()
     }
-    console.log(AClashes,BClashes,CClashes,DClashes,EClashes)
+    
+
     return AClashes.concat(BClashes,CClashes,DClashes,EClashes)
   }
   
