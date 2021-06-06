@@ -10,4 +10,5 @@ export interface Course {
     Year: string;
     Co_requisite: string;
     Pre_requisite: string;
+    Shareable: string;
 }

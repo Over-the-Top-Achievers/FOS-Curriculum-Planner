@@ -1,4 +1,4 @@
-import { ArrayType, ThrowStmt } from '@angular/compiler';
+import { ArrayType, AST, ThrowStmt } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router'
 import "node_modules/bootstrap/scss/bootstrap.scss"
@@ -51,7 +51,9 @@ export class UserPageComponent implements OnInit {
   creditCounter1:number = 0;
   creditCounter2:number = 0;
   creditCounter3:number = 0;
-
+  year1Clashes:any=[];
+  year2Clashes:any=[];
+  year3Clashes:any=[];
   sharable = [ "COMS","MATH","STAT"];
   diagonals = ["A","B","C","D","E"];
 
@@ -118,13 +120,13 @@ export class UserPageComponent implements OnInit {
     this.userService.currentCourse.subscribe((message:any) => {
    
     if(this.message =="1"){
-      this.year1Courses=message;
+      this.year1Courses=this.year1Courses.concat(message);
     }
     if(this.message =="2"){
-      this.year2Courses=message;
+      this.year2Courses=this.year2Courses.concat(message);
     }
     if(this.message =="3"){
-      this.year3Courses=message;
+      this.year3Courses=this.year3Courses.concat(message);
     }
    // console.log(this.year1Courses,this.year2Courses,this.year3Courses)
     })
@@ -161,7 +163,10 @@ export class UserPageComponent implements OnInit {
     this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent);//opens view-course
     this.viewDetailsDialogRef.afterClosed().subscribe((s:any)=>{ //validation of pre/co reqs
       this.ValidateCourseRequirements()
-      this.ValidateDiagonals();
+      this.year1Clashes= this.ValidateDiagonals(this.year1Courses);
+      this.year2Clashes= this.ValidateDiagonals(this.year2Courses);
+      this.year3Clashes= this.ValidateDiagonals(this.year3Courses);
+
     });
     this.newMessage(year); //submits year to view-course component
   }
@@ -172,6 +177,7 @@ export class UserPageComponent implements OnInit {
   displayMissingCourse(): any[]{
     return(this.ValidateCourseRequirements());
   }
+
 
   countcoursecredits1(): any[]{
     let counter1:number = 0;
@@ -206,9 +212,8 @@ export class UserPageComponent implements OnInit {
     return[[this.creditCounter3]]
     //console.log(counter)
   }
-  ValidateDiagonals() :void{
-    //check prefix e.g COMS.APPM
 
+  ValidateDiagonals(yearCourse:Course[]) :any{
     let AClashes=[];
     let BClashes=[];
     let CClashes=[];
@@ -216,28 +221,81 @@ export class UserPageComponent implements OnInit {
     let EClashes=[];
     let PTClashes=[];
 
-    for(let i=0;i<this.year1Courses.length;++i){
-      if(this.year1Courses[i].Slot.includes("A") ){
-        AClashes.push(this.year1Courses[i].Course_Code)
+    for(let i=0;i<yearCourse.length;++i){
+      console.log('shareable, ',yearCourse[i].Shareable)
+      if(yearCourse[i].Slot.includes("A") ){
+        AClashes.push(yearCourse[i])
       }
-      if(this.year1Courses[i].Slot.includes("B")){
-        BClashes.push(this.year1Courses[i].Course_Code)
+      if(yearCourse[i].Slot.includes("B")){
+        BClashes.push(yearCourse[i])
       }
-      if(this.year1Courses[i].Slot.includes("C")){
-        CClashes.push(this.year1Courses[i].Course_Code)
+      if(yearCourse[i].Slot.includes("C")){
+        CClashes.push(yearCourse[i])
       }
-      if(this.year1Courses[i].Slot.includes("D")){
-        DClashes.push(this.year1Courses[i].Course_Code)
+      if(yearCourse[i].Slot.includes("D")){
+        DClashes.push(yearCourse[i])
       }
-      if(this.year1Courses[i].Slot.includes("E")){
-        EClashes.push(this.year1Courses[i].Course_Code)
+      if(yearCourse[i].Slot.includes("E")){
+        EClashes.push(yearCourse[i])
       }
-      if(this.year1Courses[i].Slot.includes("PT")){
-        PTClashes.push(this.year1Courses[i].Course_Code)
+      if(yearCourse[i].Slot.includes("PT")){
+        PTClashes.push(yearCourse[i])
       }
     }
-    console.log(AClashes,BClashes)
+    let ACode:String[] = AClashes.map(function(c){return c.Course_Code})
+
+    for(let i =0 ;i<AClashes.length;++i){
+      if(ACode.includes(AClashes[i].Shareable) ){
+        AClashes = AClashes.slice(0,i).concat(AClashes.slice(i+1))
+      }
+    }
+    let BCode:String[] = BClashes.map(function(c){return c.Course_Code})
+
+    for(let i =0 ;i<BClashes.length;++i){
+      if(BCode.includes(BClashes[i].Shareable)){
+        BClashes = BClashes.slice(0,i).concat(BClashes.slice(i+1))
+      }
+    }
+    let CCode:String[] = CClashes.map(function(c){return c.Course_Code})
+
+    for(let i =0 ;i<CClashes.length;++i){
+      if(CCode.includes(CClashes[i].Shareable) ){//
+        CClashes = CClashes.slice(0,i).concat(CClashes.slice(i+1))
+      }
+    }
+    let DCode:String[] = DClashes.map(function(c){return c.Course_Code})
+
+    for(let i =0 ;i<DClashes.length;++i){
+      if(DCode.includes(DClashes[i].Shareable)){
+        DClashes = DClashes.slice(0,i).concat(DClashes.slice(i+1))
+      }
+    }
+    let ECode:String[] = EClashes.map(function(c){return c.Course_Code})
+
+    for(let i =0 ;i<EClashes.length;++i){
+      if(ECode.includes(EClashes[i].Shareable) ){
+        EClashes = EClashes.slice(0,i).concat(EClashes.slice(i+1))
+      }
+    }
+    if(AClashes.length===1){
+      AClashes.pop();
+    }
+    if(BClashes.length===1){
+      BClashes.pop()
+    }
+    if(CClashes.length===1){
+      CClashes.pop()
+    }
+    if(DClashes.length===1){
+      DClashes.pop()
+    }
+    if(EClashes.length===1){
+      EClashes.pop()
+    }
+    console.log(AClashes,BClashes,CClashes,DClashes,EClashes)
+    return AClashes.concat(BClashes,CClashes,DClashes,EClashes)
   }
+  
   ValidateCourseRequirements(): any[] {
     let PreReqs1:string="";
     let CoReqs1:string="";
@@ -249,6 +307,7 @@ export class UserPageComponent implements OnInit {
     this.MissingFirstYear= [];
     this.MissingSecondYear= [];
     this.MissingThirdYear= [];
+
     for(let i=0;i<this.year1Courses.length;i++){
       PreReqs1 = PreReqs1.concat(this.year1Courses[i].Pre_requisite)
       CoReqs1 = CoReqs1.concat(this.year1Courses[i].Co_requisite)
