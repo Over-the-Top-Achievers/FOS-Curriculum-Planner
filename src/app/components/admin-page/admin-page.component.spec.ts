@@ -41,6 +41,7 @@ describe('AdminPageComponent', () => {
   it('should create form',()=>{
     expect(component.checkoutForm.valid).toBeTruthy()
   })
+//for add course
   it('should open pre req dialog',()=>{
     const spy = spyOn(component, 'openCourseView');
     component.setPreReqs("1")
@@ -51,6 +52,19 @@ describe('AdminPageComponent', () => {
     component.setCoReqs("1")
     expect(spy).toHaveBeenCalled()
   })
+//for edit course
+  it('should open pre req dialog',()=>{
+    const spy = spyOn(component, 'openCourseView');
+    component.setPreReqs("0")
+    expect(spy).toHaveBeenCalled()
+  })
+  it('should open co req dialog',()=>{
+    const spy = spyOn(component, 'openCourseView');
+    component.setCoReqs("0")
+    expect(spy).toHaveBeenCalled()
+  })
+
+
   it('download should create element',()=>{
     const data = "{data:1}" as unknown as Blob
 
