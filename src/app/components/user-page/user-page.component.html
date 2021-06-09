@@ -1,10 +1,12 @@
 <h1 style="text-align: center; color: white; font-size: 36px; padding-top: 16px;">Faculty Of Science Curriculum Planner</h1>
 <body>
     <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
-        <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
-            <button mat-button (click)="openCourseView('1')">year 1</button>
-            <mat-card-header>
-                <mat-card-title>FIRST YEAR</mat-card-title>
+        <mat-card fxFlex="25%" style="height: 800px; vertical-align: middle;">
+            <div style = 'padding-left: 80%'>
+                <button mat-button (click)="openCourseView('1')" style="background-color: blue;  color: antiquewhite; width:100%; height:80%; font-size: larger;">Year 1</button>
+            </div>
+            <mat-card-header style = 'padding-top: 5%;'>
+                <mat-card-title style="font-size: x-large;">FIRST YEAR</mat-card-title>
             </mat-card-header>
             
         <table mat-table [dataSource]="year1Courses" >
@@ -39,10 +41,12 @@
         
         </mat-card>
 
-        <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
-            <button mat-button (click)="openCourseView('2')">year 2</button>
-            <mat-card-header>
-                <mat-card-title>SECOND YEAR</mat-card-title>
+        <mat-card fxFlex="25%" style="height: 800px; vertical-align: middle;">
+            <div style = 'padding-left: 80%'>
+                <button mat-button (click)="openCourseView('2')" style="background-color: blue;  color: antiquewhite; width:100%; height:80%; font-size: larger;">Year 2</button>
+            </div>
+            <mat-card-header style = 'padding-top: 5%;'>
+                <mat-card-title style="font-size: x-large;">SECOND YEAR</mat-card-title>
             </mat-card-header>
 
             <table mat-table [dataSource]="year2Courses" >
@@ -77,10 +81,12 @@
 
         </mat-card>
 
-        <mat-card fxFlex="25%" style="height: 600px; vertical-align: middle;">
-            <button mat-button (click)="openCourseView('3')">year 3</button>
-            <mat-card-header>
-                <mat-card-title>THIRD YEAR</mat-card-title>
+        <mat-card fxFlex="25%" style="height: 800px; vertical-align: middle;">
+            <div style = 'padding-left: 80%'>
+                <button mat-button (click)="openCourseView('3')" style="background-color: blue;  color: antiquewhite; width:100%; height:80%; font-size: larger;">Year 3</button>
+            </div>
+            <mat-card-header style = 'padding-top: 5%;'>
+                <mat-card-title style="font-size: x-large;">THIRD YEAR</mat-card-title>
             </mat-card-header>
 
             <table mat-table [dataSource]="year3Courses" >
@@ -115,42 +121,75 @@
         </mat-card>
     </div>
     <!-- this following mat-card is for displaying the missing/ required courses -->
-    <div fxLayout = 'column' style="padding-top: 16px; padding-left: 100px; padding-right: 100px;" fxLayoutAlign="center" fxLayoutGap="2%">
-        <mat-card>
-            <mat-card-title>missing courses and credits</mat-card-title>
-                <h2>The courses and credits missing for year 1: </h2>
-                    <div *ngFor="let item of displayMissingCourse()[0]" >
-                        {{item}}
-                    </div>
-                    <h3>Possible clashes:</h3>
-                    <div *ngFor="let item of year1Clashes;">
-                        {{item.Course_Code}}
-                    </div>
-                    <div *ngFor="let credit of countcoursecredits1()[0]">
-                        {{credit}} credits out of 144
-                    </div>
-                <h2>The courses and credits missing for year 2: </h2>
-                    <div *ngFor="let item of displayMissingCourse()[1]" >
-                        {{item}}
-                    </div>
-                    <h3>Possible clashes:</h3>
-                    <div *ngFor="let item of year2Clashes;">
-                        {{item.Course_Code}}
-                    </div>
-                    <div *ngFor="let credit of countcoursecredits2()[0]">
-                        {{credit}} credits out of 144
-                    </div>
-                <h2>The courses and credits missing for year 3: </h2>
-                    <div *ngFor="let item of displayMissingCourse()[2]" >
-                        {{item}}
-                    </div>
-                    <h3>Possible clashes:</h3>
-                    <div *ngFor="let item of year3Clashes;">
-                        {{item.Course_Code}}
-                    </div>
-                    <div *ngFor="let credit of countcoursecredits3()[0]">
-                        {{credit}} credits out of 144
-                    </div>
+    <div fxLayout = 'row' style="padding-top: 2%;" fxLayoutAlign="center" fxLayoutGap="2%" >
+        <mat-card fxFlex="25%" style="height: 650px; vertical-align: middle;">
+            <div>
+                <h2>COURSES MISSING:</h2>
+                <div *ngFor="let item of displayMissingCourse()[0]" >
+                    {{item}}
+                </div>
+            </div>
+
+            <div style="padding-top: 30px">
+                <h2>POSSIBLE CLASHES:</h2>
+                <div *ngFor="let item of year1Clashes;">
+                    {{item.Course_Code}}
+                </div>
+            </div>
+
+            <div style="padding-top: 30px">
+                <h2>CURRENT CREDIT:</h2>
+                <div *ngFor="let credit of countcoursecredits1()[0]">
+                    {{credit}} credits out of 144
+                </div>
+            </div>
+
+        </mat-card>
+
+        <mat-card fxFlex="25%" style="height: 650px; vertical-align: middle;">
+            <div>
+                <h2>COURSES MISSING:</h2>
+                <div *ngFor="let item of displayMissingCourse()[1]" >
+                    {{item}}
+                </div>
+            </div>
+
+            <div style="padding-top: 30px">
+                <h2>POSSIBLE CLASHES:</h2>
+                <div *ngFor="let item of year2Clashes;">
+                    {{item.Course_Code}}
+                </div>
+            </div>
+
+            <div style="padding-top: 30px">
+                <h2>CURRENT CREDIT:</h2>
+                <div *ngFor="let credit of countcoursecredits2()[0]">
+                    {{credit}} credits out of 144
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card fxFlex="25%" style="height: 650px; vertical-align: middle;">
+            <div>
+                <h2>COURSES MISSING:</h2>
+                <div *ngFor="let item of displayMissingCourse()[2]" >
+                    {{item}}
+                </div>
+            </div>
+
+            <div style="padding-top: 30px">
+                <h2>POSSIBLE CLASHES:</h2>
+                <div *ngFor="let item of year3Clashes;">
+                    {{item.Course_Code}}
+                </div>
+            </div>
+
+            <div style="padding-top: 30px">
+                <h2>CURRENT CREDIT:</h2>
+                <div *ngFor="let credit of countcoursecredits3()[0]">
+                    {{credit}} credits out of 144
+                </div>
+            </div>
         </mat-card>
     </div>
 </body>
