@@ -32,15 +32,219 @@ describe('UserPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  // it('closing dialog should call diagonal validation',()=>{
+  //   component.openCourseView('0');
+  //   component.viewDetailsDialogRef.close()
+  //   const spy = spyOn(component.viewDetailsDialogRef,'afterClosed').and.callThrough();
 
-  it('openCourseView should call service',()=>{
-    const userServiceSpy= spyOn(component.userService, 'changeMessage').and.callThrough();
-    expect(userServiceSpy).not.toHaveBeenCalled()
-    component.openCourseView("0")
-    expect(userServiceSpy).toHaveBeenCalled()
-    component.viewDetailsDialogRef.close()
+  //   expect(spy).toHaveBeenCalled()
+  // })
+  // these are not testing properly
+  // it('closing dialog should call pre/co req validation',()=>{
+  //   const spy = spyOn(component,'ValidateCourseRequirements')
+  //   component.openCourseView('0');
+  //   component.viewDetailsDialogRef.close()
+  //   expect(spy).toHaveBeenCalled()
+
+  // })
+  // it('openCourseView should call service',()=>{
+  //   const userServiceSpy= spyOn(component.userService, 'changeMessage').and.callThrough();
+  //   expect(userServiceSpy).not.toHaveBeenCalled()
+  //   component.openCourseView("0")
+  //   expect(userServiceSpy).toHaveBeenCalled()
+  //   component.viewDetailsDialogRef.close()
+  // })
+  it('check diagonals 1',()=>{
+    const courseArray=[{
+      _id : "",
+      Course_Code:"MATH1036",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A",
+      Semester: "",
+      Year: "1",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    }]
+    const value = component.ValidateDiagonals(courseArray)
+    expect(value).toEqual([])
   })
-
+  it('check diagonals 2',()=>{
+    const courseArray=[{
+      _id : "",
+      Course_Code:"T1",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "T2",
+    },{
+      _id : "",
+      Course_Code:"T2",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "T1",
+    }]
+    const value = component.ValidateDiagonals(courseArray)
+    expect(value).toEqual([])
+  })
+  it('check diagonals 3',()=>{
+    const courseArray=[{
+      _id : "",
+      Course_Code:"T1",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    },{
+      _id : "",
+      Course_Code:"T2",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    }]
+    const value = component.ValidateDiagonals(courseArray)
+    expect(value).toEqual(courseArray)
+  })
+  it('check diagonals 4',()=>{
+    const courseArray=[{
+      _id : "",
+      Course_Code:"T1",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "T2",
+    },{
+      _id : "",
+      Course_Code:"T2",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "T1",
+    }]
+    const value = component.ValidateDiagonals(courseArray)
+    expect(value).toEqual([])
+  })
+  it('check diagonals 5',()=>{
+    const courseArray=[{
+      _id : "",
+      Course_Code:"T1",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "B",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    },{
+      _id : "",
+      Course_Code:"T2",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "B",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    }]
+    const value = component.ValidateDiagonals(courseArray)
+    expect(value).toEqual(courseArray)
+  })
+  it('check diagonals 6',()=>{
+    const courseArray=[{
+      _id : "",
+      Course_Code:"T1",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "T2",
+    },{
+      _id : "",
+      Course_Code:"T2",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "T1",
+    }]
+    const value = component.ValidateDiagonals(courseArray)
+    expect(value).toEqual([])
+  })
+  it('check diagonals 7',()=>{
+    const courseArray=[{
+      _id : "",
+      Course_Code:"T1",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "C",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    },{
+      _id : "",
+      Course_Code:"T2",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "D",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    }] //should not collide
+    const value = component.ValidateDiagonals(courseArray)
+    expect(value).toEqual([])
+  })
   it('should total the course credits for 1st year',()=>{
     component.year1Courses=[{
       _id : "",
