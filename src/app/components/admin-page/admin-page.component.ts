@@ -144,7 +144,6 @@ export class AdminPageComponent implements OnInit {
      if(this.currentForm === '0'){
       let something =  this.updateForm.value.Course_Code
       this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder, Course_Code: something}) //changes the form value 
-      console.log("brbjfsoddijoijdasijaosdjadsidasd")
       console.log(something)
      }
 
