@@ -1,20 +1,27 @@
 <header fxLayout="row" style="padding-top: 16px; padding-bottom: 32px;">
     <!-- <pre>{{courseService.courses$ | async | json}}</pre> -->
-    <div style="padding-left: 24px;">
-        <h1 style="padding-left: 16px;">VIEW COURSE</h1>
-        <mat-form-field appearance="fill">
-            <mat-label>Choose a Year of Study</mat-label>
-            <mat-select>
-              <mat-option (click)="refresh()">None</mat-option>
-              <mat-option *ngFor="let year of years" [value]="year" (click)='displayYearCourse(year)'>{{year}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+    <div style="padding-left: 38%;" >
+        <mat-card>
+            <h1 style="padding-left: 16px;">VIEW COURSE</h1>
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a Year of Study</mat-label>
+                <mat-select>
+                <mat-option (click)="refresh()">None</mat-option>
+                <mat-option *ngFor="let year of years" [value]="year" (click)='displayYearCourse(year)'>{{year}}</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <button mat-menu-item (click)="getCSV();" >Export to csv</button> 
-        <button style="padding-left: 16px; padding-top: 6px; " mat-button [matMenuTriggerFor]="menu" id="select_course">SELECT COURSE</button>
-            <mat-menu #menu="matMenu" style="padding-left: 16px;"> 
-                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="displayCourseInfo(course)" style="column-width: 120px;">{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
-            </mat-menu>  
+            <div>
+                <button mat-flat-button (click)="getCSV();" color="accent">Export course list to csv</button> 
+            </div>            
+
+            <div style="padding-left: 0%; padding-top: 5%; padding-bottom: 5%;">
+                <button mat-button [matMenuTriggerFor]="modify" id="select_course" color="accent" style="background-color:lightgrey;">SELECT COURSE TO UPDATE</button>
+                <mat-menu #modify="matMenu" > 
+                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
+                </mat-menu>
+            </div>
+        </mat-card>         
     </div> 
 
     <div *ngIf='selectedCourse' style='padding-left: 64px; padding-top: 48px;'>
@@ -174,14 +181,11 @@
 <body fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
     
     <mat-card fxFlex="25%" style="height: 1000px; vertical-align: middle;">
-        <mat-card-header>
-            <mat-card-title>ADD COURSE</mat-card-title>
-        </mat-card-header>
-    <div >
+    <h1>ADD COURSE</h1>
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="12%" style="padding-bottom: 5%;">
         <button mat-flat-button  (click)="setPreReqs('1')" color="accent">Add Pre Requisite</button>
         <button mat-flat-button  (click)="setCoReqs('1')" color="accent">Add Co Requisite</button>
-    </div>
-    
+    </div>    
 
     <form [formGroup]="checkoutForm" (ngSubmit)="addCourse()" >
         <div>
@@ -241,17 +245,17 @@
         </div>
 
         <div>
-        <mat-form-field appearance="outline" style="padding-left: 16px; padding-right: 16px;">
-            <mat-label for="Co_Requisite">CO REQUISITE</mat-label>
-            <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Co_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-        </mat-form-field>
-        </div>
-       
-        <div>
-        <button mat-mini-fab color="accent" type="submit" (click)='refresh()'>
-            <mat-icon >add</mat-icon>
-        </button>
-        </div>
+            <mat-form-field appearance="outline" style="padding-left: 16px; padding-right: 16px;">
+                <mat-label for="Co_Requisite">CO REQUISITE</mat-label>
+                <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Co_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+            </mat-form-field>            
+        </div>           
+           
+        <div style="padding-left: 5%;">
+            <button mat-mini-fab color="accent" type="submit" (click)='refresh()'>
+                <mat-icon >add</mat-icon>
+            </button> 
+        </div>        
     </form>        
 
     </mat-card>
@@ -261,15 +265,18 @@
         <form [formGroup]="updateForm" (ngSubmit)="updateCourse()"  >
             <h1>UPDATE COURSE</h1>
 
-            <div >
+            <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="12%">
                 <button mat-flat-button  (click)="setPreReqs('0')" color="accent">Add Pre Requisite</button>
                 <button mat-flat-button  (click)="setCoReqs('0')" color="accent">Add Co Requisite</button>
             </div>
 
-            <button style="padding-left: 16px; padding-top: 6px; " mat-button [matMenuTriggerFor]="modify" id="select_course">SELECT COURSE</button>
-            <mat-menu #modify="matMenu" > 
-              <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
-          </mat-menu>
+            <div style="padding-left: 5%; padding-top: 5%; padding-bottom: 5%;">
+                <button mat-button [matMenuTriggerFor]="modify" id="select_course" color="accent" style="background-color:lightgrey;">SELECT COURSE TO UPDATE</button>
+                <mat-menu #modify="matMenu" > 
+                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
+                </mat-menu>
+            </div>
+            
             <p>
                 <mat-form-field appearance="outline" style="padding-left: 16px;">
                     <mat-label for="Course_Code">COURSE CODE</mat-label>
@@ -319,21 +326,21 @@
         </form>
     </mat-card>
     <mat-card fxFlex="25%" style="height:1000px; vertical-align: middle;">
-        <mat-card-header>
-            <mat-card-title>DELETE COURSE</mat-card-title>
-        </mat-card-header>
+        <h1>DELETE COURSE</h1>
 
-        <div style="padding-left: 36px; padding-top: 24px;">
+        <div style="padding-left: 0%; padding-top: 5%;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="30%">
             <mat-form-field>
                 <mat-label>COURSE</mat-label>
                 <mat-select #fontSize value="16px"   name = 'coursesToDelete'  ngDefaultControl [(ngModel)]='courseToDelete'>
                     <mat-option *ngFor = "let course of courses$ | async;" mat-option-item [value]="course" >{{course.Course_Code}}</mat-option>
                 </mat-select>
             </mat-form-field>
+
+            <button mat-mini-fab color="accent" (click)="deleteCourse(courseToDelete)" >
+                <mat-icon >delete</mat-icon>
+            </button>           
         </div>
-        <button mat-mini-fab color="accent" (click)="deleteCourse(courseToDelete)" >
-            <mat-icon >delete</mat-icon>
-        </button>
+        
     </mat-card>
 
 </body>
