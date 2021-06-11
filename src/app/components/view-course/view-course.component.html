@@ -1,6 +1,6 @@
 <section style="padding: 15px;">
     <div matDialogTitle>
-        <div class="mat-h1">Choose course for year {{selectedYear}}</div>
+        <div class="mat-h1">CHOOSE COURSE</div>
     </div>
     
     <mat-form-field>
@@ -19,7 +19,7 @@
 
     <table mat-table [dataSource]="dataSource" >
         <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef>yes
+            <th mat-header-cell *matHeaderCellDef>
             </th>
             <td mat-cell *matCellDef="let row">
               <mat-checkbox (click)="$event.stopPropagation()"

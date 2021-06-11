@@ -49,6 +49,7 @@ export class AdminPageComponent implements OnInit {
     Year:'',
     Pre_requisite:'',
     Co_requisite:'',
+    Shareable:''
   });
   subscription: any;
   viewDetailsDialogRef!: MatDialogRef<unknown, any>;
@@ -71,7 +72,7 @@ export class AdminPageComponent implements OnInit {
     // if(this.currentForm === '0'){
     //   this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
     //  }
-     console.log(this.updateForm)
+    //  console.log(this.updateForm)
   }
   openCourseView(paramater:string):void{//opens the course viewer
 
@@ -106,7 +107,7 @@ export class AdminPageComponent implements OnInit {
     a.download = fileName;
     document.body.appendChild(a);
     a.click();
-    console.log(this.csvdata)
+    // console.log(this.csvdata)
     return a;
   }
 
@@ -115,7 +116,7 @@ export class AdminPageComponent implements OnInit {
     this.courseService.getCourses().subscribe(
       data => {
         this.dataSource = data as Course[];
-        console.log(this.dataSource)
+        // console.log(this.dataSource)
       }
     )
 
@@ -144,7 +145,7 @@ export class AdminPageComponent implements OnInit {
      if(this.currentForm === '0'){
       let something =  this.updateForm.value.Course_Code
       this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder, Course_Code: something}) //changes the form value 
-      console.log(something)
+      console.log('hello', something)
      }
 
       })
@@ -173,9 +174,8 @@ export class AdminPageComponent implements OnInit {
 
      
       //delete stuff here 
-      console.log(courseCode.Course_Code);
       this.http.delete('http://localhost:8080/courses', options).subscribe((s) => {
-        console.log(s);
+
         this.refresh()
       });
       
@@ -189,8 +189,6 @@ addCourse(): void {
   //this.items = this.courseService.clearCart();
   this.checkoutForm.get('Pre_requisite')!.enable();
   this.checkoutForm.get('Co_requisite')!.enable();
-  console.warn('Course is being added to the database.', this.checkoutForm.value);
-
   var options = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -209,7 +207,7 @@ addCourse(): void {
   };
 
   this.courseService.addCourse(options.body).subscribe((s) => {
-    console.log(s);
+    // console.log(s);
   });
 
   this.checkoutForm.reset();
@@ -221,7 +219,7 @@ addCourse(): void {
 
 
   close(){    
-    console.log('Close button clicked');
+    // console.log('Close button clicked');
     window.location.reload();
   }
 
@@ -284,6 +282,7 @@ addCourse(): void {
     Year:'',
     Pre_requisite:'',
     Co_requisite:'',
+    Shareable:''
   });
   
   updateCourse():void{
