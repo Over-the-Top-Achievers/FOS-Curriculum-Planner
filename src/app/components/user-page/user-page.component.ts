@@ -77,6 +77,7 @@ export class UserPageComponent implements OnInit {
       }
 
       this.SelectedFirstYearCourses = this.afterRemoveYear1;
+      this.year1Clashes = this.year1Courses
       this.afterRemoveYear1 = []
 
       // console.log(this.SelectedFirstYearCourses)
@@ -95,6 +96,7 @@ export class UserPageComponent implements OnInit {
       }
 
       this.SelectedSecondYearCourses = this.afterRemoveYear2;
+      this.year2Clashes = this.year2Courses
       this.afterRemoveYear2 = []
     }
     else if(course.Year==="3"){
@@ -111,6 +113,7 @@ export class UserPageComponent implements OnInit {
       }
 
       this.SelectedThirdYearCourses = this.afterRemoveYear3;
+      this.year3Clashes = this.year3Courses
       this.afterRemoveYear3 = []
     }
 

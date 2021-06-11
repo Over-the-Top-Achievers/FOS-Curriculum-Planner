@@ -1,6 +1,13 @@
+
+<style>
+    body {
+      background-image: url('./../assets/images/bg6.jpg');
+    }
+</style>
+
 <header fxLayout="row" style="padding-top: 16px; padding-bottom: 32px;">
     <!-- <pre>{{courseService.courses$ | async | json}}</pre> -->
-    <div style="padding-left: 38%;" >
+    <div style="padding-left: 41%;">
         <mat-card>
             <h1 style="padding-left: 16px;">VIEW COURSE</h1>
             <mat-form-field appearance="fill">
@@ -12,11 +19,11 @@
             </mat-form-field>
 
             <div>
-                <button mat-flat-button (click)="getCSV();" color="accent">Export course list to csv</button> 
+                <button mat-flat-button (click)="getCSV();" style="background-color:blue; color: white;">Export course list to csv</button> 
             </div>            
 
             <div style="padding-left: 0%; padding-top: 5%; padding-bottom: 5%;">
-                <button mat-button [matMenuTriggerFor]="modify" id="select_course" color="accent" style="background-color:lightgrey;">SELECT COURSE TO UPDATE</button>
+                <button mat-button [matMenuTriggerFor]="modify" id="select_course" color="accent" style="background-color:blue; color: white;">SELECT COURSE TO UPDATE</button>
                 <mat-menu #modify="matMenu" > 
                 <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
                 </mat-menu>
@@ -177,14 +184,13 @@
 
 
 <!-- -->
-
 <body fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
     
-    <mat-card fxFlex="25%" style="height: 1000px; vertical-align: middle;">
+    <mat-card fxFlex="25%" style="height: 95%; vertical-align: middle;">
     <h1>ADD COURSE</h1>
     <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="12%" style="padding-bottom: 5%;">
-        <button mat-flat-button  (click)="setPreReqs('1')" color="accent">Add Pre Requisite</button>
-        <button mat-flat-button  (click)="setCoReqs('1')" color="accent">Add Co Requisite</button>
+        <button mat-flat-button  (click)="setPreReqs('1')" style="background-color:blue; color: white;">Add Pre Requisite</button>
+        <button mat-flat-button  (click)="setCoReqs('1')" style="background-color:blue; color: white;">Add Co Requisite</button>
     </div>    
 
     <form [formGroup]="checkoutForm" (ngSubmit)="addCourse()" >
@@ -252,7 +258,7 @@
         </div>           
            
         <div style="padding-left: 5%;">
-            <button mat-mini-fab color="accent" type="submit" (click)='refresh()'>
+            <button mat-mini-fab style="background-color: blue;" type="submit" (click)='refresh()'>
                 <mat-icon >add</mat-icon>
             </button> 
         </div>        
@@ -260,18 +266,18 @@
 
     </mat-card>
 
-    <mat-card fxFlex="25%" style="height:1000px; vertical-align: middle;">
+    <mat-card fxFlex="25%" style="height:95%; vertical-align: middle;">
 
         <form [formGroup]="updateForm" (ngSubmit)="updateCourse()"  >
             <h1>UPDATE COURSE</h1>
 
             <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="12%">
-                <button mat-flat-button  (click)="setPreReqs('0')" color="accent">Add Pre Requisite</button>
-                <button mat-flat-button  (click)="setCoReqs('0')" color="accent">Add Co Requisite</button>
+                <button mat-flat-button  (click)="setPreReqs('0')" style="background-color:blue; color: white;">Add Pre Requisite</button>
+                <button mat-flat-button  (click)="setCoReqs('0')" style="background-color:blue; color: white;">Add Co Requisite</button>
             </div>
 
             <div style="padding-left: 5%; padding-top: 5%; padding-bottom: 5%;">
-                <button mat-button [matMenuTriggerFor]="modify" id="select_course" color="accent" style="background-color:lightgrey;">SELECT COURSE TO UPDATE</button>
+                <button mat-button [matMenuTriggerFor]="modify" id="select_course" color="accent" style="background-color:blue; color: white;">SELECT COURSE TO UPDATE</button>
                 <mat-menu #modify="matMenu" > 
                 <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
                 </mat-menu>
@@ -318,14 +324,19 @@
                     <mat-label for="Co_Requisite">CO REQUISITE</mat-label>
                     <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Co_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
-        
+
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Course_Code">SHAREABLE</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Course_Code' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                
                 <button mat-mini-fab color="accent" type="submit" (click)='refresh()' >
                     <mat-icon >done</mat-icon>
                 </button>
             </p>
         </form>
     </mat-card>
-    <mat-card fxFlex="25%" style="height:1000px; vertical-align: middle;">
+    <mat-card fxFlex="25%" style="height:95%; vertical-align: middle;">
         <h1>DELETE COURSE</h1>
 
         <div style="padding-left: 0%; padding-top: 5%;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="30%">
@@ -342,5 +353,4 @@
         </div>
         
     </mat-card>
-
 </body>
