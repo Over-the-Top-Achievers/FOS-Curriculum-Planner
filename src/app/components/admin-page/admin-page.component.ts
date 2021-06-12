@@ -189,6 +189,11 @@ addCourse(): void {
   //this.items = this.courseService.clearCart();
   this.checkoutForm.get('Pre_requisite')!.enable();
   this.checkoutForm.get('Co_requisite')!.enable();
+
+  if(this.checkoutForm.value.Course_Code === '' || this.checkoutForm.value.Course_Name === '' || this.checkoutForm.value.Year === '' || this.checkoutForm.value.NQF === '' || this.checkoutForm.value.Slot === '' || this.checkoutForm.value.Semester === ''){
+    alert('please fill in required information')
+    return;
+  }
   var options = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
