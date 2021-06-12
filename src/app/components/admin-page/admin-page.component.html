@@ -22,12 +22,6 @@
                 <button mat-flat-button (click)="getCSV();" style="background-color:#3498DB; color: white; width: 100%;">EXPORT COURSE LIST</button> 
             </div>            
 
-            <div style="padding-left: 0%; padding-top: 5%; padding-bottom: 5%;">
-                <button mat-button [matMenuTriggerFor]="modify" id="select_course" color="accent" style="background-color:#3498DB; color: white; width: 100%;">SELECT COURSE TO UPDATE</button>
-                <mat-menu #modify="matMenu" > 
-                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
-                </mat-menu>
-            </div>
         </mat-card>         
     </div> 
 
