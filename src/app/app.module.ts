@@ -26,6 +26,7 @@ import { UserPageComponent } from './components/user-page/user-page.component';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewCourseComponent } from './components/view-course/view-course.component';
 import { UserService } from './shared/services/user.services';
+import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculator.component';
 
 
 
@@ -39,6 +40,7 @@ import { UserService } from './shared/services/user.services';
     AdminPageComponent,
     UserPageComponent,
     ViewCourseComponent,
+    ApsCalculatorComponent,
   ],
   imports: [
     HttpClientModule,
