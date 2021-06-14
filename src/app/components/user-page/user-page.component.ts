@@ -306,9 +306,13 @@ export class UserPageComponent implements OnInit {
     let missing:String[] = [];
     for(let i=0;i<requirements.length;i++){ 
       if(!courses.includes(requirements[i])){
-        if(!missing.includes(requirements[i])){
+        let index = missing.findIndex(element => element.includes(requirements[i] as string))
+        if(index ===-1){
           missing.push(requirements[i])
         }
+        // if(!missing.includes(requirements[i])){
+          // missing.push(requirements[i])
+        // }
       }
     }
     console.log(missing)
@@ -329,6 +333,12 @@ export class UserPageComponent implements OnInit {
     for(let i=0;i<this.year1Courses.length;i++){
       PreReqs1 = PreReqs1.concat(this.year1Courses[i].Pre_requisite)
       CoReqs1 = CoReqs1.concat(this.year1Courses[i].Co_requisite)
+      if(this.year1Courses[i].Pre_requisite[this.year1Courses[i].Pre_requisite.length - 1]!==';'){
+        PreReqs1 = PreReqs1.concat(";")
+      }
+      if(this.year1Courses[i].Co_requisite[this.year1Courses[i]. Co_requisite.length - 1]!==';'){
+        CoReqs1 = CoReqs1.concat(";")
+      }
       firstyearcredits = firstyearcredits.concat(this.year1Courses[i].Credits)
     }
     let FirstPreReqs:string[] =PreReqs1.split(";");
@@ -346,12 +356,22 @@ export class UserPageComponent implements OnInit {
     for(let i=0;i<this.year2Courses.length;i++){
       PreReqs2 = PreReqs2.concat(this.year2Courses[i].Pre_requisite)
       CoReqs2 = CoReqs2.concat(this.year2Courses[i].Co_requisite)
+      if(this.year2Courses[i].Pre_requisite[this.year2Courses[i].Pre_requisite.length - 1]!==';'){
+        PreReqs2 = PreReqs2.concat(";")
+      }
+      if(this.year2Courses[i].Co_requisite[this.year2Courses[i]. Co_requisite.length - 1]!==';'){
+        CoReqs2 = CoReqs2.concat(";")
+      }
     }
     let SecondPreReqs:string[] =PreReqs2.split(";");
     console.log(SecondPreReqs)
     let SecondCoReqs:string[] =CoReqs2.split(";");
-    SecondPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-    SecondCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    if(SecondPreReqs[SecondPreReqs.length -1]===""){
+      SecondPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    }
+    if(SecondCoReqs[SecondCoReqs.length -1]===""){
+      SecondCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    }
 
 
     for(let i=0;i<this.year3Courses.length;i++){
@@ -360,8 +380,12 @@ export class UserPageComponent implements OnInit {
     }
     let ThirdPreReqs:string[] =PreReqs3.split(";");
     let ThirdCoReqs:string[] =CoReqs3.split(";");
-    ThirdPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-    ThirdCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    if(ThirdPreReqs[ThirdPreReqs.length -1]===""){
+      ThirdPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    }
+    if(ThirdCoReqs[ThirdCoReqs.length -1]===""){
+      ThirdCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    }
 
     let AllThirdYearCourses:String[] =[];
     let AllSecondYearCourses:String[] =[];
