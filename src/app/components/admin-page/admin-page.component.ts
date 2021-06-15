@@ -302,7 +302,8 @@ addCourse(): void {
       newSem:this.updateForm.value.Semester,
       newYear:this.updateForm.value.Year,
       newCoReq:(this.updateForm.value.Co_requisite),
-      newPreReq:this.updateForm.value.Pre_requisite
+      newPreReq:this.updateForm.value.Pre_requisite,
+      newShareable:this.updateForm.value.Shareable
     };
     this.courseService.updateCourse(body);
     
