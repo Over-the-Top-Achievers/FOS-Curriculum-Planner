@@ -206,7 +206,8 @@ addCourse(): void {
       Semester:this.checkoutForm.value.Semester,
       Year:this.checkoutForm.value.Year,
       Pre_requisite:this.checkoutForm.value.Pre_requisite,
-      Co_requisite:this.checkoutForm.value.Co_requisite
+      Co_requisite:this.checkoutForm.value.Co_requisite,
+      Shareable:this.checkoutForm.value.Shareable
     },
     
   };
