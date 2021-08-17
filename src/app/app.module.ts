@@ -27,6 +27,8 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { ViewCourseComponent } from './components/view-course/view-course.component';
 import { UserService } from './shared/services/user.services';
 import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculator.component';
+import { OfferPageComponent } from './offer-page/offer-page.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 
 
@@ -41,6 +43,7 @@ import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculat
     UserPageComponent,
     ViewCourseComponent,
     ApsCalculatorComponent,
+    OfferPageComponent,    
   ],
   imports: [
     HttpClientModule,
@@ -59,8 +62,8 @@ import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculat
     MatInputModule,
     MatDialogModule,
     RouterModule,
-    BrowserAnimationsModule
-    
+    BrowserAnimationsModule,
+    Ng2SmartTableModule,    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
