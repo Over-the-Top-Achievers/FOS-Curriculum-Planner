@@ -26,6 +26,7 @@ import { UserPageComponent } from './components/user-page/user-page.component';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewCourseComponent } from './components/view-course/view-course.component';
 import { UserService } from './shared/services/user.services';
+import { SubjectService } from './shared/services/subject.services';
 import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculator.component';
 import { OfferPageComponent } from './offer-page/offer-page.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
