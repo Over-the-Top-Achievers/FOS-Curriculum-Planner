@@ -27,3 +27,7 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 .unicorn-dark-theme {
   @include angular-material-theme($dark-theme);
 }
+
+body {
+  background-image: url('../assets/images/bg6.jpg');
+}
