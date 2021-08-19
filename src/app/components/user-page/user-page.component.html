@@ -1,14 +1,10 @@
 
-<style>
-    body {
-      background-image: url('./../assets/images/bg6.jpg');
-    }
-    </style>
-<body>
+
+<div>
     <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
         <mat-card fxFlex="25%" style="height: 850px; vertical-align: middle;">
             <div style = 'padding-left: 80%'>
-                <button mat-button (click)="openCourseView('1')" style="background-color: blue;  color: antiquewhite; width:100%; height:80%; font-size: larger;">Year 1</button>
+                <button mat-raised-button (click)="openCourseView('1')" color="primary">Year 1</button>
             </div>
             <mat-card-header style = 'padding-top: 5%;'>
                 <mat-card-title style="font-size: x-large;">FIRST YEAR</mat-card-title>
@@ -40,7 +36,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4"> no course</td>
+                <td class="mat-cell" colspan="4"> No Courses Selected</td>
             </tr>
         </table>
         
@@ -48,7 +44,7 @@
 
         <mat-card fxFlex="25%" style="height: 850px; vertical-align: middle;">
             <div style = 'padding-left: 80%'>
-                <button mat-button (click)="openCourseView('2')" style="background-color: blue;  color: antiquewhite; width:100%; height:80%; font-size: larger;">Year 2</button>
+                <button mat-raised-button (click)="openCourseView('2')" color="primary">Year 2</button>
             </div>
             <mat-card-header style = 'padding-top: 5%;'>
                 <mat-card-title style="font-size: x-large;">SECOND YEAR</mat-card-title>
@@ -80,7 +76,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4"> no course</td>
+                    <td class="mat-cell" colspan="4"> No Courses Selected</td>
                 </tr>
             </table>
 
@@ -88,7 +84,7 @@
 
         <mat-card fxFlex="25%" style="height: 850px; vertical-align: middle;">
             <div style = 'padding-left: 80%'>
-                <button mat-button (click)="openCourseView('3')" style="background-color: blue;  color: antiquewhite; width:100%; height:80%; font-size: larger;">Year 3</button>
+                <button mat-raised-button (click)="openCourseView('3')" color="primary">Year 3</button>
             </div>
             <mat-card-header style = 'padding-top: 5%;'>
                 <mat-card-title style="font-size: x-large;">THIRD YEAR</mat-card-title>
@@ -120,7 +116,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4"> no course</td>
+                    <td class="mat-cell" colspan="4"> No Courses Selected</td>
                 </tr>
             </table>
         </mat-card>
@@ -145,7 +141,7 @@
             <div style="padding-top: 30px">
                 <h2>CURRENT CREDIT:</h2>
                 <div *ngFor="let credit of countcoursecredits1()[0]">
-                    {{credit}} credits out of 144
+                    {{credit}} Credits out of 144
                 </div>
             </div>
 
@@ -169,7 +165,7 @@
             <div style="padding-top: 30px">
                 <h2>CURRENT CREDIT:</h2>
                 <div *ngFor="let credit of countcoursecredits2()[0]">
-                    {{credit}} credits out of 144
+                    {{credit}} Credits out of 144
                 </div>
             </div>
         </mat-card>
@@ -192,9 +188,9 @@
             <div style="padding-top: 30px">
                 <h2>CURRENT CREDIT:</h2>
                 <div *ngFor="let credit of countcoursecredits3()[0]">
-                    {{credit}} credits out of 144
+                    {{credit}} Credits out of 144
                 </div>
             </div>
         </mat-card>
     </div>
-</body>
+</div>
