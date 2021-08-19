@@ -76,6 +76,8 @@ html, body {
   padding: 0;
 }
 
+$header-height: 100px;
+
 body {
   background-image: url('../assets/images/joanna-kosinska-7ACuHoezUYk-unsplash.jpg');
   //background-image: url('../assets/images/sahand-babali-owjrvbyXYyc-unsplash.jpg');
@@ -83,12 +85,17 @@ body {
   background-size: cover;
 }
 
+.content {
+  margin: 20px;
+}
+
 .toolbar-spacer {
   flex: 1 1 auto;
 }
 
 .mat-toolbar {
-  border-bottom: solid 2px #000000;
+  z-index: 1000;
+  box-shadow: 0px 1px 4px #000000;
 }
 
 
@@ -104,4 +111,8 @@ body {
 .title:hover {
   color: #ffffff;
   text-decoration: none;
+}
+
+mat-card.mat-card.mat-focus-indicator {
+  box-shadow: 0px 2px 1px #000000;
 }
