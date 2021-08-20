@@ -38,6 +38,8 @@ export class AdminApsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.updateAPSForm.get('Subject')!.disable();
+
     this.courseService.getSubject().subscribe(
       data => {
         this.dataSource = data as [];
@@ -47,25 +49,45 @@ export class AdminApsComponent implements OnInit {
     )
   }
 
+  populateUpdate(subject:any){
+    delete subject._id
+    this.updateAPSForm.setValue(subject)
+
+  }
+
   subjectToEdit? : string;
   testSubject(subSelect: string){
     console.log(subSelect)
   } 
 
   updateAPSForm = this.formbuilder.group({
-    l100:'',
-    l80:'',
-    l70:'',
-    l60:'',
-    l50:'',
-    l40:'',
-    l30:'',
-    l20:''
+    Subject:'',
+    Level_100_90:'',
+    Level_89_80:'',
+    Level_79_70:'',
+    Level_69_60:'',
+    Level_59_50:'',
+    Level_49_40:'',
+    Level_39_30:'',
+    Level_29_0:''
   });
 
-
   updateAPS():void{
-    return;
+    var body=
+    {
+      oldSubject:this.updateAPSForm.value.Subject, //means never changes the course code right now 
+      newLevel_100_90:this.updateAPSForm.value.Level_100_90,
+      newLevel_89_80:this.updateAPSForm.value.Level_89_80,
+      newLevel_79_70:this.updateAPSForm.value.Level_79_70,
+      newLevel_69_60:this.updateAPSForm.value.Level_69_60,
+      newLevel_59_50:this.updateAPSForm.value.Level_59_50,
+      newLevel_49_40:this.updateAPSForm.value.Level_49_40,
+      newLevel_39_30:this.updateAPSForm.value.Level_39_30,
+      newLevel_29_0:this.updateAPSForm.value.Level_29_0,
+    };
+    this.courseService.updateAPS(body);
+    
+    //this.updateForm.reset();
   }
 
 }

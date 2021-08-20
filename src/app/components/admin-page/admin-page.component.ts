@@ -311,21 +311,4 @@ addCourse(): void {
     //this.updateForm.reset();
   }
 
-  updateAPS():void{
-    var body=
-    {
-      oldSubject:this.updateForm.value.Subject, //means never changes the course code right now 
-      newLevel_100_90:this.updateForm.value.l100,
-      newLevel_89_80:this.updateForm.value.l80,
-      newLevel_79_70:this.updateForm.value.l70,
-      newLevel_69_60:this.updateForm.value.l60,
-      newLevel_59_50:this.updateForm.value.l50,
-      newLevel_49_40:this.updateForm.value.l40,
-      newLevel_39_30:this.updateForm.value.l30,
-      newLevel_29_20:this.updateForm.value.l20,
-    };
-    this.courseService.updateAPS(body);
-    
-    //this.updateForm.reset();
-  }
 }
