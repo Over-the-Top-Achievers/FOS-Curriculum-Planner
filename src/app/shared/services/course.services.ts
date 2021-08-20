@@ -57,6 +57,18 @@ export class CourseService {
         return this.http.get(`${API.apiRoot}/subjectsData`);
     }
 
+    updateAPS(body:any): void{     
+        var options = {
+             headers: new HttpHeaders({
+                 'Content-Type': 'application/json',
+                }),
+                body: body,
+                
+            };
+        console.log(options.body);
+        this.http.put(`${API.apiRoot}/updateAPS`, options.body).subscribe((s) => {},(err)=> console.log(err));
+    }
+
 
 }
 
