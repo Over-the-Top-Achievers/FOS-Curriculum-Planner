@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApsCalculatorComponent } from './aps-calculator.component';
+import { AdminApsComponent } from './admin-aps.component';
 
-describe('ApsCalculatorComponent', () => {
-  let component: ApsCalculatorComponent;
-  let fixture: ComponentFixture<ApsCalculatorComponent>;
+describe('AdminApsComponent', () => {
+  let component: AdminApsComponent;
+  let fixture: ComponentFixture<AdminApsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApsCalculatorComponent ]
+      declarations: [ AdminApsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ApsCalculatorComponent);
+    fixture = TestBed.createComponent(AdminApsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

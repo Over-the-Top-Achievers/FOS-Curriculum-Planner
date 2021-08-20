@@ -206,7 +206,8 @@ addCourse(): void {
       Semester:this.checkoutForm.value.Semester,
       Year:this.checkoutForm.value.Year,
       Pre_requisite:this.checkoutForm.value.Pre_requisite,
-      Co_requisite:this.checkoutForm.value.Co_requisite
+      Co_requisite:this.checkoutForm.value.Co_requisite,
+      Shareable:this.checkoutForm.value.Shareable
     },
     
   };
@@ -302,7 +303,8 @@ addCourse(): void {
       newSem:this.updateForm.value.Semester,
       newYear:this.updateForm.value.Year,
       newCoReq:(this.updateForm.value.Co_requisite),
-      newPreReq:this.updateForm.value.Pre_requisite
+      newPreReq:this.updateForm.value.Pre_requisite,
+      newShareable:this.updateForm.value.Shareable
     };
     this.courseService.updateCourse(body);
     

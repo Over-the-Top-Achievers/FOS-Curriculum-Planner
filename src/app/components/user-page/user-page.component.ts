@@ -1,3 +1,5 @@
+/* istanbul ignore if  */
+
 import { ArrayType, AST, ThrowStmt } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router'
@@ -300,7 +302,22 @@ export class UserPageComponent implements OnInit {
 
     return AClashes.concat(BClashes,CClashes,DClashes,EClashes)
   }
-  
+  checkSingleRequirement(courses:String[],requirements:String[]):String[]{
+    let missing:String[] = [];
+    for(let i=0;i<requirements.length;i++){ 
+      if(!courses.includes(requirements[i])){
+        let index = missing.findIndex(element => element.includes(requirements[i] as string))
+        if(index ===-1){
+          missing.push(requirements[i])
+        }
+        // if(!missing.includes(requirements[i])){
+          // missing.push(requirements[i])
+        // }
+      }
+    }
+    console.log(missing)
+    return missing;
+  }
   ValidateCourseRequirements(): any[] {
     let PreReqs1:string="";
     let CoReqs1:string="";
@@ -316,24 +333,45 @@ export class UserPageComponent implements OnInit {
     for(let i=0;i<this.year1Courses.length;i++){
       PreReqs1 = PreReqs1.concat(this.year1Courses[i].Pre_requisite)
       CoReqs1 = CoReqs1.concat(this.year1Courses[i].Co_requisite)
+      if(this.year1Courses[i].Pre_requisite[this.year1Courses[i].Pre_requisite.length - 1]!==';'){
+        PreReqs1 = PreReqs1.concat(";")
+      }
+      if(this.year1Courses[i].Co_requisite[this.year1Courses[i]. Co_requisite.length - 1]!==';'){
+        CoReqs1 = CoReqs1.concat(";")
+      }
       firstyearcredits = firstyearcredits.concat(this.year1Courses[i].Credits)
     }
     let FirstPreReqs:string[] =PreReqs1.split(";");
     let FirstCoReqs:string[] =CoReqs1.split(";");
     let FirstCredits:string[] = firstyearcredits.split(" ");
-    FirstPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-    FirstCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    if(FirstPreReqs[FirstPreReqs.length -1]===""){
+      FirstPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    }
+    if(FirstCoReqs[FirstCoReqs.length -1]===""){
+      FirstCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    }
     FirstCredits.pop();
 
 
     for(let i=0;i<this.year2Courses.length;i++){
       PreReqs2 = PreReqs2.concat(this.year2Courses[i].Pre_requisite)
       CoReqs2 = CoReqs2.concat(this.year2Courses[i].Co_requisite)
+      if(this.year2Courses[i].Pre_requisite[this.year2Courses[i].Pre_requisite.length - 1]!==';'){
+        PreReqs2 = PreReqs2.concat(";")
+      }
+      if(this.year2Courses[i].Co_requisite[this.year2Courses[i]. Co_requisite.length - 1]!==';'){
+        CoReqs2 = CoReqs2.concat(";")
+      }
     }
     let SecondPreReqs:string[] =PreReqs2.split(";");
+    console.log(SecondPreReqs)
     let SecondCoReqs:string[] =CoReqs2.split(";");
-    SecondPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-    SecondCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    if(SecondPreReqs[SecondPreReqs.length -1]===""){
+      SecondPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    }
+    if(SecondCoReqs[SecondCoReqs.length -1]===""){
+      SecondCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    }
 
 
     for(let i=0;i<this.year3Courses.length;i++){
@@ -342,8 +380,12 @@ export class UserPageComponent implements OnInit {
     }
     let ThirdPreReqs:string[] =PreReqs3.split(";");
     let ThirdCoReqs:string[] =CoReqs3.split(";");
-    ThirdPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-    ThirdCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    if(ThirdPreReqs[ThirdPreReqs.length -1]===""){
+      ThirdPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    }
+    if(ThirdCoReqs[ThirdCoReqs.length -1]===""){
+      ThirdCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
+    }
 
     let AllThirdYearCourses:String[] =[];
     let AllSecondYearCourses:String[] =[];
@@ -365,52 +407,11 @@ export class UserPageComponent implements OnInit {
       AllFirstYearCredits.push(this.year1Courses[i].Credits)
     }
     
-    //first yearchecks
-    for(let i=0;i<FirstCoReqs.length;i++){ 
-      if(!AllFirstYearCourses.includes(FirstCoReqs[i])){
-
-        if(!this.MissingFirstYear.includes(FirstCoReqs[i])){
-          this.MissingFirstYear.push(FirstCoReqs[i])
-        }
-      }
-    }
-      //second yearchecks
-  
-      for(let i=0;i<SecondPreReqs.length;i++){ 
-        if(!AllFirstYearCourses.includes(SecondPreReqs[i])){
-
-          if(!this.MissingFirstYear.includes(SecondPreReqs[i])){
-            this.MissingFirstYear.push(SecondPreReqs[i])
-          }
-        }
-      }
-      for(let i=0;i<SecondCoReqs.length;i++){ 
-        if(!AllSecondYearCourses.includes(SecondCoReqs[i])){
-
-          if(!this.MissingSecondYear.includes(SecondCoReqs[i])){
-            this.MissingSecondYear.push(SecondCoReqs[i])
-          }
-        }
-      }
-          //third yearchecks
-  
-  for(let i=0;i<ThirdPreReqs.length;i++){ 
-    if(!AllSecondYearCourses.includes(ThirdPreReqs[i])){
-
-      if(!this.MissingSecondYear.includes(ThirdPreReqs[i])){
-        this.MissingSecondYear.push(ThirdPreReqs[i])
-      }
-    }
-  }
-  for(let i=0;i<ThirdCoReqs.length;i++){ 
-    if(!AllThirdYearCourses.includes(ThirdCoReqs[i])){
-
-      if(!this.MissingThirdYear.includes(ThirdCoReqs[i])){
-        this.MissingThirdYear.push(ThirdCoReqs[i])
-      }
-    }
-  }
-
+    this.MissingFirstYear = this.checkSingleRequirement(AllFirstYearCourses,FirstCoReqs); 
+    this.MissingFirstYear = this.MissingFirstYear.concat(this.checkSingleRequirement(AllFirstYearCourses,SecondPreReqs));  
+    this.MissingSecondYear = this.checkSingleRequirement(AllSecondYearCourses,SecondCoReqs);
+    this.MissingSecondYear = this.MissingSecondYear.concat(this.checkSingleRequirement(AllSecondYearCourses,ThirdPreReqs));  
+    this.MissingThirdYear = this.checkSingleRequirement(AllThirdYearCourses,ThirdCoReqs);
   if (this.MissingFirstYear.length === 0){
     this.MissingFirstYear.push("None");
   }
@@ -423,6 +424,7 @@ export class UserPageComponent implements OnInit {
     this.MissingThirdYear.push("None");
   }
 
+  console.log(this.MissingFirstYear)
   return [this.MissingFirstYear, this.MissingSecondYear, this.MissingThirdYear] // returning the missing year courses for display purposes
  
   }
