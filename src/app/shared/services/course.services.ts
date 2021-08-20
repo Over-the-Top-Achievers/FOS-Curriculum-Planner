@@ -50,7 +50,12 @@ export class CourseService {
             };
         console.log(options.body);
         this.http.put(`${API.apiRoot}/courses`, options.body).subscribe((s) => {},(err)=> console.log(err));
-       }
+    }
+
+    // gets the high school subject courses
+    getSubject(): Observable<any>{
+        return this.http.get(`${API.apiRoot}/subjectsData`);
+    }
 
 
 }
