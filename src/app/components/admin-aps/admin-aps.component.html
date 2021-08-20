@@ -5,71 +5,64 @@
 </style>
 
 <body>
-    <mat-card fxFlex="25%" style="height:97%; vertical-align: middle; background-color: rgba(255, 255, 255, 0.9)">
-        <h1>Subjects</h1>
-
-        <div style="padding-left: 0%; padding-top: 5%;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20%">
-            <mat-form-field>
-                <mat-label>Subject</mat-label>
-                <mat-select #fontSize value="16px"   name = 'coursesToDelete'  ngDefaultControl [(ngModel)]='subjectToEdit'>
-                    <mat-option *ngFor = "let suject of sujects$ | async;" mat-option-item [value]="suject" >{{suject.Subject}}</mat-option>
-                </mat-select>
-            </mat-form-field>       
-        </div>
-        
-    </mat-card>
+    
 
     <mat-card fxFlex="25%" style="height:97%; vertical-align: middle; background-color: rgba(255, 255, 255, 0.9)">
 
-        <form [formGroup]="updateForm" (ngSubmit)="updateCourse()"  >
-            <h1>UPDATE COURSE</h1>
+        <form [formGroup]="updateAPSForm" (ngSubmit)="updateAPS()"  >
+            <h1>UPDATE APS</h1>
 
 
+
+
+            
             <div style="padding-left: 5%; padding-top: 5%; padding-bottom: 5%;">
                 <button mat-button [matMenuTriggerFor]="modify" id="select_course" color="accent" style="background-color: #3498DB; color: white; padding-left: 5%; width: 95%; ">SELECT COURSE TO UPDATE</button>
                 <mat-menu #modify="matMenu" > 
-                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
+                <button *ngFor = "let suject of sujects$ | async;" mat-menu-item (click)="testSubject(suject.Subject)">{{suject.Subject}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
                 </mat-menu>
             </div>
+
+
             
             <p>
                 <mat-form-field appearance="outline" style="padding-left: 16px;">
                     <mat-label for="l100">LEVEL 100 - 90</mat-label>
-                    <input matInput placeholder="Placeholder" formControlName='Course_Code' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                    <input matInput placeholder="Placeholder" formControlName='l100' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
                 <mat-form-field appearance="outline" style="padding-left: 16px;">
                     <mat-label for="l80">LEVEL 89 - 80</mat-label>
-                    <input matInput placeholder="Placeholder" formControlName='Course_Name' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                    <input matInput placeholder="Placeholder" formControlName='l80' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
                 <mat-form-field appearance="outline" style="padding-left: 16px;">
                     <mat-label for="l70">LEVEL 79 - 70</mat-label>
-                    <input matInput placeholder="Placeholder" formControlName='Credits' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                    <input matInput placeholder="Placeholder" formControlName='l70' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
                 <mat-form-field appearance="outline" style="padding-left: 16px;">
                     <mat-label for="l60">LEVEL 69 - 60</mat-label>
-                    <input matInput placeholder="Placeholder" formControlName='NQF' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                    <input matInput placeholder="Placeholder" formControlName='l60' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
         
                 <mat-form-field appearance="outline" style="padding-left: 16px;">
                     <mat-label for="l50">LEVEL 59 - 50</mat-label>
-                    <input matInput placeholder="Placeholder" formControlName='Slot' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                    <input matInput placeholder="Placeholder" formControlName='l50' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
                 <mat-form-field appearance="outline" style="padding-left: 16px;">
                     <mat-label for="l40">LEVEL 49 - 40</mat-label>
-                    <input matInput placeholder="Placeholder" formControlName='Semester' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                    <input matInput placeholder="Placeholder" formControlName='l40' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
         
                 <mat-form-field appearance="outline" style="padding-left: 16px;">
                     <mat-label for="l30">LEVEL 39 - 30</mat-label>
-                    <input matInput placeholder="Placeholder" formControlName='Year' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                    <input matInput placeholder="Placeholder" formControlName='l30' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
         
                 <mat-form-field appearance="outline" style="padding-left: 16px;">
                     <mat-label for="l20">LEVEL 29 - 0</mat-label>
-                    <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Pre_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                    <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='l20' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
                 
-                <button mat-flat-button style='background-color: #3498DB; color:"white"; width: 100%;'type="submit" (click)='refresh()' >
+                <button mat-flat-button style='background-color: #3498DB; color:"white"; width: 100%;'type="submit" >
                     <mat-icon >done</mat-icon>
                 </button>
             </p>
