@@ -6,6 +6,6 @@
 
 <body>
     <mat-card>
-        <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+        <ng2-smart-table [settings]="settings" [source]="dataSource" (rowSelect)='add($event)'></ng2-smart-table>
     </mat-card>    
 </body>
