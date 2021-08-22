@@ -13,7 +13,7 @@
     <a class="title" routerLink="/">Science Curriculum Planner</a>
     <span class="toolbar-spacer"></span>
     <button mat-button routerLink="/aps-calculator">APS Calculator</button>
-    <button mat-button (click)="logout()">Logout</button>
+    <button *ngIf='currentUser != null' mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
 
 <div class="content">
