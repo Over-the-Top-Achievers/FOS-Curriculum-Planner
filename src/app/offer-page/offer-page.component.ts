@@ -37,7 +37,7 @@ export class OfferPageComponent implements OnInit {
     }
     else
     {
-      console.log('Only 7 subjects required for APS calculation');
+      alert('Only 7 subjects required for APS calculation');
     }
     
   }
