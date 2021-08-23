@@ -17,42 +17,44 @@ export class OfferPageComponent implements OnInit {
   ngOnInit(): void {
     this.subjectService.getSubjects().subscribe(
       data => {
-        this.data = data as Subject[];
+        this.data = data as Subject[];        
+
         console.log(this.data && this.data.map((grp) => {return {'value': grp.Subject, 'title': grp.Subject}}));
-        this.subjectSelection = this.data && this.data.map((grp) => {return {'value': grp.Subject, 'title': grp.Subject}});
+        this.subjectSelection = this.data.map((grp) => {return {'value': grp.Subject, 'title': grp.Subject}}); 
         this.settings.columns.Subject.editor.config.list = this.subjectSelection;
-        this.settings.confirmCreate = true; 
+        //this.settings.confirmCreate = true; 
         this.settings = Object.assign({},this.settings);        
+
+        setInterval(()=> { this.addAPS() }, 1 * 1000);
       }
     )
   }
 
   add(event: any){
-    let numberOfSujects = this.dataSource.length;
-    if (numberOfSujects <= 7)
-    {
-      console.log('This maybe works');  
-      this.setAPS(event);
-      this.addAPS()
+    //console.log(event);   
+    let numberOfSubjects = this.dataSource.length;
+    if (numberOfSubjects <= 7)
+    {       
+      event.newData.APS = this.getAPS(event.newData.Subject, event.newData.Mark);         
+      event.confirm.resolve(event.newData);
     }
     else
     {
       alert('Only 7 subjects required for APS calculation');
-    }
-    
+    }    
   }
 
   addAPS(){
     const sum = this.dataSource.reduce((sum: any, subject: { APS: any; }) => sum + Number(subject.APS), 0);
     console.log(sum);
   }
-  setAPS(event: any){
-    let mark = Number(this.dataSource[0].Mark);
-    let subjectName = this.dataSource[0].Subject;
+
+  getAPS(subjectName: string, mark: Number){
     let subject:Subject = {} as Subject
     subject = this.data.find((d) => 
       d.Subject === subjectName
     )!;
+    
     // console.log(subject);
     let APS = '0';
 
@@ -84,13 +86,12 @@ export class OfferPageComponent implements OnInit {
     {
       APS = subject.Level_89_80;
     }
-    else if (mark < 100)
+    else if (mark <= 100)
     {
       APS = subject.Level_100_90;
     }
 
-    this.dataSource[0].APS = APS;
-    event.source.update(this.dataSource[0], this.dataSource[0]);
+    return APS;
   }
 
   data: Subject[] = [];
@@ -98,8 +99,15 @@ export class OfferPageComponent implements OnInit {
   dataSource: any = [];
 
   settings = {
-    hideSubHeader: false,
-    confirmCreate: true,
+    actions: {
+      delete: false,
+      edit: false,
+    },     
+    add: {
+      confirmCreate: true,
+    }, 
+    hideSubHeader: false,    
+    mode: 'inline',    
     columns: {
       // _id: {
       //   title: 'Subject',
@@ -131,9 +139,9 @@ export class OfferPageComponent implements OnInit {
         title: 'APS',
         filter: false,
         addable: false,
-      },
-    },
-  };
+      },      
+    }
+  }
 
   
 }
