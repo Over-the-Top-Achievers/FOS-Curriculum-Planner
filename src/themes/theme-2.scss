@@ -79,8 +79,7 @@ html, body {
 $header-height: 100px;
 
 body {
-  background-image: url('../assets/images/joanna-kosinska-7ACuHoezUYk-unsplash.jpg');
-  //background-image: url('../assets/images/sahand-babali-owjrvbyXYyc-unsplash.jpg');
+  background-image: url('../assets/images/sahand-babali-owjrvbyXYyc-unsplash.jpg');
   //background-repeat: no-repeat;
   background-size: cover;
 }
@@ -115,4 +114,9 @@ body {
 
 mat-card.mat-card.mat-focus-indicator {
   box-shadow: 0px 2px 1px #000000;
+}
+
+.form-error {
+  margin-top: 20px;
+  color: red;
 }

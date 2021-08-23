@@ -1,50 +1,12 @@
+  
+mat-card-actions {
+    margin: 0;
+}
 
-// // .main-wrapper {
-// //     top: 0;
-// //     background: blue;
-// //     opacity: 0.7;
-// //     bottom: 0;
-// // }
+mat-card-content {
+    margin-top: 20px;
+}
 
-// // .content {
-// //     padding: 16px;
-// // }
-
-// // .content>mat-card {
-// //     width: 200px;
-// //     ;
-// //     margin-left: auto;
-// //     margin-right: auto;
-// //     vertical-align: middle;
-// // }
-
-// // mat-toolbar {
-// //     justify-content: center;
-// // }
-
-// // button {
-// //     justify-content: center;
-// // }
-
-// // .content>mat-card.box {
-// //     width: 200px;
-// //     margin-left: auto;
-// //     margin-right: auto;
-// //     vertical-align: middle;
-// // }
-
-// // body div {
-// //     height: 100vh;
-// //     width: 100vw;
-// // }
-// mat-card-actions {
-//     margin: 0;
-// }
-
-// mat-card-content {
-//     margin-top: 20px;
-// }
-
-// .mat-card-actions .mat-button, .mat-card-actions .mat-raised-button, .mat-card-actions .mat-stroked-button {
-//     margin: 0;
-// }
+.mat-card-actions .mat-button, .mat-card-actions .mat-raised-button, .mat-card-actions .mat-stroked-button {
+    margin: 0;
+}

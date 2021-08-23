@@ -1,11 +1,8 @@
 <div fxLayout="row" fxLayoutAlign="center">
 
-<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center">
-
-    <mat-card class="box" fxFlex="25%" style="height: 400px; vertical-align: middle; margin-top: 140px;">
-        <mat-card-header>
-            <mat-card-title style="margin-left: 30px;">SIGN IN TO YOUR ACCOUNT</mat-card-title>
-        </mat-card-header>
+    <mat-card fxFlex="300px">
+        <mat-card-title color="primary">System Administration</mat-card-title>
+        <mat-card-wubtitle>System maintenance and configuration</mat-card-wubtitle>
         <mat-card-content>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <p>
@@ -28,4 +25,4 @@
         </mat-card-content>
     </mat-card>
 </div>
-<footer></footer>
+<!-- <footer></footer> -->
