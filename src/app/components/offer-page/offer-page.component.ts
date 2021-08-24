@@ -52,6 +52,7 @@ export class OfferPageComponent implements OnInit {
   addAPS(){
     const sum = this.dataSource.reduce((sum: any, subject: { APS: any; }) => sum + Number(subject.APS), 0);
     console.log(sum);
+    this.totalAPS = sum;
   }
 
   getAPS(subjectName: string, mark: Number){
@@ -102,6 +103,7 @@ export class OfferPageComponent implements OnInit {
   data: Subject[] = [];
   subjectSelection: any = [];
   dataSource: any = [];
+  totalAPS: Number = 0;
 
   settings = {
     actions: {
