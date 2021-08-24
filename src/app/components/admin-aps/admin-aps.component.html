@@ -66,7 +66,7 @@
                     <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Level_29_0' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
                 
-                <button mat-flat-button style='background-color: #3498DB; color:"white"; width: 100%;'type="submit" >
+                <button mat-flat-button style='background-color: #3498DB; color:"white"; width: 100%;'type="submit" (click)='refresh()' >
                     <mat-icon >done</mat-icon>
                 </button>
             </p>

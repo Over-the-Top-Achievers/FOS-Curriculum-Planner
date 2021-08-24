@@ -38,7 +38,7 @@ export class AdminApsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.updateAPSForm.get('Subject')!.disable();
+    //this.updateAPSForm.get('Subject')!.disable();
 
     this.courseService.getSubject().subscribe(
       data => {
@@ -88,6 +88,10 @@ export class AdminApsComponent implements OnInit {
     this.courseService.updateAPS(body);
     
     //this.updateForm.reset();
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
 }
