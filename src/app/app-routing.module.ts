@@ -7,7 +7,7 @@ import "node_modules/bootstrap/scss/bootstrap.scss"
 import { AuthGuard } from './services/auth-gaurd.service';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculator.component';
-import { OfferPageComponent } from './offer-page/offer-page.component';
+import { OfferPageComponent } from './components/offer-page/offer-page.component';
 
 const routes: Routes = [
   {path: 'home', pathMatch: 'full',component: HomeComponent},  

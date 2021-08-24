@@ -28,7 +28,7 @@ import { ViewCourseComponent } from './components/view-course/view-course.compon
 import { UserService } from './shared/services/user.services';
 import { SubjectService } from './shared/services/subject.services';
 import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculator.component';
-import { OfferPageComponent } from './offer-page/offer-page.component';
+import { OfferPageComponent } from './components/offer-page/offer-page.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 
