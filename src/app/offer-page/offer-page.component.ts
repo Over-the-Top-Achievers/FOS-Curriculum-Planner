@@ -17,12 +17,10 @@ export class OfferPageComponent implements OnInit {
   ngOnInit(): void {
     this.subjectService.getSubjects().subscribe(
       data => {
-        this.data = data as Subject[];        
-
-        console.log(this.data && this.data.map((grp) => {return {'value': grp.Subject, 'title': grp.Subject}}));
+        this.data = data as Subject[];
+        //console.log(this.data && this.data.map((grp) => {return {'value': grp.Subject, 'title': grp.Subject}}));
         this.subjectSelection = this.data.map((grp) => {return {'value': grp.Subject, 'title': grp.Subject}}); 
         this.settings.columns.Subject.editor.config.list = this.subjectSelection;
-        //this.settings.confirmCreate = true; 
         this.settings = Object.assign({},this.settings);        
 
         setInterval(()=> { this.addAPS() }, 1 * 1000);
@@ -32,6 +30,13 @@ export class OfferPageComponent implements OnInit {
 
   add(event: any){
     //console.log(event);   
+
+    this.subjectSelection = this.subjectSelection.filter((a: any) => {
+      return (a.value !== event.newData.Subject)
+    })
+    this.settings.columns.Subject.editor.config.list = this.subjectSelection;
+    this.settings = Object.assign({},this.settings);  
+
     let numberOfSubjects = this.dataSource.length;
     if (numberOfSubjects <= 7)
     {       
