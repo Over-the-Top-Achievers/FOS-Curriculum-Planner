@@ -25,7 +25,8 @@
             </p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary" routerLink="/signin">Sign In</button>
+            <button *ngIf="!this.isLoggedIn" mat-raised-button color="primary" routerLink="/signin">Sign In</button>
+            <button *ngIf="this.isLoggedIn" mat-raised-button color="primary" routerLink="/admin-page">Admin Page</button>
         </mat-card-actions>
     </mat-card>
   

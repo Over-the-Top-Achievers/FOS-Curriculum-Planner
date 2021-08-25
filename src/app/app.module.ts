@@ -27,10 +27,7 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { ViewCourseComponent } from './components/view-course/view-course.component';
 import { UserService } from './shared/services/user.services';
 import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculator.component';
-
-
-
-
+import { ComponentBase } from './components/component-base';
 
 @NgModule({
   declarations: [
@@ -40,7 +37,7 @@ import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculat
     AdminPageComponent,
     UserPageComponent,
     ViewCourseComponent,
-    ApsCalculatorComponent,
+    ApsCalculatorComponent
   ],
   imports: [
     HttpClientModule,
@@ -64,12 +61,12 @@ import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculat
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },     
-        {provide: MatDialogRef,useValue: {}},
-        { provide: MAT_DIALOG_DATA, useValue: [] },
-        {provide:UserService},
-    fakeBackendProvider],
-    
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },     
+    {provide: MatDialogRef,useValue: {}},
+    { provide: MAT_DIALOG_DATA, useValue: [] },
+    {provide:UserService},
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,19 +1,8 @@
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-
- <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
-    <div class="navbar-nav">
-        <h1 class="nav-item nav-link" routerLink="/" style=' font-size: xxx-large; padding-right: 5%;'><a class="nav-item nav-link" routerLink="/">SCIENCE CURRICULUM PLANNER</a></h1>
-        <a class="nav-item nav-link" routerLink="/aps-calculator" style="padding-left: 100%; font-size: large;">APS CALCULATOR</a>
-        <a class="nav-item nav-link" routerLink="/" style="padding-left: 5%; font-size: large;">HOME</a>
-        <a class="nav-item nav-link" (click)="logout()" style="padding-left: 5%; font-size: large;">LOGOUT</a>
-    </div>
-</nav> -->
-
 <mat-toolbar color="primary">
     <a class="title" routerLink="/">Science Curriculum Planner</a>
     <span class="toolbar-spacer"></span>
     <button mat-button routerLink="/aps-calculator">APS Calculator</button>
-    <button *ngIf='currentUser != null' mat-button (click)="logout()">Logout</button>
+    <button *ngIf='this.isLoggedIn' mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
 
 <div class="content">
