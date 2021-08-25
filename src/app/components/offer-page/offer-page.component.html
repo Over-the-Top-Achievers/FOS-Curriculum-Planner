@@ -8,4 +8,8 @@
     <mat-card>
         <ng2-smart-table [settings]="settings" [source]="dataSource" (createConfirm)='add($event)'></ng2-smart-table>
     </mat-card>    
+
+    <mat-card>
+        <ng2-smart-table [settings]="qualifiedSettings" [source]="qualifiedCourses" ></ng2-smart-table>
+    </mat-card>
 </body>

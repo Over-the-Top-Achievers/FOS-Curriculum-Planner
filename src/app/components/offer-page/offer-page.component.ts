@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { LocalDataSource, Ng2SmartTableModule } from 'ng2-smart-table';
 import { SubjectService } from 'src/app/shared/services/subject.services';
 import { Subject } from 'src/app/shared/models';
+import { DegreeRequirement } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-offer-page',
@@ -21,11 +22,19 @@ export class OfferPageComponent implements OnInit {
         //console.log(this.data && this.data.map((grp) => {return {'value': grp.Subject, 'title': grp.Subject}}));
         this.subjectSelection = this.data.map((grp) => {return {'value': grp.Subject, 'title': grp.Subject}}); 
         this.settings.columns.Subject.editor.config.list = this.subjectSelection;
-        this.settings = Object.assign({},this.settings);        
+        this.settings = Object.assign({},this.settings);   
 
         setInterval(()=> { this.addAPS() }, 1 * 1000);
       }
     )
+
+    this.subjectService.getDegreeReq().subscribe(
+      data => {
+        this.degreeReqs = data as DegreeRequirement[];
+      }
+    )
+
+    this.qualifiedCourses = new LocalDataSource();
   }
 
   add(event: any){
@@ -38,17 +47,44 @@ export class OfferPageComponent implements OnInit {
     this.settings = Object.assign({},this.settings);  
 
     let numberOfSubjects = this.dataSource.length;
-    if (numberOfSubjects <= 7)
+    if (numberOfSubjects < 7)
     {       
       event.newData.APS = this.getAPS(event.newData.Subject, event.newData.Mark);         
       event.confirm.resolve(event.newData);
+      numberOfSubjects += 1;
     }
     else
     {
       alert('Only 7 subjects required for APS calculation');
     }    
+
+    if (numberOfSubjects === 7)
+    {
+      this.APSCheck();
+      this.SubjectCheck();
+      this.qualifiedCourses.refresh();
+    }
   }
 
+  APSCheck()
+  {
+    this.addAPS();
+    for (let i = 0; i < this.degreeReqs.length; ++i)
+    {
+      let APS = Number(this.degreeReqs[i].Firm_Offer.split(';')[3]);
+
+      if (this.totalAPS >= APS)
+      {
+        this.qualifiedCourses.add(this.degreeReqs[i]);        
+      }
+    }
+    console.log(this.qualifiedCourses);
+  }
+
+  SubjectCheck()
+  {
+
+  }
   addAPS(){
     const sum = this.dataSource.reduce((sum: any, subject: { APS: any; }) => sum + Number(subject.APS), 0);
     console.log(sum);
@@ -104,6 +140,8 @@ export class OfferPageComponent implements OnInit {
   subjectSelection: any = [];
   dataSource: any = [];
   totalAPS: Number = 0;
+  degreeReqs: DegreeRequirement[] = [];
+  qualifiedCourses!: LocalDataSource;
 
   settings = {
     actions: {
@@ -150,5 +188,20 @@ export class OfferPageComponent implements OnInit {
     }
   }
 
+  qualifiedSettings = {
+    actions: {
+      delete: false,
+      edit: false,
+      add: false,
+    },  
+    hideSubHeader: false,   
+
+    columns: {
+      Degree_Name: {
+        title: 'Degree',
+        filter: false,  
+      }
+    }
+  }
   
 }

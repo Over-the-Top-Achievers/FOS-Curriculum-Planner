@@ -25,3 +25,11 @@ export interface Subject{
     Level_39_30: string;
     Level_29_0: string;
 }
+
+export interface DegreeRequirement{
+    _id: string,
+    Degree_Name: string,
+    Firm_Offer: string,
+    Waitlist: string,
+    Reject: string,
+}
