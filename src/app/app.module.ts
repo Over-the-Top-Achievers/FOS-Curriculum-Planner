@@ -1,4 +1,3 @@
-//import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import "node_modules/bootstrap/scss/bootstrap.scss"
 import { AppRoutingModule } from './app-routing.module';
@@ -7,12 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule} from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AngularMaterialModule } from './angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SigninComponent } from './components/signin/signin.component';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { HttpClientModule,  HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -26,14 +24,9 @@ import { UserPageComponent } from './components/user-page/user-page.component';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewCourseComponent } from './components/view-course/view-course.component';
 import { UserService } from './shared/services/user.services';
-import { SubjectService } from './shared/services/subject.services';
 import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculator.component';
 import { OfferPageComponent } from './components/offer-page/offer-page.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -68,12 +61,12 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },     
-        {provide: MatDialogRef,useValue: {}},
-        { provide: MAT_DIALOG_DATA, useValue: [] },
-        {provide:UserService},
-    fakeBackendProvider],
-    
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },     
+    {provide: MatDialogRef,useValue: {}},
+    { provide: MAT_DIALOG_DATA, useValue: [] },
+    {provide:UserService},
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
