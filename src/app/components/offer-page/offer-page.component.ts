@@ -34,7 +34,7 @@ export class OfferPageComponent implements OnInit {
       }
     )
 
-    this.qualifiedCourses = new LocalDataSource();
+    this.qualifiedCoursesIII = new LocalDataSource();
   }
 
   add(event: any){
@@ -61,8 +61,9 @@ export class OfferPageComponent implements OnInit {
     if (numberOfSubjects === 7)
     {
       this.APSCheck();
-      this.SubjectCheck();
-      this.qualifiedCourses.refresh();
+      this.subjectCheckI();
+      this.subjectCheckII();
+      this.qualifiedCoursesIII.refresh();
     }
   }
 
@@ -75,19 +76,102 @@ export class OfferPageComponent implements OnInit {
 
       if (this.totalAPS >= APS)
       {
-        this.qualifiedCourses.add(this.degreeReqs[i]);        
+        this.qualifiedCourses.push(this.degreeReqs[i]);        
       }
     }
-    console.log(this.qualifiedCourses);
+    //console.log(this.qualifiedCourses);
   }
 
-  SubjectCheck()
+  subjectCheckI()
   {
+    for (let i = 0; i < this.degreeReqs.length; ++i)
+    {
+      let reqMarkMaths;
+      let reqMarkPhysics;
+      let reqMarkEngHL;
 
+      let maths: any;
+      let engHL: any;
+      let physics: any;
+
+      let engHLBool = true;
+      let mathsBool = true;
+      let physicsBool = true;
+
+      if(this.degreeReqs[i].Firm_Offer.split(';')[0] !== '-')
+      {
+        maths = this.dataSource.find((d: any) => 
+          d.Subject === 'Mathematics'
+        )!;
+        reqMarkMaths = Number(this.degreeReqs[i].Firm_Offer.split(';')[0]);   
+        
+        if (maths !== undefined)
+        {
+          if (reqMarkMaths <= maths.Mark)
+          {
+            mathsBool = true;
+          }
+          else{
+            mathsBool = false;
+          }
+        }        
+      }      
+      
+      if(this.degreeReqs[i].Firm_Offer.split(';')[1] !== '-')
+      {
+        physics = this.dataSource.find((d: any) => 
+          d.Subject === 'Physical Science'
+        )!;
+        reqMarkPhysics = Number(this.degreeReqs[i].Firm_Offer.split(';')[1]);  
+        
+        if (physics !== undefined)
+        {
+          if (reqMarkPhysics <= physics.Mark)
+          {
+            physicsBool = true;
+          }
+          else {
+            physicsBool = false;
+          }
+        }
+          
+      }   
+      
+      if(this.degreeReqs[i].Firm_Offer.split(';')[2] !== '-')
+      {
+        engHL = this.dataSource.find((d: any) => 
+          d.Subject === 'English First Language'
+        )!;
+        reqMarkEngHL = Number(this.degreeReqs[i].Firm_Offer.split(';')[2]);  
+        
+        if (engHL !== undefined)
+        {
+          if (reqMarkEngHL <= engHL.Mark)
+          {
+            engHLBool = true;
+          }
+          else{
+            engHLBool = false;
+          }
+        }
+      }          
+     
+      if (engHLBool === true && mathsBool === true && physicsBool === true)
+      {
+        this.qualifiedCoursesII.push(this.degreeReqs[i]);
+      }
+    }
   }
+
+  subjectCheckII()
+  {
+    this.qualifiedCoursesIII.load(this.qualifiedCourses.filter((x: any) => this.qualifiedCoursesII.includes(x)));
+    console.log(this.qualifiedCoursesIII);
+  }
+
   addAPS(){
     const sum = this.dataSource.reduce((sum: any, subject: { APS: any; }) => sum + Number(subject.APS), 0);
-    console.log(sum);
+    console.log('APS ' + sum);
     this.totalAPS = sum;
   }
 
@@ -141,7 +225,9 @@ export class OfferPageComponent implements OnInit {
   dataSource: any = [];
   totalAPS: Number = 0;
   degreeReqs: DegreeRequirement[] = [];
-  qualifiedCourses!: LocalDataSource;
+  qualifiedCourses: any = [];
+  qualifiedCoursesII: any = [];
+  qualifiedCoursesIII!: LocalDataSource;
 
   settings = {
     actions: {
