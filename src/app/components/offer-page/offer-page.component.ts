@@ -24,7 +24,10 @@ export class OfferPageComponent implements OnInit {
         this.settings.columns.Subject.editor.config.list = this.subjectSelection;
         this.settings = Object.assign({},this.settings);   
 
-        setInterval(()=> { this.updateQualifiedCoursese()}, 3 * 1000);
+        // setInterval(()=> { this.updateQualifiedCoursese()}, 3 * 1000);
+        setInterval(()=> { this.addAPS()}, 1 * 1000);
+        setInterval(()=> { this.updateOffers()}, 1 * 1000);
+
 
       }
     )
@@ -32,10 +35,24 @@ export class OfferPageComponent implements OnInit {
     this.subjectService.getDegreeReq().subscribe(
       data => {
         this.degreeReqs = data as DegreeRequirement[];
+        this.qualifiedCoursesIII = new LocalDataSource();
+        for(let i =0 ;i<this.degreeReqs.length;i++)
+        {
+          this.offerList.push({Degree_Name:this.degreeReqs[i].Degree_Name,Offer:"Reject"});
+        }
+        this.qualifiedCoursesIII.load(this.offerList);
+        this.qualifiedCoursesIII.refresh();
       }
     )
+    this.dataSource = [
+      {Subject:"Mathematics",Mark:"65",APS:"42"},
+      {Subject:"Mathematics",Mark:"65",APS:""},
+      {Subject:"Mathematics",Mark:"65",APS:""},
+      {Subject:"Mathematics",Mark:"65",APS:""},
 
-    this.qualifiedCoursesIII = new LocalDataSource();
+
+    ]
+ 
   }
 
   add(event: any){
@@ -87,6 +104,38 @@ export class OfferPageComponent implements OnInit {
     }
     //console.log(this.qualifiedCourses);
   }
+  updateOffers()
+  {
+    for(let i=0;i<this.degreeReqs.length;i++)
+    {
+      console.log(this.getOffer(this.degreeReqs[i]))
+      this.offerList[i].Offer = this.getOffer(this.degreeReqs[i]);
+    }
+    this.qualifiedCoursesIII.load(this.offerList);
+    this.qualifiedCoursesIII.refresh();
+    // console.log(this.qualifiedCourses);
+  }
+  getOfferAPS(course:DegreeRequirement):Number //0 reject 1 wait 2 firm
+  {
+    console.log(course);
+    let firm = Number(course.Firm_Offer.split(";")[3]);
+    let waitlist = Number(course.Waitlist.split(";")[3]);
+    let reject = Number(course.Reject.split(";")[3]);
+    if(this.totalAPS >=firm) return 2;
+    else if(this.totalAPS >=waitlist) return 1;
+    else if(this.totalAPS >=reject) return 0;
+    return -1;
+  }
+  getOffer(course:DegreeRequirement):string //returns "Firm Offer"
+  {
+    let apsOffer = this.getOfferAPS(course);
+
+    if(apsOffer===0) return "Reject";
+    else if (apsOffer===1) return "Waitlist";
+    else if (apsOffer===2) return "Firm Offer";
+    return "";
+  }
+ 
 
   subjectCheckI()
   {
@@ -198,31 +247,31 @@ export class OfferPageComponent implements OnInit {
     // console.log(subject);
     let APS = '0';
 
-    if(mark < 29 )
+    if(mark <= 29 )
     {
       APS = subject.Level_29_0;
     }
-    else if (mark < 39)
+    else if (mark <= 39)
     {
       APS = subject.Level_39_30;
     }
-    else if (mark < 49)
+    else if (mark <= 49)
     {
       APS = subject.Level_49_40;
     }
-    else if (mark < 59)
+    else if (mark <= 59)
     {
       APS = subject.Level_59_50;
     }
-    else if (mark < 69)
+    else if (mark <=69)
     {
       APS = subject.Level_69_60;
     }
-    else if (mark < 79)
+    else if (mark <= 79)
     {
       APS = subject.Level_79_70;
     }
-    else if (mark < 89)
+    else if (mark <= 89)
     {
       APS = subject.Level_89_80;
     }
@@ -242,7 +291,7 @@ export class OfferPageComponent implements OnInit {
   qualifiedCourses: any = [];
   qualifiedCoursesII: any = [];
   qualifiedCoursesIII!: LocalDataSource;
-
+  offerList:any = [];
   settings = {
     actions: {
       delete: false,
@@ -300,6 +349,10 @@ export class OfferPageComponent implements OnInit {
       Degree_Name: {
         title: 'Degree',
         filter: false,  
+      },
+      Offer: {
+        title: 'Offer',
+        filter:false,
       }
     }
   }
