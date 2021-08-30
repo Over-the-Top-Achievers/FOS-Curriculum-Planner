@@ -44,19 +44,16 @@ export class OfferPageComponent implements OnInit {
         this.qualifiedCoursesIII.refresh();
       }
     )
-    this.dataSource = [
-      {Subject:"Mathematics",Mark:"65",APS:"42"},
-      {Subject:"Mathematics",Mark:"65",APS:""},
-      {Subject:"Mathematics",Mark:"65",APS:""},
-      {Subject:"Mathematics",Mark:"65",APS:""},
-
-
-    ]
+    // this.dataSource = [
+    //   {Subject:"Mathematics",Mark:"65",APS:"42"},
+    //   {Subject:"Mathematics",Mark:"65",APS:""},
+    //   {Subject:"Mathematics",Mark:"65",APS:""},
+    //   {Subject:"Mathematics",Mark:"65",APS:""},
+    // ]
  
   }
 
   add(event: any){
-    //console.log(event);   
 
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
       return (a.value !== event.newData.Subject)
@@ -76,161 +73,64 @@ export class OfferPageComponent implements OnInit {
       alert('Only 7 subjects required for APS calculation');
     }    
 
-    if (numberOfSubjects ===7 )
-    {
-      this.updateQualifiedCoursese();
-    }
-  }
-  updateQualifiedCoursese()
-  {
-    this.qualifiedCourses=[];
-    this.qualifiedCoursesII= [];
-    this.APSCheck();
-    this.subjectCheckI();
-    this.subjectCheckII();
-    this.qualifiedCoursesIII.refresh();
-  }
-  APSCheck()
-  {
-    this.addAPS();
-    for (let i = 0; i < this.degreeReqs.length; ++i)
-    {
-      let APS = Number(this.degreeReqs[i].Firm_Offer.split(';')[3]);
 
-      if (this.totalAPS >= APS)
-      {
-        this.qualifiedCourses.push(this.degreeReqs[i]);        
-      }
-    }
-    //console.log(this.qualifiedCourses);
   }
+
+
   updateOffers()
   {
     for(let i=0;i<this.degreeReqs.length;i++)
     {
-      console.log(this.getOffer(this.degreeReqs[i]))
+      // console.log(this.getOffer(this.degreeReqs[i]))
       this.offerList[i].Offer = this.getOffer(this.degreeReqs[i]);
     }
     this.qualifiedCoursesIII.load(this.offerList);
     this.qualifiedCoursesIII.refresh();
-    // console.log(this.qualifiedCourses);
   }
-  getOfferAPS(course:DegreeRequirement):Number //0 reject 1 wait 2 firm
+  getOfferAPS(course:DegreeRequirement):number //0 reject 1 wait 2 firm
   {
-    console.log(course);
     let firm = Number(course.Firm_Offer.split(";")[3]);
     let waitlist = Number(course.Waitlist.split(";")[3]);
     let reject = Number(course.Reject.split(";")[3]);
     if(this.totalAPS >=firm) return 2;
-    else if(this.totalAPS >=waitlist) return 1;
-    else if(this.totalAPS >=reject) return 0;
+    else if(this.totalAPS <=reject) return 0;
+    else if(this.totalAPS >reject && this.totalAPS<firm) return 1;
     return -1;
   }
   getOffer(course:DegreeRequirement):string //returns "Firm Offer"
   {
     let apsOffer = this.getOfferAPS(course);
+    let offer = 0;
+    let physMark=0,mathMark=0,engMark=0;
+    let physics = [course.Reject.split(";")[0],course.Waitlist.split(";")[0],course.Firm_Offer.split(";")[0]];
+    let math =    [course.Reject.split(";")[1],course.Waitlist.split(";")[1],course.Firm_Offer.split(";")[1]];
+    let eng =     [course.Reject.split(";")[2],course.Waitlist.split(";")[2],course.Firm_Offer.split(";")[2]];
+    let physObj =  this.dataSource.find((d: any) => d.Subject === 'Physical Science')!;
+    let mathObj =  this.dataSource.find((d: any) => d.Subject === 'Mathematics')!;
+    let engObj =  this.dataSource.find((d: any) => d.Subject === 'English First Language')!;
+    if(physObj) physMark = Number(physObj.Mark);
+    if(mathObj) mathMark = Number(mathObj.Mark);
+    if(engObj) engMark = Number(engObj.Mark);
 
-    if(apsOffer===0) return "Reject";
-    else if (apsOffer===1) return "Waitlist";
-    else if (apsOffer===2) return "Firm Offer";
+    let physLevel = this.checkSubjectOffer(physics,physMark);
+    let mathLevel = this.checkSubjectOffer(math,mathMark);
+    let engLevel =  this.checkSubjectOffer(eng,engMark);
+    offer = Math.min(physLevel,mathLevel,engLevel,apsOffer);
+    console.log(course.Degree_Name,physMark,mathMark,engMark,apsOffer);
+    if(offer===0) return "Reject";
+    else if (offer===1) return "Waitlist";
+    else if (offer===2) return "Firm Offer";
     return "";
   }
- 
-
-  subjectCheckI()
+  checkSubjectOffer(subjectValues:string[],subjectMark:Number):number //0 reject 1 wait 2 firm
   {
-    for (let i = 0; i < this.degreeReqs.length; ++i)
-    {
-      let reqMarkMaths;
-      let reqMarkPhysics;
-      let reqMarkEngHL;
-
-      let maths: any;
-      let engHL: any;
-      let physics: any;
-
-      let engHLBool = true;
-      let mathsBool = true;
-      let physicsBool = true;
-
-      if(this.degreeReqs[i].Firm_Offer.split(';')[0] !== '-')
-      {
-        maths = this.dataSource.find((d: any) => 
-          d.Subject === 'Mathematics'
-        )!;
-        reqMarkMaths = Number(this.degreeReqs[i].Firm_Offer.split(';')[0]);   
-        if (maths !== undefined)
-        {
-          if (reqMarkMaths <= maths.Mark)
-          {
-            mathsBool = true;
-          }
-          else{
-            mathsBool = false;
-          }
-        }
-        else{
-          mathsBool = false;
-        }        
-      }      
-      
-      if(this.degreeReqs[i].Firm_Offer.split(';')[1] !== '-')
-      {
-        physics = this.dataSource.find((d: any) => 
-          d.Subject === 'Physical Science'
-        )!;
-        reqMarkPhysics = Number(this.degreeReqs[i].Firm_Offer.split(';')[1]);  
-        
-        if (physics !== undefined)
-        {
-          if (reqMarkPhysics <= physics.Mark)
-          {
-            physicsBool = true;
-          }
-          else {
-            physicsBool = false;
-          }
-        }
-        else{
-          physicsBool = false;
-        }    
-          
-      }   
-      
-      if(this.degreeReqs[i].Firm_Offer.split(';')[2] !== '-')
-      {
-        engHL = this.dataSource.find((d: any) => 
-          d.Subject === 'English First Language'
-        )!;
-        reqMarkEngHL = Number(this.degreeReqs[i].Firm_Offer.split(';')[2]);  
-        
-        if (engHL !== undefined)
-        {
-          if (reqMarkEngHL <= engHL.Mark)
-          {
-            engHLBool = true;
-          }
-          else{
-            engHLBool = false;
-          }
-        }
-        else{
-          engHLBool = false;
-        }    
-      }          
-     
-      if (engHLBool === true && mathsBool === true && physicsBool === true)
-      {
-        this.qualifiedCoursesII.push(this.degreeReqs[i]);
-      }
-    }
+    if(subjectValues[2]=='-'||subjectValues[1]=='-' ||subjectValues[0]=='-'  ) return 2;
+    if(subjectMark>=Number(subjectValues[2])) return 2;//firm check
+    else if(subjectMark>=Number(subjectValues[1])) return 1;//waitlist check
+    else if(subjectMark>=Number(subjectValues[0])) return 0;//reject
+    return 0;
   }
 
-  subjectCheckII()
-  {
-    this.qualifiedCoursesIII.load(this.qualifiedCourses.filter((x: any) => this.qualifiedCoursesII.includes(x)));
-    // console.log(this.qualifiedCoursesIII);
-  }
 
   addAPS(){
     const sum = this.dataSource.reduce((sum: any, subject: { APS: any; }) => sum + Number(subject.APS), 0);
