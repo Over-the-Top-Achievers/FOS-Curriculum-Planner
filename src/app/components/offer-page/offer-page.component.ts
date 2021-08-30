@@ -24,7 +24,8 @@ export class OfferPageComponent implements OnInit {
         this.settings.columns.Subject.editor.config.list = this.subjectSelection;
         this.settings = Object.assign({},this.settings);   
 
-        setInterval(()=> { this.addAPS() }, 1 * 1000);
+        setInterval(()=> { this.updateQualifiedCoursese()}, 3 * 1000);
+
       }
     )
 
@@ -58,15 +59,20 @@ export class OfferPageComponent implements OnInit {
       alert('Only 7 subjects required for APS calculation');
     }    
 
-    if (numberOfSubjects === 7)
+    if (numberOfSubjects ===7 )
     {
-      this.APSCheck();
-      this.subjectCheckI();
-      this.subjectCheckII();
-      this.qualifiedCoursesIII.refresh();
+      this.updateQualifiedCoursese();
     }
   }
-
+  updateQualifiedCoursese()
+  {
+    this.qualifiedCourses=[];
+    this.qualifiedCoursesII= [];
+    this.APSCheck();
+    this.subjectCheckI();
+    this.subjectCheckII();
+    this.qualifiedCoursesIII.refresh();
+  }
   APSCheck()
   {
     this.addAPS();
@@ -104,7 +110,6 @@ export class OfferPageComponent implements OnInit {
           d.Subject === 'Mathematics'
         )!;
         reqMarkMaths = Number(this.degreeReqs[i].Firm_Offer.split(';')[0]);   
-        
         if (maths !== undefined)
         {
           if (reqMarkMaths <= maths.Mark)
@@ -114,6 +119,9 @@ export class OfferPageComponent implements OnInit {
           else{
             mathsBool = false;
           }
+        }
+        else{
+          mathsBool = false;
         }        
       }      
       
@@ -134,6 +142,9 @@ export class OfferPageComponent implements OnInit {
             physicsBool = false;
           }
         }
+        else{
+          physicsBool = false;
+        }    
           
       }   
       
@@ -154,6 +165,9 @@ export class OfferPageComponent implements OnInit {
             engHLBool = false;
           }
         }
+        else{
+          engHLBool = false;
+        }    
       }          
      
       if (engHLBool === true && mathsBool === true && physicsBool === true)
@@ -166,7 +180,7 @@ export class OfferPageComponent implements OnInit {
   subjectCheckII()
   {
     this.qualifiedCoursesIII.load(this.qualifiedCourses.filter((x: any) => this.qualifiedCoursesII.includes(x)));
-    console.log(this.qualifiedCoursesIII);
+    // console.log(this.qualifiedCoursesIII);
   }
 
   addAPS(){
