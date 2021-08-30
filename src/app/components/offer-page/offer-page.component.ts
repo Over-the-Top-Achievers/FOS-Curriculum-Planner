@@ -24,7 +24,7 @@ export class OfferPageComponent implements OnInit {
         this.settings.columns.Subject.editor.config.list = this.subjectSelection;
         this.settings = Object.assign({},this.settings);   
 
-        setInterval(()=> { this.updateQualifiedCoursese()}, 3 * 1000);
+        setInterval(()=> { this.updateQualifiedCoursese()}, 1 * 1000);
 
       }
     )
