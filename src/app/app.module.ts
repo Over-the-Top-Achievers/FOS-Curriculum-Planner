@@ -28,6 +28,7 @@ import { ViewCourseComponent } from './components/view-course/view-course.compon
 import { UserService } from './shared/services/user.services';
 import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculator.component';
 import { AdminApsComponent } from './components/admin-aps/admin-aps.component';
+import { AdminDegreeComponent } from './admin-degree/admin-degree.component';
 
 
 
@@ -43,6 +44,7 @@ import { AdminApsComponent } from './components/admin-aps/admin-aps.component';
     ViewCourseComponent,
     ApsCalculatorComponent,
     AdminApsComponent,
+    AdminDegreeComponent,
   ],
   imports: [
     HttpClientModule,

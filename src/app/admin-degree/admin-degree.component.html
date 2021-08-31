@@ -1,0 +1,48 @@
+<style>
+    body {
+      background-image: url('./../assets/images/bg6.jpg');
+    }
+</style>
+
+<body>
+    
+
+    <mat-card fxFlex="25%" style="height:97%; vertical-align: middle; background-color: rgba(255, 255, 255, 0.9)">
+
+        <form [formGroup]="updateDegreeForm" (ngSubmit)="updateDegree()"  >
+            <h1>UPDATE APS</h1>
+            
+            <div style="padding-left: 5%; padding-top: 5%; padding-bottom: 5%;">
+                <button mat-button [matMenuTriggerFor]="modify" id="select_course" color="accent" style="background-color: #3498DB; color: white; padding-left: 5%; width: 95%; ">SELECT COURSE TO UPDATE</button>
+                <mat-menu #modify="matMenu" > 
+                <button *ngFor = "let degree of degree$ | async;" mat-menu-item (click)="populateUpdate(degree)">{{degree.Degree_Name}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
+                </mat-menu>
+            </div>
+
+
+            
+            <p>
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Degree_Name">DEGREE NAME</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Degree_Name' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Firm_Offer">FIRM OFFER</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Firm_Offer' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Waitlist">WAITLIST</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Waitlist' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="padding-left: 16px;">
+                    <mat-label for="Reject">REJECT</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Reject' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+
+                <button mat-flat-button style='background-color: #3498DB; color:"white"; width: 100%;'type="submit" (click)='refresh()' >
+                    <mat-icon >done</mat-icon>
+                </button>
+            </p>
+        </form>
+    </mat-card>
+</body>

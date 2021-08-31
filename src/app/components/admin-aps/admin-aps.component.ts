@@ -55,10 +55,6 @@ export class AdminApsComponent implements OnInit {
 
   }
 
-  subjectToEdit? : string;
-  testSubject(subSelect: string){
-    console.log(subSelect)
-  } 
 
   updateAPSForm = this.formbuilder.group({
     Subject:'',
