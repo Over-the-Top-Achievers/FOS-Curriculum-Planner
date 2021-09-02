@@ -11,9 +11,9 @@ export interface Course {
     Co_requisite: string;
     Pre_requisite: string;
     Shareable: string;
-}
+};
 
-export interface Subject{
+export interface Subject {
     _id: string;
     Subject: string;
     Level_100_90: string;
@@ -24,12 +24,13 @@ export interface Subject{
     Level_49_40: string;
     Level_39_30: string;
     Level_29_0: string;
-}
 
-export interface DegreeRequirement{
-    _id: string,
-    Degree_Name: string,
-    Firm_Offer: string,
-    Waitlist: string,
-    Reject: string,
-}
+};
+
+export interface DegreeName {
+    _id:string;
+    Degree_Name:string;
+    Firm_Offer:string;
+    Waitlist:string;
+    Reject:string;
+};

@@ -7,7 +7,8 @@ import "node_modules/bootstrap/scss/bootstrap.scss"
 import { AuthGuard } from './services/auth-gaurd.service';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculator.component';
-import { OfferPageComponent } from './components/offer-page/offer-page.component';
+import { AdminApsComponent } from './components/admin-aps/admin-aps.component';
+import { AdminDegreeComponent } from './admin-degree/admin-degree.component';
 
 const routes: Routes = [
   {path: 'home', pathMatch: 'full',component: HomeComponent},  
@@ -15,9 +16,10 @@ const routes: Routes = [
   { path: 'signin',pathMatch: 'full', component: SigninComponent},
   {path:'user-page',pathMatch: 'full',component:UserPageComponent},
   { path:'aps-calculator', pathMatch: 'full', component:ApsCalculatorComponent},
-  {path:'offer-page', pathMatch: 'full', component:OfferPageComponent},
+  {path:'admin-aps', pathMatch:'full', component:AdminApsComponent},
   { path: '', pathMatch: 'full', redirectTo: '/home' },
-
+  {path: 'admin-degree', pathMatch: 'full', component:AdminDegreeComponent},
+  
   //otherwise redirect to home page
   {path: '**', redirectTo:''}
 ];

@@ -14,7 +14,6 @@ export class AuthenticationService {
     }
 
     public get currentUserValue() {
-        console.log(this.currentUserSubject)
         return this.currentUserSubject.value;
     }
 
@@ -32,6 +31,5 @@ export class AuthenticationService {
         // remove user from local storage and set current user to null
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
-
     }
 }

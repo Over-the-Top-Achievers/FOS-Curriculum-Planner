@@ -1,37 +1,50 @@
-<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%">
 
-    <mat-card fxFlex="35%">
-        <mat-card-title>Visitors</mat-card-title>
-        <mat-card-subtitle>Explore our subjects and build your curriculum</mat-card-subtitle>
-        <img mat-card-image src="./../assets/images/students.png" alt="Visitor's Image">
+<!-- <div style='margin-left: auto; margin-right: auto;'>
+    <h1 style = 'font-size: 50px'>testing</h1>
+</div> -->
+<style>
+    body {
+      background-image: url('./../assets/images/bg6.jpg');
+    }
+    </style>
+<body fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10%" style='padding-top: 5%;'>
+    
+    <mat-card fxFlex="25%" style="height: 70%; vertical-align: middle;">
+        <mat-card-header>
+            <mat-card-title>VISITORS
+            </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image style="height: 50%; padding: 2%;" src="./../assets/images/VisitorImage.png">
         <mat-card-content>
-            <p>
-                Prospective students can explore the available subjects which are on offer in the coming years
-                and build their ideal curriculum.
+            <p style="font-size: 20px;">
+                Plan your curriculum here
             </p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary" routerLink="/user-page">Explore</button>
+            <a routerLink="/user-page">
+                <button mat-button style="background-color: blue; color: antiquewhite; margin-top: 25%; width: 100%;">EXPLORE</button>
+            </a>
         </mat-card-actions>
     </mat-card>
-    <mat-card fxFlex="35%">
-        <mat-card-title>Administrators</mat-card-title>
-        <mat-card-subtitle>System maintenance and configuration</mat-card-subtitle>
-        <img mat-card-image src="../../../assets/images/admin.png" alt="Admin Image">
+
+    <mat-card fxFlex="25%" style="height: 70%;">
+        <mat-card-header>
+            <mat-card-title>ADMINISTRATORS
+            </mat-card-title>
+        </mat-card-header>
+        <img style="height: 50%; padding: 2%;" mat-card-image src="./../assets/images/AdminImage.jpg">
         <mat-card-content>
-            <p>
-                Do you crave control?  Feel the need to micro-manage other people's choices? This is the place for you...
-                <br />
+            <p style="font-size: 20px;">
+                Curriculum Planner for Administrators
             </p>
         </mat-card-content>
         <mat-card-actions>
-            <button *ngIf="!this.isLoggedIn" mat-raised-button color="primary" routerLink="/signin">Sign In</button>
-            <button *ngIf="this.isLoggedIn" mat-raised-button color="primary" routerLink="/admin-page">Admin Page</button>
+            <a routerLink="/signin">
+                <button mat-button  style="background-color: blue; color: antiquewhite; margin-top: 25%; width: 100%;">SIGN IN</button>
+            </a>
         </mat-card-actions>
     </mat-card>
-  
-  </div>
+</body>
 
-<!--
 <router-outlet></router-outlet>
-<footer></footer> -->
+<footer></footer>

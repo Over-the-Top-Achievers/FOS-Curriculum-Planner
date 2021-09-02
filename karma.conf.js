@@ -61,8 +61,7 @@ module.exports = function (config) {
         flags: ['--no-sandbox']
       }
     },
-    
-    singleRun: true, //never push code if this is false or it will run FOREVER!!!
+    singleRun: true,
     restartOnFileChange: true
   });
 };

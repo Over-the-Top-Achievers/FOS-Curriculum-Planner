@@ -1,9 +1,9 @@
 
-<!-- <style>
+<style>
     body {
       background-image: url('./../assets/images/bg6.jpg');
     }
-</style> -->
+</style>
 
 <header fxLayout="row" style="padding-top: 16px; padding-bottom: 32px;">
     <!-- <pre>{{courseService.courses$ | async | json}}</pre> -->
@@ -19,12 +19,20 @@
             </mat-form-field>
 
             <div>
-                <button mat-raised-button (click)="getCSV();" color="primary">EXPORT COURSE LIST</button> 
+                <button mat-flat-button (click)="getCSV();" style="background-color:#3498DB; color: white; width: 100%;">EXPORT COURSE LIST</button> 
             </div>            
 
         </mat-card>         
     </div> 
 
+    <div style="padding-left: 20%;">
+        <a href="http://localhost:4200/admin-aps">EDIT SUBJECT APS</a>
+    </div>
+
+    <div  style="padding-left: 5%;">
+        <a href="http://localhost:4200/admin-degree">EDIT DEGREE REQUIREMENT</a>
+    </div>
+    
     <div *ngIf='selectedCourse' style='padding-left: 64px; padding-top: 48px;'>
         <mat-dialog-content>
         <mat-card>
@@ -182,13 +190,13 @@
 
 
 <!-- -->
-<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
+<body fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
     
     <mat-card fxFlex="25%" style="height: 97%; vertical-align: middle;background-color: rgba(255, 255, 255, 0.9)">
     <h1 >ADD COURSE</h1>
     <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10%" style="padding-bottom: 5%;">
-        <button mat-raised-button  (click)="setPreReqs('1')" color="primary">Add Pre Requisite</button>
-        <button mat-raised-button  (click)="setCoReqs('1')" color="primary">Add Co Requisite</button>
+        <button mat-flat-button  (click)="setPreReqs('1')" style="background-color:#3498DB; color: white; width: 40%;">Add Pre Requisite</button>
+        <button mat-flat-button  (click)="setCoReqs('1')" style="background-color:#3498DB; color: white; width: 40%">Add Co Requisite</button>
     </div>    
 
     <form [formGroup]="checkoutForm" (ngSubmit)="addCourse()" >
@@ -262,7 +270,7 @@
         </div>           
            
         <div style="padding-left: 5%; padding-bottom: 5%;">
-            <button mat-raised-button color="primary" style='width: 100%;' type="submit" (click)='refresh()'>
+            <button mat-flat-button style="background-color: #3498DB; color: white; padding-left: 5%; width: 95%; " type="submit" (click)='refresh()'>
                 <mat-icon >add</mat-icon>
             </button> 
         </div>        
@@ -276,12 +284,12 @@
             <h1>UPDATE COURSE</h1>
 
             <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10%">
-                <button mat-raised-button  (click)="setPreReqs('0')" color="primary">Add Pre Requisite</button>
-                <button mat-raised-button  (click)="setCoReqs('0')" color="primary">Add Co Requisite</button>
+                <button mat-flat-button  (click)="setPreReqs('0')" style="background-color:#3498DB; color: white; width: 40%">Add Pre Requisite</button>
+                <button mat-flat-button  (click)="setCoReqs('0')" style="background-color:#3498DB; color: white; width: 40%">Add Co Requisite</button>
             </div>
 
             <div style="padding-left: 5%; padding-top: 5%; padding-bottom: 5%;">
-                <button mat-raised-button [matMenuTriggerFor]="modify" id="select_course" color="accent" color="primary">SELECT COURSE TO UPDATE</button>
+                <button mat-button [matMenuTriggerFor]="modify" id="select_course" color="accent" style="background-color: #3498DB; color: white; padding-left: 5%; width: 95%; ">SELECT COURSE TO UPDATE</button>
                 <mat-menu #modify="matMenu" > 
                 <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
                 </mat-menu>
@@ -333,7 +341,7 @@
                     <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Shareable' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
                 
-                <button mat-raised-button color="primary" style='width: 100%;' type="submit" (click)='refresh()' >
+                <button mat-flat-button style='background-color: #3498DB; color:"white"; width: 100%;'type="submit" (click)='refresh()' >
                     <mat-icon >done</mat-icon>
                 </button>
             </p>
@@ -350,10 +358,10 @@
                 </mat-select>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" style="width: 100%;" (click)="deleteCourse(courseToDelete)" >
+            <button mat-flat-button style="color: white; background-color: #3498DB; padding-top: 3%;height: 100%; width: 100%;" (click)="deleteCourse(courseToDelete)" >
                 <mat-icon style='object-position: center;'>delete</mat-icon>
             </button>           
         </div>
         
     </mat-card>
-</div>
+</body>

@@ -1,4 +1,10 @@
-<div fxLayout='row' fxLayoutAlign="center" style="padding-top: 2%;">
+<style>
+    body {
+      background-image: url('./../assets/images/bg6.jpg');
+    }
+</style>
+
+<body fxLayout='row' fxLayoutAlign="center" style="padding-top: 2%;">
     <mat-card style="width: 20%;">
         <mat-card-title>APS CALCULATOR</mat-card-title>
         <div style="padding-top: 10%;">
@@ -66,7 +72,7 @@
                     </mat-form-field>
                 </div>
             </form>
-            <button mat-flat-button color="primary" (click)='sumAPS()'>CALCULATE</button>
+            <button mat-flat-button style="background-color: blue; color: white; width: 100%;" (click)='sumAPS()'>CALCULATE</button>
 
             <div *ngIf='counter' style="padding-top: 5%;">
                 <p style="font-size: x-large;">
@@ -78,7 +84,7 @@
 
         
     </mat-card>
-</div>
+</body>
 
 
 <router-outlet></router-outlet>
