@@ -43,17 +43,18 @@ export class AdminDegreeComponent implements OnInit {
     )
   }
 
-  populateUpdate(degree:any){
-    delete degree._id
-    this.updateDegreeForm.setValue(degree)
-  }
-
   updateDegreeForm = this.formbuilder.group({
     Degree_Name:'',
     Firm_Offer:'',
     Waitlist:'',
     Reject:''
   });
+
+  populateUpdate(degree:any){
+    delete degree._id
+    this.updateDegreeForm.setValue(degree)
+  }
+
 
 
   updateDegree():void{
