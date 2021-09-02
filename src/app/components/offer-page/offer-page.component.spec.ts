@@ -5,10 +5,11 @@ import { OfferPageComponent } from './offer-page.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatCard, MatCardHeader } from '@angular/material/card';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { LocalDataSource, Ng2SmartTableModule } from 'ng2-smart-table';
 import { MatDialog } from '@angular/material/dialog';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ExpectedConditions } from 'protractor';
+import { LocalizedString } from '@angular/compiler';
 
 
 describe('OfferPageComponent', () => {
@@ -67,5 +68,69 @@ describe('OfferPageComponent', () => {
     }]
     let APS:string = component.getAPS('Mathematics', 65);
     expect(APS).toEqual('7');
+  })
+
+  it ('should determine correct offer type', () =>{
+    let physics = ['60','70','80'];
+    let subjectMark = 70
+
+    let offer = component.checkSubjectOffer(physics, subjectMark);
+    expect(offer).toEqual(1);
+  })
+
+  it('should return your offer ', () =>{
+    component.dataSource = [{
+      Subject: 'English First Language', 
+      Mark: 80,
+      APS: '9'
+    }, 
+    {
+      Subject: 'Afrikaans First Language', 
+      Mark: 80,
+      APS: '7'
+    }]
+
+    let course = {
+      _id: '',
+      Degree_Name: 'Actuarial Science',
+      Firm_Offer: '80;80;80;42',
+      Waitlist: '80;-;-',
+      Reject: '80;-;-;42',
+    }
+
+    let offer = component.getOffer(course);
+    expect(offer).toEqual('Reject');
+  })
+
+  it('should return offer type based on total APS', ()=>{
+    let course = {
+      _id: '',
+      Degree_Name: 'Actuarial Science',
+      Firm_Offer: '80;80;80;42',
+      Waitlist: '80;-;-',
+      Reject: '80;-;-;42',
+    }
+
+    component.totalAPS = 42;
+
+    let offer = component.getOfferAPS(course);
+    expect(offer).toEqual(2);
+  })
+
+  it('should call getOffer()', ()=>{
+    component.qualifiedCoursesIII = new LocalDataSource();
+    component.degreeReqs = [ {
+      _id: '',
+      Degree_Name: 'Actuarial Science',
+      Firm_Offer: '80;80;80;42',
+      Waitlist: '80;-;-',
+      Reject: '80;-;-;42',
+    }];
+
+    component.offerList = [{Degree_Name: 'Actuarial Science', Offer: 'Reject'}];
+    const updateSpy= spyOn(component, 'getOffer');
+    expect(updateSpy).not.toHaveBeenCalled()
+    component.updateOffers()
+    expect(updateSpy).toHaveBeenCalled()
   })
 });
