@@ -11,46 +11,21 @@ import { FormBuilder } from '@angular/forms';
 
 export class SubjectService {
 
-    // public Courses:Array<Course> = [];
-    // public courses$ = this.getCourses();
-
     constructor(
         private http: HttpClient,
 
-    ){
-    }
-
-    // getCourses() : Array<Course> {
-    //     let result:Array<Course> = [];
-    //     this.http.get(`${API.apiRoot}/coursesData`).toPromise().then((response: any) => {
-    //         result = response;
-    //     });
-    //     return result;
-    // }
+    ){}
 
     getSubjects() : Observable<any> { //returns an observable which emitting/publishing the result of the get request
         return this.http.get(`${API.apiRoot}/subjectsData`);
     }
-    // addCourse(data:any): Observable<any>{
-    //     return this.http.post(`${API.apiRoot}/courses`,data);
-    // }
-    // getCSV() : Observable<any> {
-    //     return this.http.get(`${API.apiRoot}/coursesCSV`);
-    // }
-    ngOnInit(): void {
-    //   this.Courses = this.getCourses();
+
+    getDegreeReq(): Observable<any>{
+        return this.http.get(`${API.apiRoot}/degreeReq`);
     }
-    // updateCourse(body:any): void{     
-    //     var options = {
-    //          headers: new HttpHeaders({
-    //              'Content-Type': 'application/json',
-    //             }),
-    //             body: body,
-                
-    //         };
-    //     console.log(options.body);
-    //     this.http.put(`${API.apiRoot}/courses`, options.body).subscribe((s) => {},(err)=> console.log(err));
-    //    }
+
+    ngOnInit(): void {
+    }
 
 
 }
