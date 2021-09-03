@@ -33,3 +33,11 @@ export interface DegreeRequirement{
     Waitlist: string,
     Reject: string,
 }
+
+export interface DegreeName {
+    _id:string;
+    Degree_Name:string;
+    Firm_Offer:string;
+    Waitlist:string;
+    Reject:string;
+};
