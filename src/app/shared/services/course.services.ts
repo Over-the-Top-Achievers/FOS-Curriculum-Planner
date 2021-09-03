@@ -52,6 +52,37 @@ export class CourseService {
         this.http.put(`${API.apiRoot}/courses`, options.body).subscribe((s) => {},(err)=> console.log(err));
        }
 
-
+        // gets the high school subject courses
+        getSubject(): Observable<any>{
+            return this.http.get(`${API.apiRoot}/subjectsData`);
+        }
+    
+        getDegree(): Observable<any>{
+            return this.http.get(`${API.apiRoot}/degreeReq`);
+        }
+    
+        updateAPS(body:any): void{     
+            var options = {
+                 headers: new HttpHeaders({
+                     'Content-Type': 'application/json',
+                    }),
+                    body: body,
+                    
+                };
+            console.log(options.body);
+            this.http.put(`${API.apiRoot}/updateAPS`, options.body).subscribe((s) => {},(err)=> console.log(err));
+        }
+    
+        updateDegree(body:any): void{     
+            var options = {
+                 headers: new HttpHeaders({
+                     'Content-Type': 'application/json',
+                    }),
+                    body: body,
+                    
+                };
+            console.log(options.body);
+            this.http.put(`${API.apiRoot}/updateReq`, options.body).subscribe((s) => {},(err)=> console.log(err));
+        }
 }
 

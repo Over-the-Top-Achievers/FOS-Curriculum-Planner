@@ -27,6 +27,8 @@ import { UserService } from './shared/services/user.services';
 import { ApsCalculatorComponent } from './components/aps-calculator/aps-calculator.component';
 import { OfferPageComponent } from './components/offer-page/offer-page.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { AdminApsComponent } from './components/admin-aps/admin-aps.component';
+import { AdminDegreeComponent } from './components/admin-degree/admin-degree.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     UserPageComponent,
     ViewCourseComponent,
     ApsCalculatorComponent,
-    OfferPageComponent,    
+    OfferPageComponent,
+    AdminApsComponent,
+    AdminDegreeComponent,    
   ],
   imports: [
     HttpClientModule,
