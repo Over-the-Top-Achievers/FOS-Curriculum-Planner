@@ -44,7 +44,7 @@ $md-mcgpalette0: (
 
 // Define the default theme (same as the example above).
 $candy-app-primary: mat-palette($md-mcgpalette0);
-$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$candy-app-accent:  mat-palette($mat-green, A200, A100, A400);
 $candy-app-theme:   mat-light-theme($candy-app-primary, $candy-app-accent);
 
 // Include the default theme styles.
@@ -117,4 +117,12 @@ mat-card.mat-card.mat-focus-indicator {
 .form-error {
   margin-top: 20px;
   color: red;
+}
+
+mat-form-field {
+  margin-top: 10px;
+}
+
+.mat-card-title {
+  margin-top: 10px !important;
 }
