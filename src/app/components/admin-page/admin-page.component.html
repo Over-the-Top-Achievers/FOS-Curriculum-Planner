@@ -1,22 +1,27 @@
-<header fxLayout="row" style="padding-top: 16px; padding-bottom: 32px;">
-    <!-- <pre>{{courseService.courses$ | async | json}}</pre> -->
-    <div style="padding-left: 41%; ">
-        <mat-card style="background-color: rgba(255, 255, 255, 0.9)">
-            <h1 style="padding-left: 16px;">View Course</h1>
-            <mat-form-field appearance="fill">
-                <mat-label>Choose a Year of Study</mat-label>
-                <mat-select>
-                <mat-option (click)="refresh()">None</mat-option>
-                <mat-option *ngFor="let year of years" [value]="year" (click)='displayYearCourse(year)'>{{year}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 2px;">
 
-            <div>
-                <button mat-raised-button (click)="getCSV();" color="primary">Export Course List</button> 
-            </div>            
+        <mat-card fxFlex="79%">
+
+            <mat-card-title>View Course</mat-card-title>
+            <mat-card-subtitle>Select a year from the list below to see the available courses for that year.</mat-card-subtitle>
+
+            <mat-card-content>
+            
+                <mat-form-field appearance="outline" style="width: 300px;">
+                    <mat-label>Choose a Year of Study</mat-label>
+                    <mat-select>
+                    <mat-option (click)="refresh()">None</mat-option>
+                    <mat-option *ngFor="let year of years" [value]="year" (click)='displayYearCourse(year)'>{{year}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <p>
+                    <button mat-raised-button (click)="getCSV();" color="primary">Export Course List</button> 
+                </p>
+
+            </mat-card-content>
 
         </mat-card>         
-    </div> 
 
     <div *ngIf='selectedCourse' style='padding-left: 64px; padding-top: 48px;'>
         <mat-dialog-content>
@@ -103,250 +108,257 @@
         </mat-card>
     </mat-dialog-content>
     </div>
-</header>
 
-<!-- -->
-
-<div style="padding-left: 36px;" *ngIf='selectedYear' class= "scrollable-table">
-    <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <input matInput type="text" (keyup)="applyFilter($event)" placeholder="Enter something" #input>
-    </mat-form-field>
-
-    <table mat-table [dataSource]="dataSource"  class= "scrollable-table">
-        <ng-container matColumnDef='Course_Code'>
-            <th mat-header-cell *matHeaderCellDef> Couse Code </th>
-            <td mat-cell *matCellDef="let element"> {{element.Course_Code}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef='Course_Name'>
-            <th mat-header-cell *matHeaderCellDef> Course Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.Course_Name}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef='Credits'>
-            <th mat-header-cell *matHeaderCellDef> Credits </th>
-            <td mat-cell *matCellDef="let element"> {{element.Credits}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef='NQF'>
-            <th mat-header-cell *matHeaderCellDef> NQF </th>
-            <td mat-cell *matCellDef="let element"> {{element.NQF}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef='Slot'>
-            <th mat-header-cell *matHeaderCellDef> Slot </th>
-            <td mat-cell *matCellDef="let element"> {{element.Slot}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef='Semester'>
-            <th mat-header-cell *matHeaderCellDef> Semester </th>
-            <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef='Year'>
-            <th mat-header-cell *matHeaderCellDef> Year </th>
-            <td mat-cell *matCellDef="let element"> {{element.Year}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef='Co_requisite'>
-            <th mat-header-cell *matHeaderCellDef> Co-requisite </th>
-            <td mat-cell *matCellDef="let element"> {{element.Co_requisite}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef='Pre_requisite'>
-            <th mat-header-cell *matHeaderCellDef> Pre-requisite </th>
-            <td mat-cell *matCellDef="let element"> {{element.Pre_requisite}} </td>
-        </ng-container>
-        <ng-container matColumnDef='Shareable'>
-            <th mat-header-cell *matHeaderCellDef> Shareable </th>
-            <td mat-cell *matCellDef="let element"> {{element.Shareable}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true "></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-        </tr>
-    </table>
 </div>
-<!-- -->
-
 
 <!-- -->
-<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
-    
-    <mat-card fxFlex="25%" style="height: 97%; vertical-align: middle;background-color: rgba(255, 255, 255, 0.9)">
-    <h1 >Add a new course</h1>
-    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10%" style="padding-bottom: 5%;">
-        <button mat-raised-button  (click)="setPreReqs('1')" color="primary">Add Pre-Requisite</button>
-        <button mat-raised-button  (click)="setCoReqs('1')" color="primary">Add Co-Requisite</button>
-    </div>    
 
-    <form [formGroup]="checkoutForm" (ngSubmit)="addCourse()" >
-        <div>
-        <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-            <mat-label for="Course_Name">Course Name</mat-label>
-            <input matInput placeholder="Placeholder" formControlName='Course_Name' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+<div *ngIf='selectedYear' fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 2px;">
+
+    <mat-card fxFlex="79%">
+
+        <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Filter</mat-label>
+            <input matInput type="text" (keyup)="applyFilter($event)" placeholder="Enter something" #input>
         </mat-form-field>
-        </div>
 
-        <div>
-        <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-            <mat-label for="Course_Code">COURSE CODE</mat-label>
-            <input matInput placeholder="Placeholder" formControlName='Course_Code' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-        </mat-form-field>
-        </div>
+        <table mat-table [dataSource]="dataSource" class="scrollable-table">
 
-        <div>
-        <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-            <mat-label for="Credits">CREDITS</mat-label>
-            <input matInput placeholder="Placeholder" formControlName='Credits' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-        </mat-form-field>
-        </div>
+            <ng-container matColumnDef='Course_Code'>
+                <th mat-header-cell *matHeaderCellDef> Course Code </th>
+                <td mat-cell *matCellDef="let element"> {{element.Course_Code}} </td>
+            </ng-container>
 
-        <div>
-        <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-            <mat-label for="NQF">NQF LEVEL</mat-label>
-            <input matInput placeholder="Placeholder" formControlName='NQF' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-        </mat-form-field>
-        </div>
+            <ng-container matColumnDef='Course_Name'>
+                <th mat-header-cell *matHeaderCellDef> Course Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.Course_Name}} </td>
+            </ng-container>
 
-        <div>
-        <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-            <mat-label for="Slot">SLOT</mat-label>
-            <input matInput placeholder="Placeholder" formControlName='Slot' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-        </mat-form-field>
-        </div>
+            <ng-container matColumnDef='Credits'>
+                <th mat-header-cell *matHeaderCellDef> Credits </th>
+                <td mat-cell *matCellDef="let element"> {{element.Credits}} </td>
+            </ng-container>
 
-        <div>
-        <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-            <mat-label for="Semester">SEMESTER</mat-label>
-            <input matInput placeholder="Placeholder" formControlName='Semester' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-        </mat-form-field>
-        </div>
+            <ng-container matColumnDef='NQF'>
+                <th mat-header-cell *matHeaderCellDef> NQF </th>
+                <td mat-cell *matCellDef="let element"> {{element.NQF}} </td>
+            </ng-container>
 
-        <div>
-        <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-            <mat-label for="Year">YEAR</mat-label>
-            <input matInput placeholder="Placeholder" formControlName='Year' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-        </mat-form-field>
-        </div>
+            <ng-container matColumnDef='Slot'>
+                <th mat-header-cell *matHeaderCellDef> Slot </th>
+                <td mat-cell *matCellDef="let element"> {{element.Slot}} </td>
+            </ng-container>
 
-        <div>
-        <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-            <mat-label for="Pre_Requisite">PRE REQUISITE</mat-label>
-            <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Pre_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-        </mat-form-field>
-        </div>
+            <ng-container matColumnDef='Semester'>
+                <th mat-header-cell *matHeaderCellDef> Semester </th>
+                <td mat-cell *matCellDef="let element"> {{element.Semester}} </td>
+            </ng-container>
 
-        <div>
-            <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-                <mat-label for="Co_Requisite">CO REQUISITE</mat-label>
-                <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Co_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-            </mat-form-field>            
-        </div>           
-        <div>
-            <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-                <mat-label for="Shareable">SHAREABLE</mat-label>
-                <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Shareable' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-            </mat-form-field>            
-        </div>           
-           
-        <div style="padding-left: 5%; padding-bottom: 5%;">
-            <button mat-raised-button color="primary" style='width: 100%;' type="submit" (click)='refresh()'>
-                <mat-icon >add</mat-icon>
-            </button> 
-        </div>        
-    </form>        
+            <ng-container matColumnDef='Year'>
+                <th mat-header-cell *matHeaderCellDef> Year </th>
+                <td mat-cell *matCellDef="let element"> {{element.Year}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef='Co_requisite'>
+                <th mat-header-cell *matHeaderCellDef> Co-Requisites </th>
+                <td mat-cell *matCellDef="let element"> {{element.Co_requisite}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef='Pre_requisite'>
+                <th mat-header-cell *matHeaderCellDef> Pre-Requisites </th>
+                <td mat-cell *matCellDef="let element"> {{element.Pre_requisite}} </td>
+            </ng-container>
+            <ng-container matColumnDef='Shareable'>
+                <th mat-header-cell *matHeaderCellDef> Shareable </th>
+                <td mat-cell *matCellDef="let element"> {{element.Shareable}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true "></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
 
     </mat-card>
 
-    <mat-card fxFlex="25%" style="height:97%; vertical-align: middle; background-color: rgba(255, 255, 255, 0.9)">
+</div>
 
-        <form [formGroup]="updateForm" (ngSubmit)="updateCourse()"  >
-            <h1>UPDATE COURSE</h1>
+<!-- -->
 
-            <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10%">
-                <button mat-raised-button  (click)="setPreReqs('0')" color="primary">Add Pre Requisite</button>
-                <button mat-raised-button  (click)="setCoReqs('0')" color="primary">Add Co Requisite</button>
-            </div>
+<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 2px;">
+    
+    <mat-card fxFlex="25%">
 
-            <div style="padding-left: 5%; padding-top: 5%; padding-bottom: 5%;">
-                <button mat-raised-button [matMenuTriggerFor]="modify" id="select_course" color="accent" color="primary">SELECT COURSE TO UPDATE</button>
-                <mat-menu #modify="matMenu" > 
-                <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
-                </mat-menu>
-            </div>
-            
-            <p>
-                <mat-form-field appearance="outline" style="padding-left: 16px;">
+        <mat-card-title>Create Course</mat-card-title>
+        <mat-card-subtitle>Use for form below to add a new course to the system.</mat-card-subtitle>
+
+        <mat-card-content>
+
+            <div fxLayout="row" fxLayoutAlign="left" fxLayoutGap="10px">
+                <button mat-raised-button (click)="setPreReqs('1')" color="primary">Add Pre-Requisite</button>
+                <button mat-raised-button (click)="setCoReqs('1')" color="primary">Add Co-Requisite</button>
+            </div>    
+
+            <form [formGroup]="checkoutForm" (ngSubmit)="addCourse()" >
+
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="Course_Name">Course Name</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Course_Name' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label for="Course_Code">COURSE CODE</mat-label>
                     <input matInput placeholder="Placeholder" formControlName='Course_Code' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
-                <mat-form-field appearance="outline" style="padding-left: 16px;">
-                    <mat-label for="Course_Name">COURSE NAME</mat-label>
-                    <input matInput placeholder="Placeholder" formControlName='Course_Name' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-                </mat-form-field>
-                <mat-form-field appearance="outline" style="padding-left: 16px;">
+
+                <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label for="Credits">CREDITS</mat-label>
                     <input matInput placeholder="Placeholder" formControlName='Credits' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
-                <mat-form-field appearance="outline" style="padding-left: 16px;">
+
+                <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label for="NQF">NQF LEVEL</mat-label>
                     <input matInput placeholder="Placeholder" formControlName='NQF' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
-        
-                <mat-form-field appearance="outline" style="padding-left: 16px;">
+
+                <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label for="Slot">SLOT</mat-label>
                     <input matInput placeholder="Placeholder" formControlName='Slot' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
-                <mat-form-field appearance="outline" style="padding-left: 16px;">
+
+                <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label for="Semester">SEMESTER</mat-label>
                     <input matInput placeholder="Placeholder" formControlName='Semester' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
-        
-                <mat-form-field appearance="outline" style="padding-left: 16px;">
+
+                <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label for="Year">YEAR</mat-label>
                     <input matInput placeholder="Placeholder" formControlName='Year' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
-        
-                <mat-form-field appearance="outline" style="padding-left: 16px;">
+
+                <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label for="Pre_Requisite">PRE REQUISITE</mat-label>
                     <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Pre_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
-        
-                <mat-form-field appearance="outline" style="padding-left: 16px; padding-right: 16px;">
-                    <mat-label for="Co_Requisite">CO REQUISITE</mat-label>
-                    <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Co_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
-                </mat-form-field>
-                <mat-form-field appearance="outline" style="padding-left: 16px; padding-right: 16px;">
+
+                <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label for="Co_Requisite">CO REQUISITE</mat-label>
+                        <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Co_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>            
+
+                <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label for="Shareable">SHAREABLE</mat-label>
                     <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Shareable' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
                 </mat-form-field>
                 
-                <button mat-raised-button color="primary" style='width: 100%;' type="submit" (click)='refresh()' >
-                    <mat-icon >done</mat-icon>
-                </button>
-            </p>
-        </form>
-    </mat-card>
-    <mat-card fxFlex="25%" style="height:97%; vertical-align: middle; background-color: rgba(255, 255, 255, 0.9)">
-        <h1>DELETE COURSE</h1>
+                <p>
+                    <button mat-raised-button color="accent"  type="submit" (click)='refresh()'>Create Course</button>
+                </p>
+                
+            </form>        
 
-        <div style="padding-left: 0%; padding-top: 5%;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20%">
-            <mat-form-field>
-                <mat-label>COURSE</mat-label>
+        </mat-card-content>
+
+    </mat-card>
+
+    <mat-card fxFlex="25%">
+
+        <mat-card-title>Update Course</mat-card-title>
+        <mat-card-subtitle>Use for form below to update an existing course.</mat-card-subtitle>
+
+        <mat-card-content>
+
+            <form [formGroup]="updateForm" (ngSubmit)="updateCourse()"  >
+
+                <div fxLayout="row" fxLayoutAlign="left" fxLayoutGap="10px">
+                    <button mat-raised-button [matMenuTriggerFor]="modify" id="select_course" color="accent" color="primary">Select Course</button>
+                    <mat-menu #modify="matMenu" > 
+                        <button *ngFor = "let course of courses$ | async;" mat-menu-item (click)="populateUpdate(course)" >{{course.Course_Code}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
+                    </mat-menu>
+                    <button mat-raised-button (click)="setPreReqs('0')" color="primary">Add Pre-Requisite</button>
+                    <button mat-raised-button (click)="setCoReqs('0')" color="primary">Add Co-Requisite</button>
+                </div>
+
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="Course_Code">COURSE CODE</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Course_Code' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="Course_Name">COURSE NAME</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Course_Name' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="Credits">CREDITS</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Credits' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="NQF">NQF LEVEL</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='NQF' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="Slot">SLOT</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Slot' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="Semester">SEMESTER</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Semester' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="Year">YEAR</mat-label>
+                    <input matInput placeholder="Placeholder" formControlName='Year' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="Pre_Requisite">PRE REQUISITE</mat-label>
+                    <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Pre_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="Co_Requisite">CO REQUISITE</mat-label>
+                    <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Co_requisite' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label for="Shareable">SHAREABLE</mat-label>
+                    <input matInput placeholder="use ';' to seperate the course code if there are multiple" formControlName='Shareable' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                </mat-form-field>
+
+                <p>
+                    <button mat-raised-button color="accent"  type="submit" (click)='refresh()'>Save Changes</button>
+                </p>
+                
+            </form>
+
+        </mat-card-content>
+
+    </mat-card>
+    <mat-card fxFlex="25%">
+
+        <mat-card-title>Delete Course</mat-card-title>
+        <mat-card-subtitle>Use for function below to remove a course from the system.</mat-card-subtitle>
+
+        <mat-card-content>
+
+            <mat-form-field appearance="outline" style="width: 300px;">
+                <mat-label>Choose a course to delete</mat-label>
                 <mat-select #fontSize value="16px"   name = 'coursesToDelete'  ngDefaultControl [(ngModel)]='courseToDelete'>
                     <mat-option *ngFor = "let course of courses$ | async;" mat-option-item [value]="course" >{{course.Course_Code}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" style="width: 100%;" (click)="deleteCourse(courseToDelete)" >
-                <mat-icon style='object-position: center;'>delete</mat-icon>
-            </button>           
-        </div>
-        
+            <p>
+                <button mat-raised-button (click)="deleteCourse(courseToDelete)" color="accent">Delete Course</button> 
+            </p>
+
+        </mat-card-content>
+
     </mat-card>
 </div>

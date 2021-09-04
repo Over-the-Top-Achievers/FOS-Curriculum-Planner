@@ -8,7 +8,7 @@
 
             <form [formGroup]="updateAPSForm" (ngSubmit)="updateAPS()"  >
                 
-                <button mat-raised-button [matMenuTriggerFor]="modify" id="select_course" color="accent">Select a subject to update</button>
+                <button mat-raised-button [matMenuTriggerFor]="modify" id="select_course" color="primary">Select a subject to update</button>
                 <mat-menu #modify="matMenu" > 
                     <button *ngFor = "let subject of sujects$ | async;" mat-menu-item (click)="populateUpdate(subject)">{{subject.Subject}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
                 </mat-menu>
@@ -62,7 +62,7 @@
                 </div>
 
                 <p>
-                    <button mat-raised-button color="primary" (click)='refresh()'>Save Changes</button>
+                    <button mat-raised-button color="accent" (click)='refresh()'>Save Changes</button>
                 </p>
             </form>
         </mat-card-content>
