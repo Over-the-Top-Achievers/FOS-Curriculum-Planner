@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+
+  curriculum_planner:
+    container_name: curriculum_planner
+    build: .
+    restart: always
+    ports:
+      - "4200:4200"
+    expose:
+      - 4200

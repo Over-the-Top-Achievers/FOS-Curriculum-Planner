@@ -2,6 +2,9 @@
     <a class="title" routerLink="/">Science Curriculum Planner</a>
     <span class="toolbar-spacer"></span>
     <button mat-button routerLink="/aps-calculator">APS Calculator</button>
+    <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-page">Manage Courses</button>
+    <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-aps">Edit Subject APS</button>
+    <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-degree">Edit Degree Requirements</button>
     <button *ngIf='this.isLoggedIn' mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
 

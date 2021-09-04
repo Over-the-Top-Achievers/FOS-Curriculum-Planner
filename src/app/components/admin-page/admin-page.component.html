@@ -1,15 +1,8 @@
-
-<!-- <style>
-    body {
-      background-image: url('./../assets/images/bg6.jpg');
-    }
-</style> -->
-
 <header fxLayout="row" style="padding-top: 16px; padding-bottom: 32px;">
     <!-- <pre>{{courseService.courses$ | async | json}}</pre> -->
     <div style="padding-left: 41%; ">
         <mat-card style="background-color: rgba(255, 255, 255, 0.9)">
-            <h1 style="padding-left: 16px;">VIEW COURSE</h1>
+            <h1 style="padding-left: 16px;">View Course</h1>
             <mat-form-field appearance="fill">
                 <mat-label>Choose a Year of Study</mat-label>
                 <mat-select>
@@ -19,27 +12,19 @@
             </mat-form-field>
 
             <div>
-                <button mat-raised-button (click)="getCSV();" color="primary">EXPORT COURSE LIST</button> 
+                <button mat-raised-button (click)="getCSV();" color="primary">Export Course List</button> 
             </div>            
 
         </mat-card>         
     </div> 
 
-    <div style="padding-left: 20%;">
-        <a href="http://localhost:4200/admin-aps">EDIT SUBJECT APS</a>
-    </div>
-
-    <div  style="padding-left: 5%;">
-        <a href="http://localhost:4200/admin-degree">EDIT DEGREE REQUIREMENT</a>
-    </div>
-
     <div *ngIf='selectedCourse' style='padding-left: 64px; padding-top: 48px;'>
         <mat-dialog-content>
         <mat-card>
-                <mat-card-title>SELECTED COURSE</mat-card-title>
+                <mat-card-title>Selected Course</mat-card-title>
             
                 <span>
-                <p>COURSE CODE:
+                <p>Course Code:
                 <mat-form-field style="padding-left: 12px;">
                     <mat-text>{{selectedCourse.Course_Code}}</mat-text>
                 </mat-form-field>
@@ -47,7 +32,7 @@
                 </span> 
                 
                 <span>
-                    <p>COURSE NAME:
+                    <p>Course Name:
                     <mat-form-field style="padding-left: 12px;">
                         <mat-text>{{selectedCourse.Course_Name}}</mat-text>
                     </mat-form-field>
@@ -56,7 +41,7 @@
             
                 <span>
                     <!--make a dropdown of co-reqs/pre-reqs-->
-                    <p>CREDITS:
+                    <p>Credits:
                         <mat-form-field style="padding-left: 12px;">
                         <mat-text>{{selectedCourse.Credits}}</mat-text>
                         </mat-form-field>
@@ -64,7 +49,7 @@
                 </span>
             
                 <span>
-                    <p>NQF LEVEL:
+                    <p>NQF Level:
                         <mat-form-field style="padding-left: 12px;">
                         <mat-text>{{selectedCourse.NQF}}</mat-text>
                         </mat-form-field>
@@ -72,7 +57,7 @@
                 </span>
 
                 <span>
-                    <p>SLOT:
+                    <p>Slot:
                         <mat-form-field style="padding-left: 12px;">
                         <mat-text>{{selectedCourse.Slot}}</mat-text>
                         </mat-form-field>
@@ -80,7 +65,7 @@
                 </span>
 
                 <span>
-                    <p>SEMESTER:
+                    <p>Semester:
                         <mat-form-field style="padding-left: 12px;">
                         <mat-text>{{selectedCourse.Semester}}</mat-text>
                         </mat-form-field>
@@ -88,7 +73,7 @@
                 </span>
 
                 <span>
-                    <p>YEAR:
+                    <p>Year:
                         <mat-form-field style="padding-left: 12px;">
                         <mat-text>{{selectedCourse.Year}}</mat-text>
                         </mat-form-field>
@@ -96,7 +81,7 @@
                 </span>
 
                 <span>
-                    <p>CO-REQUISITE:
+                    <p>Co-Requisite:
                         <mat-form-field style="padding-left: 12px;">
                         <mat-text>{{selectedCourse.Co_requisite}}</mat-text>
                         </mat-form-field>
@@ -104,7 +89,7 @@
                 </span>
 
                 <span>
-                    <p>PRE-REQUISITE:
+                    <p>Pre-Requisite:
                         <mat-form-field>
                             <mat-text>{{selectedCourse.Pre_requisite}}</mat-text>                    
                         </mat-form-field>
@@ -193,16 +178,16 @@
 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%" style="padding-top: 16px;">
     
     <mat-card fxFlex="25%" style="height: 97%; vertical-align: middle;background-color: rgba(255, 255, 255, 0.9)">
-    <h1 >ADD COURSE</h1>
+    <h1 >Add a new course</h1>
     <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10%" style="padding-bottom: 5%;">
-        <button mat-raised-button  (click)="setPreReqs('1')" color="primary">Add Pre Requisite</button>
-        <button mat-raised-button  (click)="setCoReqs('1')" color="primary">Add Co Requisite</button>
+        <button mat-raised-button  (click)="setPreReqs('1')" color="primary">Add Pre-Requisite</button>
+        <button mat-raised-button  (click)="setCoReqs('1')" color="primary">Add Co-Requisite</button>
     </div>    
 
     <form [formGroup]="checkoutForm" (ngSubmit)="addCourse()" >
         <div>
         <mat-form-field appearance="outline" style="padding-left: 5%; width: 95%;">
-            <mat-label for="Course_Name">COURSE NAME</mat-label>
+            <mat-label for="Course_Name">Course Name</mat-label>
             <input matInput placeholder="Placeholder" formControlName='Course_Name' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
         </mat-form-field>
         </div>
