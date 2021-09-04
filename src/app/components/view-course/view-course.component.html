@@ -1,19 +1,19 @@
 <section style="padding: 15px;">
-    <div matDialogTitle>
-        <div class="mat-h1">CHOOSE COURSE</div>
-    </div>
-    
-    <mat-form-field>
+
+    <mat-card-title>Choose Courses</mat-card-title>
+    <mat-card-subtitle>Use the filter textbox to find the courses you are interested in.</mat-card-subtitle>
+
+    <mat-form-field appearance="outline">
         <mat-label>Filter</mat-label>
         <input matInput type="text" (keyup)="applyFilter($event)" placeholder="Enter something" #input>
    
     </mat-form-field>
-    
-    <div style="left: 1000px;">
+
+    <div style="width: 100%; margin-top: 10px;">
         <button mat-raised-button (click) = "submitSelection()" color="primary">Save choices</button>
     </div>
-</section>
 
+</section>
 
 <div class = "scrollable">
 

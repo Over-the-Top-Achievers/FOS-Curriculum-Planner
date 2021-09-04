@@ -1,82 +1,68 @@
 <div fxLayout='row' fxLayoutAlign="center" style="padding-top: 2%;">
-    <mat-card style="width: 20%;">
-        <mat-card-title>APS CALCULATOR</mat-card-title>
-        <div style="padding-top: 10%;">
+
+    <mat-card fxFlex="30%">
+        <mat-card-title>APS Calculator</mat-card-title>
+        <mat-card-subtitle>Use for form below to calculate your Admission Point Score (APS).</mat-card-subtitle>
+
+        <mat-card-content>
             <form [formGroup]='APSform' (ngSubmit)="sumAPS()">
-                <div>
                     <mat-form-field appearance='outline' style="width: 100%;">
                         <mat-label>
                             MATHEMATICS
                         </mat-label>
-                        <input matInput formControlName='maths' type='number' placeholder="Your MATHS mark">
+                        <input autocomplete="off" matInput formControlName='maths' type='number' placeholder="Your MATHS mark">
                     </mat-form-field>
-                </div>
     
-                <div>
                     <mat-form-field appearance='outline' style="width: 100%;">
                         <mat-label>
                             ENGLISH
                         </mat-label>
-                        <input formControlName='english' type='number' matInput placeholder="Your ENGLISH mark">
+                        <input autocomplete="off" formControlName='english' type='number' matInput placeholder="Your ENGLISH mark">
                     </mat-form-field>
-                </div>
-    
-                <div>
+              
                     <mat-form-field appearance='outline' style="width: 100%;">
                         <mat-label>
                             LIFE ORIENTATION
                         </mat-label>
-                        <input formControlName='lo' type='number' matInput placeholder="Your LIFE ORIENTATION mark">
+                        <input autocomplete="off" formControlName='lo' type='number' matInput placeholder="Your LIFE ORIENTATION mark">
                     </mat-form-field>
-                </div>
-                
-                <div>
+               
                     <mat-form-field appearance='outline' style="width: 100%;">
                         <mat-label>
                             SUBJECT 1
                         </mat-label>
-                        <input formControlName='sub1' type='number' matInput placeholder="Your SUBJECT 1 mark">
+                        <input autocomplete="off" formControlName='sub1' type='number' matInput placeholder="Your SUBJECT 1 mark">
                     </mat-form-field>
-                </div>
-    
-                <div>
+               
                     <mat-form-field appearance='outline' style="width: 100%;">
                         <mat-label>
                             SUBJECT 2
                         </mat-label>
-                        <input formControlName='sub2' type='number' matInput placeholder="Your SUBJECT 2 mark">
+                        <input autocomplete="off" formControlName='sub2' type='number' matInput placeholder="Your SUBJECT 2 mark">
                     </mat-form-field>
-                </div>
-    
-                <div>
+               
                     <mat-form-field appearance='outline' style="width: 100%;">
                         <mat-label>
                             SUBJECT 3
                         </mat-label>
-                        <input formControlName='sub3' type='number' matInput placeholder="Your SUBJECT 3 mark">
+                        <input autocomplete="off" formControlName='sub3' type='number' matInput placeholder="Your SUBJECT 3 mark">
                     </mat-form-field>
-                </div>
-    
-                <div>
+               
                     <mat-form-field appearance='outline' style="width: 100%;">
                         <mat-label>
                             SUBJECT 4
                         </mat-label>
-                        <input formControlName='sub4' type='number' matInput placeholder="Your SUBJECT 4 mark">
+                        <input autocomplete="off" formControlName='sub4' type='number' matInput placeholder="Your SUBJECT 4 mark">
                     </mat-form-field>
-                </div>
+
+                    <p>
+                        <button style="margin-right: 5%;" mat-raised-button color="accent" (click)='sumAPS()'>Calculate APS</button>
+                        <span *ngIf='counter' style="padding-top: 10px; display: inline-block; font-size: 16px; line-height: 16px; white-space:nowrap;">Your calculated APS is <strong>{{counter}}</strong> points.</span>
+                    </p>
+
             </form>
-            <button mat-flat-button color="primary" (click)='sumAPS()'>CALCULATE</button>
 
-            <div *ngIf='counter' style="padding-top: 5%;">
-                <p style="font-size: x-large;">
-                    YOUR TOTAL WITS APS POINTS:
-                    {{counter}}
-                </p>
-            </div>
-        </div>
-
-        
+        </mat-card-content>
     </mat-card>
 </div>
 

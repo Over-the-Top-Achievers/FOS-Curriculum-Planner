@@ -120,3 +120,44 @@ mat-card.mat-card.mat-focus-indicator {
   margin-top: 20px;
   color: red;
 }
+
+mat-form-field {
+  margin-top: 10px;
+}
+
+.mat-card-title {
+  margin-top: 10px !important;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+p {
+  margin-top: 10px !important;
+  margin-bottom: 0 !important;
+}
+
+mat-label {
+  text-transform: uppercase !important;
+}
+
+mat-card {
+  margin-bottom: 10px;
+}
+
+.mat-header-cell, .mat-cell {
+  padding-left: 5px !important;
+  padding-right: 25px !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 1em 0 1em 0;
+}
+
+hr {
+  border-top: 1px dashed #aeaeae;
+  border-bottom: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
