@@ -27,10 +27,10 @@ export class OfferPageComponent implements OnInit {
         // setInterval(()=> { this.updateQualifiedCoursese()}, 3 * 1000);
         setInterval(()=> { this.addAPS()}, 1 * 1000);
         setInterval(()=> { this.updateOffers()}, 1 * 1000);
-
-
       }
     )
+
+    
 
     this.subjectService.getDegreeReq().subscribe(
       data => {
@@ -87,8 +87,9 @@ export class OfferPageComponent implements OnInit {
   }
   getOfferAPS(course:DegreeRequirement):number //0 reject 1 wait 2 firm
   {
+    console.log(course);
     let firm = Number(course.Firm_Offer.split(";")[3]);
-    let waitlist = Number(course.Waitlist.split(";")[3]);
+    //let waitlist = Number(course.Waitlist.split(";")[3]);
     let reject = Number(course.Reject.split(";")[3]);
     if(this.totalAPS >=firm) return 2;
     else if(this.totalAPS <=reject) return 0;

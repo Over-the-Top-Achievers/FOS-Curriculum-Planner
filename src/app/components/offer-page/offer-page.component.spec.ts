@@ -70,7 +70,24 @@ describe('OfferPageComponent', () => {
     expect(APS).toEqual('7');
   })
 
-  it ('should determine correct offer type', () =>{
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 98);
+    expect(APS).toEqual('10');
+  })
+
+  it ('should determine correct offer type (waitlist)', () =>{
     let physics = ['60','70','80'];
     let subjectMark = 70
 
@@ -78,7 +95,23 @@ describe('OfferPageComponent', () => {
     expect(offer).toEqual(1);
   })
 
-  it('should return your offer ', () =>{
+  it ('should determine correct offer type (firm)', () =>{
+    let physics = ['60','70','80'];
+    let subjectMark = 80
+
+    let offer = component.checkSubjectOffer(physics, subjectMark);
+    expect(offer).toEqual(2);
+  })
+
+  it ('should determine correct offer type (reject)', () =>{
+    let physics = ['60','70','80'];
+    let subjectMark = 60
+
+    let offer = component.checkSubjectOffer(physics, subjectMark);
+    expect(offer).toEqual(0);
+  })
+
+  it('should return your offer (reject) ', () =>{
     component.dataSource = [{
       Subject: 'English First Language', 
       Mark: 80,
@@ -102,7 +135,69 @@ describe('OfferPageComponent', () => {
     expect(offer).toEqual('Reject');
   })
 
-  it('should return offer type based on total APS', ()=>{
+  it('should return your offer (waitlist)', () =>{
+    component.dataSource = [{
+      Subject: 'English First Language', 
+      Mark: 70,
+      APS: '8'
+    }, 
+    {
+      Subject: 'Physical Science', 
+      Mark: 70,
+      APS: '7'
+    },
+    {
+      Subject: 'Mathematics', 
+      Mark: 70,
+      APS: '8'
+    }]
+
+    component.totalAPS = 41;
+
+    let course = {
+      _id: '',
+      Degree_Name: 'Computer Science',
+      Firm_Offer: '70;-;-;42',
+      Waitlist: '70;-;-',
+      Reject: '-;-;-;40',
+    }
+
+    let offer = component.getOffer(course);
+    expect(offer).toEqual('Waitlist');
+  })
+
+  it('should return your offer (firm offer)', () =>{
+    component.dataSource = [{
+      Subject: 'English First Language', 
+      Mark: 70,
+      APS: '8'
+    }, 
+    {
+      Subject: 'Physical Science', 
+      Mark: 70,
+      APS: '7'
+    },
+    {
+      Subject: 'Mathematics', 
+      Mark: 70,
+      APS: '8'
+    }]
+
+    component.totalAPS = 42;
+
+    let course = {
+      _id: '',
+      Degree_Name: 'Computer Science',
+      Firm_Offer: '70;-;-;42',
+      Waitlist: '70;-;-',
+      Reject: '-;-;-;40',
+    }
+
+    let offer = component.getOffer(course);
+    expect(offer).toEqual('Firm Offer');
+  })
+
+  it('should return offer type (firm offer) based on total APS', ()=>{
     let course = {
       _id: '',
       Degree_Name: 'Actuarial Science',
@@ -115,6 +210,36 @@ describe('OfferPageComponent', () => {
 
     let offer = component.getOfferAPS(course);
     expect(offer).toEqual(2);
+  })
+
+  it('should return offer type (waitlist) based on total APS', ()=>{
+    let course = {
+      _id: '',
+      Degree_Name: 'Computer Science',
+      Firm_Offer: '70;-;-;42',
+      Waitlist: '70;-;-',
+      Reject: '-;-;-;40',
+    }
+
+    component.totalAPS = 41;
+
+    let offer = component.getOfferAPS(course);
+    expect(offer).toEqual(1);
+  })
+
+  it('should return offer type (reject) based on total APS', ()=>{
+    let course = {
+      _id: '',
+      Degree_Name: 'Computer Science',
+      Firm_Offer: '70;-;-;42',
+      Waitlist: '70;-;-',
+      Reject: '-;-;-;40',
+    }
+
+    component.totalAPS = 40;
+
+    let offer = component.getOfferAPS(course);
+    expect(offer).toEqual(0);
   })
 
   it('should call getOffer()', ()=>{
@@ -133,4 +258,55 @@ describe('OfferPageComponent', () => {
     component.updateOffers()
     expect(updateSpy).toHaveBeenCalled()
   })
+
+  it('ngOninit should call subjectService and fetch subjects',()=>{
+    const subjectServiceSpy= spyOn(component.subjectService, 'getSubjects').and.callThrough();
+    expect(subjectServiceSpy).not.toHaveBeenCalled()
+    component.ngOnInit();
+    expect(subjectServiceSpy).toHaveBeenCalled()
+  })
+
+  it('ngOninit should call subjectService and fetch degree requirements',()=>{
+    const subjectServiceSpy= spyOn(component.subjectService, 'getDegreeReq').and.callThrough();
+    expect(subjectServiceSpy).not.toHaveBeenCalled()
+    component.ngOnInit();
+    expect(subjectServiceSpy).toHaveBeenCalled()
+  })
+
+  it ('it should expect an alert if we add more than 7 subjects', ()=>{
+    spyOn(window, "alert");
+    let event:any = {newData: {
+      Subject: '',
+      Mark: '',
+      APS: '',
+    }, 
+    source: component.dataSource,
+    confirm: new Promise<void>((resolve, reject) => {
+      
+    })}
+
+    component.dataSource = [{},{},{},{},{},{},{}];
+    component.add(event);    
+    expect(window.alert).toBeTruthy();
+  })
+
+  // it ('it should call event.confirm.resolve', ()=>{    
+  //   let event:any = {newData: {
+  //     Subject: '',
+  //     Mark: '',
+  //     APS: '',
+  //   }, 
+  //   source: component.dataSource,
+  //   confirm: new Promise<void>((resolve, reject) => {
+  //     resolve = function(){
+        
+  //     }
+  //   })}
+
+  //   const confirmSpy= spyOn(event.confirm, 'resolve');
+  //   expect(confirmSpy).not.toHaveBeenCalled()
+  //   component.dataSource = [{},{},{},{},{}];
+  //   component.add(event);   
+  //   expect(confirmSpy).toHaveBeenCalled() 
+  // })
 });
