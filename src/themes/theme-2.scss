@@ -161,3 +161,36 @@ hr {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+th.ng2-smart-actions, 
+th.ng2-smart-th,
+th.ng2-smart-actions-title.ng2-smart-actions-title-add,
+td {
+  border: 1px solid #e9ebec !important;
+}
+
+a.ng2-smart-sort-link,
+.ng2-smart-title,
+td.ng2-smart-actions,
+th.ng2-smart-actions-title.ng2-smart-actions-title-add {
+  //float: left;
+  text-align: left;
+}
+
+// tr.ng2-smart-filters {
+//   display: none;
+// }
+
+li.ng2-smart-page-item.page-item {
+  width: 15px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.offer-page > mat-card:nth-of-type(3) > ng2-smart-table > table > thead > tr:nth-of-type(2) {
+  display: none;
+}
+
+a.ng2-smart-action.ng2-smart-action-add-create {
+  margin-right: 10px;
+}
