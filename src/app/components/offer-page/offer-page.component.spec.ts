@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { SubjectService } from 'src/app/shared/services/subject.services';
-import { Subject } from 'src/app/shared/models';
+import { DegreeRequirement, Subject } from 'src/app/shared/models';
 import { OfferPageComponent } from './offer-page.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ExpectedConditions } from 'protractor';
 import { LocalizedString } from '@angular/compiler';
+import { of } from 'rxjs';
 
 
 describe('OfferPageComponent', () => {
@@ -273,7 +274,7 @@ describe('OfferPageComponent', () => {
     expect(subjectServiceSpy).toHaveBeenCalled()
   })
 
-  it ('it should expect an alert if we add more than 7 subjects', ()=>{
+  it ('should expect an alert if we add more than 7 subjects', ()=>{
     spyOn(window, "alert");
     let event:any = {newData: {
       Subject: '',
@@ -289,6 +290,24 @@ describe('OfferPageComponent', () => {
     component.add(event);    
     expect(window.alert).toBeTruthy();
   })
+
+  it(" initSubjectSelection should call getSubjects and return list of subjects", fakeAsync(() => {
+    const response: Subject[] = [];
+    spyOn(component.subjectService, 'getSubjects').and.returnValue(of(response))
+    component.initSubjectSelection();
+    tick();
+    expect(component.data).toEqual(response);
+    discardPeriodicTasks()
+  }));
+
+  it(" initDegreeReqs should call getDegreeReq and return list of degree reqs", fakeAsync(() => {
+    const response: DegreeRequirement[] = [];
+    spyOn(component.subjectService, 'getDegreeReq').and.returnValue(of(response))
+    component.initDegreeReqs();
+    tick();
+    expect(component.degreeReqs).toEqual(response);
+    discardPeriodicTasks()
+  }));
 
   // it ('it should call event.confirm.resolve', ()=>{    
   //   let event:any = {newData: {
