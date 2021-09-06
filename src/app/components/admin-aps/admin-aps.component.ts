@@ -82,8 +82,7 @@ export class AdminApsComponent implements OnInit {
       newLevel_29_0:this.updateAPSForm.value.Level_29_0,
     };
     this.courseService.updateAPS(body);
-    
-    //this.updateForm.reset();
+
   }
 
   refresh(): void {

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AdminApsComponent } from './admin-aps.component';
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CourseService } from 'src/app/shared/services/course.services';
 import { UserService } from 'src/app/shared/services/user.services';
+import { of } from 'rxjs/internal/observable/of';
 
 
 describe('AdminApsComponent', () => {
@@ -40,6 +41,41 @@ describe('AdminApsComponent', () => {
   it('should create form',()=>{
     expect(component.updateAPSForm.valid).toBeTruthy()
   })
+
+
+  it("check if it sends the updated values to backend for aps", fakeAsync(() => {
+    const body:any = {
+      //look u model view controller mvc
+      _id: "",
+      Subject: "maths",
+      Level_100_90: "9",
+      Level_89_80: "",
+      Level_79_70: "",
+      Level_69_60: "",
+      Level_59_50: "",
+      Level_49_40: "",
+      Level_39_30: "",
+      Level_29_0: "",
+    };
+    spyOn(component.courseService, 'updateAPS').and.returnValue(body)
+    component.updateAPS();
+    tick();
+    const answer:any = {
+      //look u model view controller mvc
+      _id: "",
+      Subject: "maths",
+      Level_100_90: "9",
+      Level_89_80: "",
+      Level_79_70: "",
+      Level_69_60: "",
+      Level_59_50: "",
+      Level_49_40: "",
+      Level_39_30: "",
+      Level_29_0: "",
+    };
+    expect(answer).toEqual(body);
+    discardPeriodicTasks()
+  }));
 
   it('should populate update form',()=>{
     let course:any = {

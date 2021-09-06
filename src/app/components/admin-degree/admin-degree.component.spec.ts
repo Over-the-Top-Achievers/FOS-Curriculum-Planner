@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { CourseService } from 'src/app/shared/services/course.services';
 import { UserService } from 'src/app/shared/services/user.services';
 import { AdminDegreeComponent } from './admin-degree.component';
@@ -64,9 +64,33 @@ describe('AdminDegreeComponent', () => {
     expect(spy).toHaveBeenCalledWith(course) 
   })
 
+  it("check if it sends the updated values to backend for degree", fakeAsync(() => {
+    const body:any = {
+      
+      _id : "",
+      Degree_Name:'chemistry',
+      Firm_Offer:'',
+      Waitlist:'',
+      Reject:''
+    };
+    spyOn(component.courseService, 'updateAPS').and.returnValue(body)
+    component.updateDegree();
+    tick();
+    const answer:any = {
+      
+      _id : "",
+      Degree_Name:'chemistry',
+      Firm_Offer:'',
+      Waitlist:'',
+      Reject:''
+    };
+    expect(answer).toEqual(body);
+    discardPeriodicTasks()
+  }));
+
   it('should populate update form',()=>{
     let course:any = {
-      //look u model view controller mvc
+      
       _id : "",
       Degree_Name:'computer',
       Firm_Offer:'',
