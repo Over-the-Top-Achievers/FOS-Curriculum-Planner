@@ -15,7 +15,8 @@ export class OfferPageComponent implements OnInit {
     public subjectService: SubjectService
   ) { }  
 
-  ngOnInit(): void {
+
+  initSubjectSelection(){
     this.subjectService.getSubjects().subscribe(
       data => {
         this.data = data as Subject[];
@@ -29,9 +30,9 @@ export class OfferPageComponent implements OnInit {
         setInterval(()=> { this.updateOffers()}, 1 * 1000);
       }
     )
+  }
 
-    
-
+  initDegreeReqs(){
     this.subjectService.getDegreeReq().subscribe(
       data => {
         this.degreeReqs = data as DegreeRequirement[];
@@ -44,6 +45,12 @@ export class OfferPageComponent implements OnInit {
         this.qualifiedCoursesIII.refresh();
       }
     )
+  }
+
+  ngOnInit(): void {
+    this.initSubjectSelection();
+    this.initDegreeReqs();
+    
     // this.dataSource = [
     //   {Subject:"Mathematics",Mark:"65",APS:"42"},
     //   {Subject:"Mathematics",Mark:"65",APS:""},
