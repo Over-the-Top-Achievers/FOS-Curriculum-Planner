@@ -3,6 +3,7 @@ import { LocalDataSource, Ng2SmartTableModule } from 'ng2-smart-table';
 import { SubjectService } from 'src/app/shared/services/subject.services';
 import { Subject } from 'src/app/shared/models';
 import { DegreeRequirement } from 'src/app/shared/models';
+import { PRIMARY_OUTLET } from '@angular/router';
 
 @Component({
   selector: 'app-offer-page',
