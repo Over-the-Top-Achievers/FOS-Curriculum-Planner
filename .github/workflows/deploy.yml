@@ -11,11 +11,11 @@ on:
 jobs:
 
   api:
-    name: Production Release Api
+    name: Production Release Front-End
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./dist
+        working-directory: ./
 
     steps:
       - uses: actions/checkout@v2
