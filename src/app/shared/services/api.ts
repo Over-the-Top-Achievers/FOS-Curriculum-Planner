@@ -1,3 +1,5 @@
+import { environment } from '../../../environments/environment';
+
 export class API {
-    public static apiRoot = 'http://localhost:8080';
+    public static apiRoot = environment.apiRoot;
 }
