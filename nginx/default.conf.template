@@ -1,19 +1,12 @@
 server {
-  
-  listen $PORT default_server;
+    listen $PORT;
 
-  root   /usr/share/nginx/html;
-  index  index.html;
+    root /usr/share/nginx/html;
+    index index.html;
 
-  location ~ \.css {
-    add_header  Content-Type    text/css;
-  }
+    server_name _;
 
-  location ~ \.js {
-    add_header  Content-Type    application/x-javascript;
-  }
-
-  location / {
-    try_files $uri$args $uri$args/ /index.html;
-  }
+    location / {
+        try_files $uri /index.html;
+    }
 }
