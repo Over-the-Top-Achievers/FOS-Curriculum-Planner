@@ -81,8 +81,20 @@ export class CourseService {
                     body: body,
                     
                 };
-            console.log(options.body);
+            
             this.http.put(`${API.apiRoot}/updateReq`, options.body).subscribe((s) => {},(err)=> console.log(err));
+        }
+
+        addNewDegree(body:any): void{
+            var options = {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json',
+                   }),
+                   body: body,
+                   
+               };
+           
+           this.http.put(`${API.apiRoot}/addDegree`, options.body).subscribe((s) => {},(err)=> console.log(err));            
         }
 }
 
