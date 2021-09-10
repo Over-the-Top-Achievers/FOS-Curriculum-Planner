@@ -81,7 +81,7 @@ export class CourseService {
                     body: body,
                     
                 };
-            console.log(options.body);
+            
             this.http.put(`${API.apiRoot}/updateReq`, options.body).subscribe((s) => {},(err)=> console.log(err));
         }
 }
