@@ -1,19 +1,13 @@
-<style>
-    body {
-      background-image: url('./../assets/images/bg6.jpg');
-    }
-</style>
-
-<body>
+<div class="offer-page">
     <mat-card>
-        <ng2-smart-table [settings]="settings" [source]="dataSource" (createConfirm)='add($event)'></ng2-smart-table>
+        <ng2-smart-table [settings]="settings" [source]="dataSource" (createConfirm)='add($event)' (editConfirm)='editSubjectSelection($event)' (deleteConfirm)='deleteSubjectSelection($event)'></ng2-smart-table>
     </mat-card>    
 
     <mat-card>
-        <div>TOTAL WITS APS: {{this.totalAPS}}</div>
+        <div><strong>TOTAL WITS APS:</strong> {{this.totalAPS}}</div>
     </mat-card>
 
     <mat-card>
         <ng2-smart-table [settings]="qualifiedSettings" [source]="qualifiedCoursesIII" ></ng2-smart-table>
     </mat-card>
-</body>
+</div>

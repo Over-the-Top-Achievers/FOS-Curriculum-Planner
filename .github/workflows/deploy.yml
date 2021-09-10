@@ -1,0 +1,88 @@
+# Production deployment workflow
+
+name: Production Deployment Workflow
+
+on:
+  push:
+    branches: [ prod ]
+
+  workflow_dispatch:
+
+jobs:
+
+  api:
+    name: Production Release Front-End
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Build the project
+      - name: Build the project
+        run: npm run build-prod
+
+      #Deploy Front-End to Heroku
+      - name: Deploy Front-End to Heroku (Production Environment)
+        id: deploy1
+        continue-on-error: true
+        uses: gonuit/heroku-docker-deploy@v1.3.2
+        with:
+          email: ${{ secrets.HEROKU_EMAIL_ADDRESS }} 
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          dockerfile_directory: ./
+          dockerfile_name: Dockerfile
+          docker_options: "--no-cache"
+          process_type: web
+
+      #Deploy Front-End to Heroku
+      - name: Deploy Front-End to Heroku (Production Environment) - Retry 1
+        if: steps.deploy1.outcome=='failure'
+        id: retry1
+        continue-on-error: true
+        uses: gonuit/heroku-docker-deploy@v1.3.2
+        with:
+          email: ${{ secrets.HEROKU_EMAIL_ADDRESS }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          dockerfile_directory: ./
+          dockerfile_name: Dockerfile
+          docker_options: "--no-cache"
+          process_type: web
+
+      #Deploy Front-End to Heroku
+      - name: Deploy Front-End to Heroku (Production Environment) - Retry 2
+        if: steps.retry1.outcome=='failure'
+        id: retry2
+        continue-on-error: true
+        uses: gonuit/heroku-docker-deploy@v1.3.2
+        with:
+          email: ${{ secrets.HEROKU_EMAIL_ADDRESS }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          dockerfile_directory: ./
+          dockerfile_name: Dockerfile
+          docker_options: "--no-cache"
+          process_type: web
+
+      #Deploy Front-End to Heroku
+      - name: Deploy Front-End to Heroku (Production Environment) - Final Retry
+        if: steps.retry2.outcome=='failure'
+        uses: gonuit/heroku-docker-deploy@v1.3.2
+        with:
+          email: ${{ secrets.HEROKU_EMAIL_ADDRESS }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          dockerfile_directory: ./
+          dockerfile_name: Dockerfile
+          docker_options: "--no-cache"
+          process_type: web
+
+  

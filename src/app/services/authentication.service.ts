@@ -14,7 +14,6 @@ export class AuthenticationService {
     }
 
     public get currentUserValue() {
-        
         return this.currentUserSubject.value;
     }
 
