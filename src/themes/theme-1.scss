@@ -53,10 +53,10 @@ $md-dark: (
     700 : #272c32,
     800 : #21252a,
     900 : #15181c,
-    A100 : #63b1ff,
-    A200 : #3097ff,
-    A400 : #007efc,
-    A700 : #0071e2,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
     contrast: (
         50 : #000000,
         100 : #000000,
@@ -82,13 +82,25 @@ $light-theme:   mat-light-theme($light-primary, $light-accent);
 // Include the default theme styles.
 @include angular-material-theme($light-theme);
 
+body {
+  background-image: url('../assets/images/joanna-kosinska-7ACuHoezUYk-unsplash.jpg');
+  //background-image: url('../assets/images/sahand-babali-owjrvbyXYyc-unsplash.jpg');
+  background-size: cover;
+}
+
 .alternative{
   // Define an alternate dark theme.
   $dark-primary: mat-palette($md-dark);
-  $dark-accent:  mat-palette($mat-amber, A200, A100, A400);
+  $dark-accent:  mat-palette($mat-blue, A200, A100, A400);
   $dark-warn:    mat-palette($mat-deep-orange);
   $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   @include angular-material-theme($dark-theme);
+
+  body {
+    background-image: url('../assets/images/sahand-babali-owjrvbyXYyc-unsplash.jpg');
+    //background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
 
 // --------------------------------------------------------------------------
@@ -100,12 +112,6 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-body {
-  background-image: url('../assets/images/joanna-kosinska-7ACuHoezUYk-unsplash.jpg');
-  //background-image: url('../assets/images/sahand-babali-owjrvbyXYyc-unsplash.jpg');
-  background-size: cover;
 }
 
 .content {
