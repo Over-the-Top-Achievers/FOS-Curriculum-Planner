@@ -18,4 +18,8 @@ export class ComponentBase {
         return !(this.authenticationService.currentUserValue == null || JSON.stringify(this.authenticationService.currentUserValue) === JSON.stringify({}));
     }
 
+    isDark: boolean = false;
+    changeTheme() {
+        this.isDark = !this.isDark;;
+    }
 }

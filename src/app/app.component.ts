@@ -11,5 +11,4 @@ export class AppComponent extends ComponentBase {
         this.authenticationService.logout();
         this.router.navigate(['/home']);
     }
-
 }
