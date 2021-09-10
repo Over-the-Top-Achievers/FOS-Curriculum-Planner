@@ -66,9 +66,24 @@ export class AdminDegreeComponent implements OnInit {
     r_aps:'',
   });
 
-  // combineInfo(degreeData: any): string{
-    
-  // }
+  addDegreeForm = this.formbuilder.group({
+    Degree_Name:'',
+
+    fo_maths:'',
+    fo_physics:'',
+    fo_english:'',
+    fo_aps:'',
+
+    wl_maths:'',
+    wl_physics:'',
+    wl_aps:'',
+
+    r_maths:'',
+    r_physics:'',
+    r_english:'',
+    r_aps:'',
+  });
+
 
   getDegreeInfo(degree:any){
     var fo = degree.Firm_Offer;
@@ -143,8 +158,39 @@ export class AdminDegreeComponent implements OnInit {
       newReject:new_r
     };
     this.courseService.updateDegree(body);
-    
-    //this.updateForm.reset();
+  }
+
+  addDegree():void{
+    var new_fo_maths = this.addDegreeForm.value.fo_maths;
+    var new_fo_physics = this.addDegreeForm.value.fo_physics;
+    var new_fo_english = this.addDegreeForm.value.fo_english;
+    var new_fo_aps = this.addDegreeForm.value.fo_aps;
+
+    var new_fo = new_fo_maths+';'+new_fo_physics+';'+new_fo_english+';'+new_fo_aps
+
+    var new_wl_maths = this.addDegreeForm.value.wl_maths;
+    var new_wl_physics = this.addDegreeForm.value.wl_physics;
+    var new_wl_aps = this.addDegreeForm.value.wl_aps;
+
+    var new_wl = new_wl_maths+';'+new_wl_physics+';'+new_wl_aps
+
+    var new_r_maths = this.addDegreeForm.value.r_maths;
+    var new_r_physics = this.addDegreeForm.value.r_physics;
+    var new_r_english = this.addDegreeForm.value.r_english;
+    var new_r_aps = this.addDegreeForm.value.r_aps;
+
+    var new_r = new_r_maths+';'+new_r_physics+';'+new_r_english+';'+new_r_aps
+
+    var body=
+    {
+      Degree_Name:this.addDegreeForm.value.Degree_Name, //means never changes the course code right now 
+      Firm_Offer:new_fo,
+      Waitlist:new_wl,
+      Reject:new_r
+    };
+
+    console.log(body)
+    this.courseService.addNewDegree(body);  
   }
 
   refresh(): void {

@@ -103,3 +103,104 @@
         </form>
     </mat-card>
 </div>
+
+<!-- this is for adding new degree into the database -->
+<div fxLayout='row' fxLayoutAlign="center">
+
+    <mat-card fxFlex="auto">
+
+        <mat-card-title>Add Degree Requirements</mat-card-title>
+        <mat-card-subtitle>Use for form below to edit the acceptance criteria for a degree.</mat-card-subtitle>
+
+        <form [formGroup]="addDegreeForm" (ngSubmit)="addDegree()"  >
+            
+            <mat-form-field appearance="outline" style="width: 100%; margin-top: 20px;">
+                <mat-label for="Degree_Name">Degree</mat-label>
+                <input matInput formControlName='Degree_Name' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+            </mat-form-field>
+            
+            <div>
+                <div style="padding-top: 1%;">
+                    <label>Firm Offer</label>
+                    <div fxLayout="row">
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label for="fo_maths">MATHS</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='fo_maths' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label for="fo_physics">PHYSICS</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='fo_physics' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label for="fo_english">ENGLISH</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='fo_english' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label for="fo_aps">APS</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='fo_aps' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+                        
+                    </div>
+                </div>
+                
+                <div style="padding-top: 1%;">
+                    <label>Waitlist</label>
+                    <div fxLayout="row">
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label for="wl_maths">MATHS</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='wl_maths' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label for="wl_physics">PHYSICS</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='wl_physics' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label for="wl_aps">APS</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='wl_aps' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+                        
+                    </div>
+                </div>
+
+                <div style="padding-top: 1%;">
+                    <label>Reject</label>
+                    <div fxLayout="row">
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label for="r_maths">MATHS</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='r_maths' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label for="r_physics">PHYSICS</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='r_physics' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label for="r_english">ENGLISH</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='r_english' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label for="r_aps">APS</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName='r_aps' style='text-transform:uppercase' oninput="this.value = this.value.toUpperCase()">
+                        </mat-form-field>
+                        
+                    </div>
+                </div>
+
+
+                <p>
+                    <button mat-raised-button color="accent" type="submit" (click)='refresh()'>Save Changes</button>
+                </p>
+            </div>
+        </form>
+    </mat-card>
+</div>
