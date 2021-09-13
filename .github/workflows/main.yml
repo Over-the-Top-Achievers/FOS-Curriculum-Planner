@@ -27,8 +27,8 @@ jobs:
         ng test --code-coverage  --browsers ChromeHeadless 
         npm config set user 0
         npm config set unsafe-perm true
-    - name: Create badges
-      run: jest-coverage-badges
+    - name: upload code-cov
+      uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
         verbose: true # optional (default = false)
