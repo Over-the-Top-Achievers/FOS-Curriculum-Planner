@@ -17,8 +17,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install jest-coverage-badges
-      run: npm install --global jest-coverage-badges
     - name: Run testing
       continue-on-error: true
       run: |
@@ -31,18 +29,6 @@ jobs:
         npm config set unsafe-perm true
     - name: Create badges
       run: jest-coverage-badges
-    - name: Push badges
-      run: |
-        rm .gitignore
-        rm -r node_modules/
-        rm -r .github/
-        git config --global user.name 'Sushil Ragoonath'
-        git config --global user.email 'SushilRagoonath@users.noreply.github.com'
-        git add -A
-        git commit -a -m "badge update"
-        git push origin HEAD:badges --force
-    - name: upload code-cov
-      uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
         verbose: true # optional (default = false)
