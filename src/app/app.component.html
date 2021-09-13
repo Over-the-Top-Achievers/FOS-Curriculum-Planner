@@ -9,6 +9,12 @@
     <button *ngIf='this.isLoggedIn' mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
 
+<mat-card *ngIf='!this.isLoggedIn'>
+    <mat-card-content>
+        <b> DISCLAIMER: The offers returned on this page do not guarantee the offer type you will receive from Wits University </b>
+    </mat-card-content>
+</mat-card>
+
 <div class="content">
     <router-outlet></router-outlet>
 </div>
