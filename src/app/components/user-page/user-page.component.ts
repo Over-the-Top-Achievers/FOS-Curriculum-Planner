@@ -309,7 +309,13 @@ export class UserPageComponent implements OnInit {
       
     }
     
-    return this.RemoveDuplicates(clashes);
+    clashes = this.RemoveDuplicates(clashes);
+    clashes.sort(function(a, b) {
+      var textA = a.Course_Code.toUpperCase();
+      var textB = b.Course_Code.toUpperCase();
+      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+  })
+    return clashes ;
    
   }
   checkSingleRequirement(courses:String[],requirements:String[]):String[]{
