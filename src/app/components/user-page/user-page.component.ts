@@ -19,6 +19,7 @@ import {FormControl} from '@angular/forms';
 import {ViewCourseComponent} from 'src/app/components/view-course/view-course.component';
 import { UserService } from 'src/app/shared/services/user.services';
 import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
@@ -219,88 +220,103 @@ export class UserPageComponent implements OnInit {
     //console.log(counter)
   }
 
-  ValidateDiagonals(yearCourse:Course[]) :any{
-    let AClashes=[];
-    let BClashes=[];
-    let CClashes=[];
-    let DClashes=[];
-    let EClashes=[];
-    let PTClashes=[];
+  RemoveDuplicates(courses:Course[]):Course[] {
 
-    for(let i=0;i<yearCourse.length;++i){
-      // console.log('shareable, ',yearCourse[i].Shareable)
-      if(yearCourse[i].Slot.includes("A") ){
-        AClashes.push(yearCourse[i])
-      }
-      if(yearCourse[i].Slot.includes("B")){
-        BClashes.push(yearCourse[i])
-      }
-      if(yearCourse[i].Slot.includes("C")){
-        CClashes.push(yearCourse[i])
-      }
-      if(yearCourse[i].Slot.includes("D")){
-        DClashes.push(yearCourse[i])
-      }
-      if(yearCourse[i].Slot.includes("E")){
-        EClashes.push(yearCourse[i])
-      }
-      if(yearCourse[i].Slot.includes("PT")){
-        PTClashes.push(yearCourse[i])
-      }
-    }
-    let ACode:String[] = AClashes.map(function(c){return c.Course_Code})
+    let unique:Course[] = [];
 
-    for(let i =0 ;i<AClashes.length;++i){
-      if(ACode.includes(AClashes[i].Shareable) ){
-        AClashes = AClashes.slice(0,i).concat(AClashes.slice(i+1))
-      }
-    }
-    let BCode:String[] = BClashes.map(function(c){return c.Course_Code})
+    for (var i =0; i < courses.length; i++){
 
-    for(let i =0 ;i<BClashes.length;++i){
-      if(BCode.includes(BClashes[i].Shareable)){
-        BClashes = BClashes.slice(0,i).concat(BClashes.slice(i+1))
+      if (i == 0) {
+        unique.push(courses[i]);
+        continue;
       }
-    }
-    let CCode:String[] = CClashes.map(function(c){return c.Course_Code})
 
-    for(let i =0 ;i<CClashes.length;++i){
-      if(CCode.includes(CClashes[i].Shareable) ){//
-        CClashes = CClashes.slice(0,i).concat(CClashes.slice(i+1))
-      }
-    }
-    let DCode:String[] = DClashes.map(function(c){return c.Course_Code})
+      var exists = false;
+      
+      for (var j = 0; j < unique.length; j++) {
 
-    for(let i =0 ;i<DClashes.length;++i){
-      if(DCode.includes(DClashes[i].Shareable)){
-        DClashes = DClashes.slice(0,i).concat(DClashes.slice(i+1))
-      }
-    }
-    let ECode:String[] = EClashes.map(function(c){return c.Course_Code})
+        if (courses[i].Course_Code == unique[j].Course_Code){
+          exists = true;
+          break;
+        }
 
-    for(let i =0 ;i<EClashes.length;++i){
-      if(ECode.includes(EClashes[i].Shareable) ){
-        EClashes = EClashes.slice(0,i).concat(EClashes.slice(i+1))
+      }
+
+      if (exists == false) {
+        unique.push(courses[i]);
+      }
+
+    }
+
+    return unique;
+
+  }
+
+  CompareCourses(c1:Course, c2:Course):Boolean {
+    
+    if (c1.Course_Code == c2.Course_Code) return false;
+
+    if (c1.Semester == c2.Semester || c1.Semester == "FY" || c2.Semester == "FY") {
+
+      var c1Slots = c1.Slot.split('/');
+      var c2Slots = c2.Slot.split('/');
+
+      for (var i = 0; i < c1Slots.length; i++) {
+        for (var j = 0; j < c2Slots.length; j++) {
+
+          if (c1Slots[i] == c2Slots[j]) {
+
+            if (c1.Shareable.indexOf(c2.Course_Code) != -1 || c2.Shareable.indexOf(c1.Course_Code) != -1) {
+              return false;
+            }
+            else {
+              return true;
+            }
+          }
+        }
       }
     }
-    if(AClashes.length===1){
-      AClashes.pop();
-    }
-    if(BClashes.length===1){
-      BClashes.pop()
-    }
-    if(CClashes.length===1){
-      CClashes.pop()
-    }
-    if(DClashes.length===1){
-      DClashes.pop()
-    }
-    if(EClashes.length===1){
-      EClashes.pop()
+
+    return false;
+
+  }
+
+  ValidateDiagonals(yearCourse:Course[]) :any {
+
+    // Courses in the same diagonal which are in the same 
+    // semester not shareable with the another 
+    // course are clashes.
+
+    let processed: Course[] = [];
+    let clashes:Course[] = [];
+
+    for (var i = 0; i < yearCourse.length; i++) {
+
+      // If a course has already been processed 
+      // that has a matching semester & slot to
+      // the current course, it's a possible clash,
+      // so add to clashes
+      for( var j = 0; j < processed.length; j++) {
+        if (this.CompareCourses(yearCourse[i], processed[j]) == true) {
+          clashes.push(yearCourse[i]);
+          clashes.push(processed[j]);
+          break;
+        }
+      }
+
+      // Add to processed
+      processed.push(yearCourse[i]);
+      
     }
     
-
-    return AClashes.concat(BClashes,CClashes,DClashes,EClashes)
+    clashes = this.RemoveDuplicates(clashes);
+    clashes.sort(function(a, b) {
+      var textA = a.Course_Code.toUpperCase();
+      var textB = b.Course_Code.toUpperCase();
+      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+  })
+    return clashes ;
+   
   }
   checkSingleRequirement(courses:String[],requirements:String[]):String[]{
     let missing:String[] = [];
@@ -315,10 +331,22 @@ export class UserPageComponent implements OnInit {
         // }
       }
     }
-    console.log(missing)
+    //console.log(missing)
     return missing;
   }
+
   ValidateCourseRequirements(): any[] {
+
+    // This method populates the missing courses
+    // section on each of the cards.
+
+    // RULES:
+    // 1. Co-Requisites that are not in the current list of courses for the year
+    // are missing for that year
+
+    // 2. Pre-Requisites that are not in the current list of courses for the 
+    // previous year are missing for that year
+
     let PreReqs1:string="";
     let CoReqs1:string="";
     let firstyearcredits:string="";
@@ -364,7 +392,7 @@ export class UserPageComponent implements OnInit {
       }
     }
     let SecondPreReqs:string[] =PreReqs2.split(";");
-    console.log(SecondPreReqs)
+   // console.log(SecondPreReqs)
     let SecondCoReqs:string[] =CoReqs2.split(";");
     if(SecondPreReqs[SecondPreReqs.length -1]===""){
       SecondPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
@@ -424,7 +452,7 @@ export class UserPageComponent implements OnInit {
     this.MissingThirdYear.push("None");
   }
 
-  console.log(this.MissingFirstYear)
+ // console.log(this.MissingFirstYear)
   return [this.MissingFirstYear, this.MissingSecondYear, this.MissingThirdYear] // returning the missing year courses for display purposes
  
   }

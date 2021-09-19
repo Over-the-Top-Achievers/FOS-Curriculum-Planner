@@ -3,16 +3,19 @@ import { LocalDataSource, Ng2SmartTableModule } from 'ng2-smart-table';
 import { SubjectService } from 'src/app/shared/services/subject.services';
 import { Subject } from 'src/app/shared/models';
 import { DegreeRequirement } from 'src/app/shared/models';
+import { DisclaimerDialogComponent } from '../disclaimer-dialog/disclaimer-dialog.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-offer-page',
   templateUrl: './offer-page.component.html',
-  styleUrls: ['./offer-page.component.scss']
+  styleUrls: ['./offer-page.component.scss'],
 })
 export class OfferPageComponent implements OnInit {
 
   constructor(
-    public subjectService: SubjectService
+    public subjectService: SubjectService,
+    public disclaimer: DisclaimerDialogComponent
   ) { }  
 
 
@@ -48,6 +51,10 @@ export class OfferPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.disclaimer.openDialog();
+    }, 1);
+    //this.disclaimer.openDialog();
     this.initSubjectSelection();
     this.initDegreeReqs();
     
