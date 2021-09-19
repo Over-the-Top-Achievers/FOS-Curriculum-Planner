@@ -41,6 +41,11 @@ describe('AdminDegreeComponent', () => {
     expect(component.updateDegreeForm.valid).toBeTruthy()
   })
 
+  
+  it('should create form',()=>{
+    expect(component.addDegreeForm.valid).toBeTruthy()
+  })
+
   it("check if it sends the updated values to backend for aps", fakeAsync(() => {
     const body:any = {
       //look u model view controller mvc
