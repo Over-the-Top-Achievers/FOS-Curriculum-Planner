@@ -29,6 +29,7 @@ import { OfferPageComponent } from './components/offer-page/offer-page.component
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AdminApsComponent } from './components/admin-aps/admin-aps.component';
 import { AdminDegreeComponent } from './components/admin-degree/admin-degree.component';
+import { DisclaimerDialogComponent } from './components/disclaimer-dialog/disclaimer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AdminDegreeComponent } from './components/admin-degree/admin-degree.com
     ApsCalculatorComponent,
     OfferPageComponent,
     AdminApsComponent,
-    AdminDegreeComponent,    
+    AdminDegreeComponent,
+    DisclaimerDialogComponent,    
   ],
   imports: [
     HttpClientModule,
@@ -69,7 +71,8 @@ import { AdminDegreeComponent } from './components/admin-degree/admin-degree.com
     {provide: MatDialogRef,useValue: {}},
     { provide: MAT_DIALOG_DATA, useValue: [] },
     {provide:UserService},
-    fakeBackendProvider
+    fakeBackendProvider,
+    {provide: DisclaimerDialogComponent}
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

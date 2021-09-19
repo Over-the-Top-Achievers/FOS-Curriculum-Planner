@@ -108,7 +108,7 @@ describe('UserPageComponent', () => {
       Credits:"16",
       NQF: "5",
       Slot: "A",
-      Semester: "",
+      Semester: "1",
       Year: "3",
       Co_requisite: "",
       Pre_requisite: "",
@@ -120,13 +120,14 @@ describe('UserPageComponent', () => {
       Credits:"16",
       NQF: "5",
       Slot: "A",
-      Semester: "",
+      Semester: "1",
       Year: "3",
       Co_requisite: "",
       Pre_requisite: "",
       Shareable: "",
     }]
     const value = component.ValidateDiagonals(courseArray)
+    console.log(value);
     expect(value).toEqual(courseArray)
   })
   it('check diagonals 4',()=>{
@@ -166,7 +167,7 @@ describe('UserPageComponent', () => {
       Credits:"16",
       NQF: "5",
       Slot: "B",
-      Semester: "",
+      Semester: "1",
       Year: "3",
       Co_requisite: "",
       Pre_requisite: "",
@@ -178,7 +179,7 @@ describe('UserPageComponent', () => {
       Credits:"16",
       NQF: "5",
       Slot: "B",
-      Semester: "",
+      Semester: "1",
       Year: "3",
       Co_requisite: "",
       Pre_requisite: "",
@@ -244,6 +245,65 @@ describe('UserPageComponent', () => {
     }] //should not collide
     const value = component.ValidateDiagonals(courseArray)
     expect(value).toEqual([])
+  })
+  it('check CompareCourses 1',()=>{
+    const c1={
+      _id : "",
+      Course_Code:"T1",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A/B",
+      Semester: "1",
+      Year: "1",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    };
+    const c2 ={
+      _id : "",
+      Course_Code:"T2",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "B/A",
+      Semester: "1",
+      Year: "1",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    }; //should  collide
+    const value = component.CompareCourses(c1,c2);
+    expect(value).toBeTrue();
+  })
+  it('should RemoveDuplicates 1',()=>{
+    const courses=[ {
+      _id : "",
+      Course_Code:"T1",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A/B",
+      Semester: "1",
+      Year: "1",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    },{
+      _id : "",
+      Course_Code:"T1",
+      Course_Name:"" ,
+      Credits:"16",
+      NQF: "5",
+      Slot: "A/B",
+      Semester: "1",
+      Year: "1",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable: "",
+    }]; //should  collide
+    const value = component.RemoveDuplicates(courses);
+    expect(value.length).toEqual(1);
   })
   it('should total the course credits for 1st year',()=>{
     component.year1Courses=[{
