@@ -94,14 +94,14 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 </head>
 
 <body id="HTMLReporter" class="html-reporter showDetails">
-<h1>Tested in Chrome Headless 92.0.4515.159 (Windows 10) on Mon Aug 23 2021</h1>
+<h1>Tested in Chrome 93.0.4577.82 (Windows 10) on Mon Sep 20 2021</h1>
 
 <div class="alert">
 
 
-<!-- <span class="failingAlert bar">Failed 4 specs</span> -->
+<!-- <span class="failingAlert bar">Failed 7 specs</span> -->
 <span class="failingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
-  <a href="#" onclick="unfold();">Unfold</a></span>49 specs, 4 failed, 0 pending</span>
+  <a href="#" onclick="unfold();">Unfold</a></span>79 specs, 7 failed, 0 pending</span>
 <span class="resultsMenu bar">
 <a class="summaryMenuItem" onclick="showSummary();" href="#">Spec List<a>|<a 
    class="detailsMenuItem" onclick="showFailures();" href="#">Failures</a>
@@ -117,210 +117,106 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
   
   
   
-    <div class="suite passed">
-      <span class="description">AuthenticationService</span>
-    
-      <div class="specSummary passed">
-      <span class="description">should be created</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should fail on empty credentials</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">AuthGaurdService</span>
-    
-      <div class="specSummary passed">
-      <span class="description">should be created</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
-      <span class="description">ViewCourseComponent</span>
-    
-      <div class="specSummary passed">
-      <span class="description">should create</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">submitSelection should call service</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description"> filter should call getCourses </span>
-      </div>
-    
-    </div>
-  
     <div class="suite failed">
-      <span class="description">UserPageComponent</span>
-    
-      <div class="specSummary passed">
-      <span class="description">check diagonals 5</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should remove a course for second year</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">check diagonals 4</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">check diagonals 1</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">check diagonals 6</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should remove a course for first year</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should create</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should total the course credits for 2nd year</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">check diagonals 3</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should total the course credits for 1st year</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">check diagonals 2</span>
-      </div>
-    
-      <div class="specSummary failed">
-      <span class="description">should have missing course 1</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should total the course credits for 3rd year</span>
-      </div>
-    
-      <div class="specSummary failed">
-      <span class="description">should have missing course 2</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should have missing course 3</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should remove a course for third year</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">check diagonals 7</span>
-      </div>
-    
-    </div>
-  
-    <div class="suite passed">
       <span class="description">HomeComponent</span>
     
-      <div class="specSummary passed">
-      <span class="description">should have as title 'FOS-Curriculum-Planner'</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should create</span>
-      </div>
-    
-      <div class="specSummary passed">
+      <div class="specSummary failed">
       <span class="description">should trigger router</span>
       </div>
     
+      <div class="specSummary failed">
+      <span class="description">should create</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">should have as title 'FOS-Curriculum-Planner'</span>
+      </div>
+    
     </div>
   
-    <div class="suite failed">
-      <span class="description">AdminPageComponent</span>
+    <div class="suite passed">
+      <span class="description">OfferPageComponent</span>
     
       <div class="specSummary passed">
-      <span class="description">should open pre req dialog</span>
+      <span class="description">ngOninit should call subjectService and fetch degree requirements</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should return offer type (reject) based on total APS</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should return your respective APS score</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should call getOffer()</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description"> initDegreeReqs should call getDegreeReq and return list of degree reqs</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">ngOninit should call subjectService and fetch subjects</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should return your offer (waitlist)</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should return your offer (firm offer)</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should determine correct offer type (firm)</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should determine correct offer type (reject)</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should determine correct offer type (waitlist)</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should return offer type (firm offer) based on total APS</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should return offer type (waitlist) based on total APS</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">Should sum the APS of the selected subjects</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should expect an alert if we add more than 7 subjects</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should return your respective APS score</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description"> initSubjectSelection should call getSubjects and return list of subjects</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should return your offer (reject) </span>
       </div>
     
       <div class="specSummary passed">
       <span class="description">should create</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should change displayed course</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">download should create element</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should open co req dialog</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">openCourseView should call service</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">filter should call service</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">openCourseView should call service</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should open co req dialog</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should populate update form</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should open pre req dialog</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description"> filter should call getCourses and return list of courses</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should create form</span>
-      </div>
-    
-      <div class="specSummary failed">
-      <span class="description">add course should calls service</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">display course should call filter</span>
       </div>
     
     </div>
   
     <div class="suite failed">
       <span class="description">SigninComponent</span>
-    
-      <div class="specSummary passed">
-      <span class="description">should call submit onclick</span>
-      </div>
-    
-      <div class="specSummary passed">
-      <span class="description">should not call authentication service invalid form</span>
-      </div>
     
       <div class="specSummary passed">
       <span class="description">test submit random</span>
@@ -342,6 +238,232 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
       <span class="description">should create</span>
       </div>
     
+      <div class="specSummary passed">
+      <span class="description">should call submit onclick</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should not call authentication service invalid form</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">ViewCourseComponent</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should create</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description"> filter should call getCourses </span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">submitSelection should call service</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">UserPageComponent</span>
+    
+      <div class="specSummary passed">
+      <span class="description">check diagonals 1</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should create</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should total the course credits for 2nd year</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should remove a course for third year</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should remove a course for second year</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should remove a course for first year</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">check diagonals 4</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">check diagonals 5</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">should have missing course 1</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">check diagonals 2</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">should have missing course 2</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should total the course credits for 3rd year</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">check diagonals 3</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">check diagonals 7</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should total the course credits for 1st year</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should have missing course 3</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">check diagonals 6</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">AuthGaurdService</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should be created</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">AdminApsComponent</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should populate update form</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should populate update form</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should create form</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should create</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">check if it sends the updated values to backend for aps</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should populate update form</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should populate update form</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should populate update form</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">AdminDegreeComponent</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should create form</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">check if it sends the updated values to backend for degree</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should create</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">AdminPageComponent</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should populate update form</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">openCourseView should call service</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">openCourseView should call service</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description"> filter should call getCourses and return list of courses</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should open pre req dialog</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">download should create element</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should open co req dialog</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should change displayed course</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should open pre req dialog</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should open co req dialog</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should create</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should create form</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">display course should call filter</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">filter should call service</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">add course should calls service</span>
+      </div>
+    
     </div>
   
     <div class="suite passed">
@@ -353,10 +475,121 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
     
     </div>
   
+    <div class="suite passed">
+      <span class="description">AuthenticationService</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should fail on empty credentials</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should be created</span>
+      </div>
+    
+    </div>
+  
   
 </div>
 
 <div id="details">
+  
+  
+  <div class="specDetail failed">
+    <span class="description">HomeComponent should trigger router</span>
+    <div class="stackTrace">
+      <div class="resultMessage">NullInjectorError: R3InjectorError(DynamicTestModule)[AuthenticationService -&gt; HttpClient -&gt; HttpClient]: 
+  NullInjectorError: No provider for HttpClient!
+error properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'AuthenticationService', 'HttpClient', 'HttpClient' ] })
+NullInjectorError: R3InjectorError(DynamicTestModule)[AuthenticationService -&gt; HttpClient -&gt; HttpClient]: 
+  NullInjectorError: No provider for HttpClient!
+    at NullInjector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11116:1)
+    at R3Injector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11283:1)
+    at R3Injector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11283:1)
+    at injectInjectorOnly (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:4776:1)
+    at ɵɵinject (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:4780:1)
+    at Object.AuthenticationService_Factory [as factory] (ng:///AuthenticationService/ɵfac.js:4:49)
+    at R3Injector.hydrate (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11452:1)
+    at R3Injector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11272:1)
+    at NgModuleRef$1.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:25337:1)
+    at Object.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:25051:1)</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">HomeComponent should create</span>
+    <div class="stackTrace">
+      <div class="resultMessage">NullInjectorError: R3InjectorError(DynamicTestModule)[AuthenticationService -&gt; HttpClient -&gt; HttpClient]: 
+  NullInjectorError: No provider for HttpClient!
+error properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'AuthenticationService', 'HttpClient', 'HttpClient' ] })
+NullInjectorError: R3InjectorError(DynamicTestModule)[AuthenticationService -&gt; HttpClient -&gt; HttpClient]: 
+  NullInjectorError: No provider for HttpClient!
+    at NullInjector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11116:1)
+    at R3Injector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11283:1)
+    at R3Injector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11283:1)
+    at injectInjectorOnly (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:4776:1)
+    at ɵɵinject (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:4780:1)
+    at Object.AuthenticationService_Factory [as factory] (ng:///AuthenticationService/ɵfac.js:4:49)
+    at R3Injector.hydrate (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11452:1)
+    at R3Injector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11272:1)
+    at NgModuleRef$1.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:25337:1)
+    at Object.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:25051:1),Error: Expected undefined to be truthy.
+    at &lt;Jasmine&gt;
+    at UserContext.&lt;anonymous&gt; (src/app/components/home/home.component.spec.ts:32:23)
+    at ZoneDelegate.invoke (node_modules/zone.js/dist/zone-evergreen.js:372:1)
+    at ProxyZoneSpec.push.QpwO.ProxyZoneSpec.onInvoke (node_modules/zone.js/dist/zone-testing.js:301:1)</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">HomeComponent should have as title 'FOS-Curriculum-Planner'</span>
+    <div class="stackTrace">
+      <div class="resultMessage">NullInjectorError: R3InjectorError(DynamicTestModule)[AuthenticationService -&gt; HttpClient -&gt; HttpClient]: 
+  NullInjectorError: No provider for HttpClient!
+error properties: Object({ ngTempTokenPath: null, ngTokenPath: [ 'AuthenticationService', 'HttpClient', 'HttpClient' ] })
+NullInjectorError: R3InjectorError(DynamicTestModule)[AuthenticationService -&gt; HttpClient -&gt; HttpClient]: 
+  NullInjectorError: No provider for HttpClient!
+    at NullInjector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11116:1)
+    at R3Injector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11283:1)
+    at R3Injector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11283:1)
+    at injectInjectorOnly (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:4776:1)
+    at ɵɵinject (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:4780:1)
+    at Object.AuthenticationService_Factory [as factory] (ng:///AuthenticationService/ɵfac.js:4:49)
+    at R3Injector.hydrate (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11452:1)
+    at R3Injector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11272:1)
+    at NgModuleRef$1.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:25337:1)
+    at Object.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:25051:1),Error: NG0200: Circular dependency in DI detected for AuthenticationService. Find more at https://angular.io/errors/NG0200
+error properties: Object({ code: '200' })
+Error: NG0200: Circular dependency in DI detected for AuthenticationService. Find more at https://angular.io/errors/NG0200
+    at throwCyclicDependencyError (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:216:1)
+    at R3Injector.hydrate (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11448:1)
+    at R3Injector.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:11272:1)
+    at NgModuleRef$1.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:25337:1)
+    at Object.get (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:25051:1)
+    at lookupTokenUsingModuleInjector (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:3389:1)
+    at getOrCreateInjectable (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:3501:1)
+    at ɵɵdirectiveInject (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:14707:1)
+    at NodeInjectorFactory.HomeComponent_Factory [as factory] (ng:///HomeComponent/ɵfac.js:5:7)
+    at getNodeInjectable (node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:3596:1)</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">SigninComponent should render input elements</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Error: Expected null to be truthy.
+    at &lt;Jasmine&gt;
+    at UserContext.&lt;anonymous&gt; (src/app/components/signin/signin.component.spec.ts:48:27)
+    at ZoneDelegate.invoke (node_modules/zone.js/dist/zone-evergreen.js:372:1)
+    at ProxyZoneSpec.push.QpwO.ProxyZoneSpec.onInvoke (node_modules/zone.js/dist/zone-testing.js:301:1),Error: Expected null to be truthy.
+    at &lt;Jasmine&gt;
+    at UserContext.&lt;anonymous&gt; (src/app/components/signin/signin.component.spec.ts:49:27)
+    at ZoneDelegate.invoke (node_modules/zone.js/dist/zone-evergreen.js:372:1)
+    at ProxyZoneSpec.push.QpwO.ProxyZoneSpec.onInvoke (node_modules/zone.js/dist/zone-testing.js:301:1)</div>
+    </div>
+  </div>
+  
   
   
   <div class="specDetail failed">
@@ -395,23 +628,6 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
   </div>
   
   
-  
-  <div class="specDetail failed">
-    <span class="description">SigninComponent should render input elements</span>
-    <div class="stackTrace">
-      <div class="resultMessage">Error: Expected null to be truthy.
-    at &lt;Jasmine&gt;
-    at UserContext.&lt;anonymous&gt; (src/app/components/signin/signin.component.spec.ts:48:27)
-    at ZoneDelegate.invoke (node_modules/zone.js/dist/zone-evergreen.js:372:1)
-    at ProxyZoneSpec.push.QpwO.ProxyZoneSpec.onInvoke (node_modules/zone.js/dist/zone-testing.js:301:1),Error: Expected null to be truthy.
-    at &lt;Jasmine&gt;
-    at UserContext.&lt;anonymous&gt; (src/app/components/signin/signin.component.spec.ts:49:27)
-    at ZoneDelegate.invoke (node_modules/zone.js/dist/zone-evergreen.js:372:1)
-    at ProxyZoneSpec.push.QpwO.ProxyZoneSpec.onInvoke (node_modules/zone.js/dist/zone-testing.js:301:1)</div>
-    </div>
-  </div>
-  
-  
 </div>
 
 <script>
@@ -423,7 +639,7 @@ document.body.onkeypress = function (e) {
   switch (e.keyCode) {
     case 102: toggleFold(); break;
     case 49: showSummary(); break;
-    case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;
+    case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;
   }
 };
 
