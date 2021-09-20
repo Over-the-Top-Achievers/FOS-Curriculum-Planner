@@ -4,18 +4,23 @@ import { SubjectService } from 'src/app/shared/services/subject.services';
 import { Subject } from 'src/app/shared/models';
 import { DegreeRequirement } from 'src/app/shared/models';
 import { DisclaimerDialogComponent } from '../disclaimer-dialog/disclaimer-dialog.component';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DisclaimerService } from 'src/app/shared/services/disclaimer.service';
 
 @Component({
   selector: 'app-offer-page',
   templateUrl: './offer-page.component.html',
   styleUrls: ['./offer-page.component.scss'],
 })
+
 export class OfferPageComponent implements OnInit {
+  
 
   constructor(
+    private dialog:MatDialog,
     public subjectService: SubjectService,
-    public disclaimer: DisclaimerDialogComponent
+    public disclaimer: DisclaimerDialogComponent,
+    public viewDialog: DisclaimerService
   ) { }  
 
 
@@ -52,7 +57,7 @@ export class OfferPageComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.disclaimer.openDialog();
+      this.viewDialog.openDialog();
     }, 1);
     //this.disclaimer.openDialog();
     this.initSubjectSelection();

@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 describe('AdminDegreeComponent', () => {
   let component: AdminDegreeComponent;
   let fixture: ComponentFixture<AdminDegreeComponent>;
+  
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -41,10 +42,28 @@ describe('AdminDegreeComponent', () => {
     expect(component.updateDegreeForm.valid).toBeTruthy()
   })
 
-  
-  it('should create form',()=>{
-    expect(component.addDegreeForm.valid).toBeTruthy()
-  })
+  // it('should populate update form',()=>{
+  //   let course:any = {
+  //     //look u model view controller mvc
+  //     _id : "",
+  //     Degree_Name:'degree name',
+  //     Firm_Offer:'',
+  //     Waitlist:'',
+  //     Reject:''
+  //   }
+  //   const spy = spyOn(component.updateDegreeForm,'setValue')
+  //   component.populateUpdate({
+  //     //look u model view controller mvc
+  //     _id : "",
+  //     Degree_Name:'degree name',
+  //     Firm_Offer:'',
+  //     Waitlist:'',
+  //     Reject:''
+      
+  //   })
+  //   delete course._id
+  //   expect(spy).toHaveBeenCalledWith(course) 
+  // })
 
   it("check if it sends the updated values to backend for aps", fakeAsync(() => {
     const body:any = {
@@ -151,10 +170,10 @@ describe('AdminDegreeComponent', () => {
       r_english:"",
       r_aps:"",
       
+  //   })
+  //   delete course._id
+  //   expect(spy).toHaveBeenCalledWith(course) 
     })
-    delete course._id
-    expect(spy).toHaveBeenCalledWith(course) 
-  })
+  });
 
-
-})
+});
