@@ -39,13 +39,11 @@ export class AdminDegreeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.courseService.getDegree().subscribe(
-      data => {
-        this.dataSource = data as [];
-      }
-    )
-
-
+    // this.courseService.getDegree().subscribe(
+    //   data => {
+    //     this.dataSource = data as [];
+    //   }
+    // )
   }
 
   updateDegreeForm = this.formbuilder.group({
