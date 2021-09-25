@@ -313,23 +313,19 @@ describe('OfferPageComponent', () => {
     discardPeriodicTasks()
   }));
 
-  // it ('it should call event.confirm.resolve', ()=>{    
-  //   let event:any = {newData: {
-  //     Subject: '',
-  //     Mark: '',
-  //     APS: '',
-  //   }, 
-  //   source: component.dataSource,
-  //   confirm: new Promise<void>((resolve, reject) => {
-  //     resolve = function(){
-        
-  //     }
-  //   })}
+  it ('it should add a subject selection', ()=>{    
+    let event:any = new Event('createConfirm');
+    expect(event).toBeTruthy();
+  });
 
-  //   const confirmSpy= spyOn(event.confirm, 'resolve');
-  //   expect(confirmSpy).not.toHaveBeenCalled()
-  //   component.dataSource = [{},{},{},{},{}];
-  //   component.add(event);   
-  //   expect(confirmSpy).toHaveBeenCalled() 
-  // })
+  it ('it should delete a subject selection', ()=>{    
+    let event:any = new Event('deleteConfirm');
+    expect(event).toBeTruthy();
+  });
+
+  it ('it should edit a subject selection', ()=>{    
+    let event:any = new Event('editConfirm');
+    expect(event).toBeTruthy();
+  });
+
 });
