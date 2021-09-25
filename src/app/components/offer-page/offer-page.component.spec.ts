@@ -295,6 +295,40 @@ describe('OfferPageComponent', () => {
     expect(window.alert).toBeTruthy();
   })
 
+  it ('should edit a subject selection', ()=>{
+    spyOn(component, 'editSubjectSelection')
+    let event:any = {newData: {
+      Subject: '',
+      Mark: '',
+      APS: '',
+    }, 
+    source: component.dataSource,
+    confirm: new Promise<void>((resolve, reject) => {
+      
+    })}
+
+    component.dataSource = [{},{},{},{},{},{},{}];
+    component.editSubjectSelection(event);      
+    expect(component).toBeTruthy();
+  })
+
+  it ('should delete a subject selection', ()=>{
+    spyOn(component, 'deleteSubjectSelection')
+    let event:any = {newData: {
+      Subject: '',
+      Mark: '',
+      APS: '',
+    }, 
+    source: component.dataSource,
+    confirm: new Promise<void>((resolve, reject) => {
+      
+    })}
+
+    component.dataSource = [{},{},{},{},{},{},{}];
+    component.deleteSubjectSelection(event);      
+    expect(component).toBeTruthy();
+  })
+
   it(" initSubjectSelection should call getSubjects and return list of subjects", fakeAsync(() => {
     const response: Subject[] = [];
     spyOn(component.subjectService, 'getSubjects').and.returnValue(of(response))
