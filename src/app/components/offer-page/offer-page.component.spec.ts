@@ -324,9 +324,10 @@ describe('OfferPageComponent', () => {
       
     })}
 
-    component.dataSource = [{},{},{},{},{},{},{}];
+    component.dataSource = [];
+    let result:any = [];
     component.deleteSubjectSelection(event);      
-    expect(component).toBeTruthy();
+    expect(result).toEqual(component.subjectSelection);
   })
 
   it(" initSubjectSelection should call getSubjects and return list of subjects", fakeAsync(() => {
