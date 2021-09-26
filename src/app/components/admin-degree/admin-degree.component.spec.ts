@@ -155,25 +155,8 @@ describe('AdminDegreeComponent', () => {
       Reject:"-;-;-;-"
     }
     const spy = spyOn(component.updateDegreeForm,'setValue')
-    component.getDegreeInfo({
-      fo_maths :"",
-      fo_physics:"",
-      fo_english:"",
-      fo_aps:"",
-
-      wl_maths:"",
-      wl_physics:"",
-      wl_aps:"",
-
-      r_maths:"",
-      r_physics:"",
-      r_english:"",
-      r_aps:"",
-      
-  //   })
-  //   delete course._id
-  //   expect(spy).toHaveBeenCalledWith(course) 
-    })
+    component.getDegreeInfo(course)
+    expect(component).toBeTruthy();
   });
 
 });
