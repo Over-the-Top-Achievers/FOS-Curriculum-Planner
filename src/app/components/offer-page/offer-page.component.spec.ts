@@ -88,6 +88,108 @@ describe('OfferPageComponent', () => {
       Level_39_30: '0',
       Level_29_0: '0',
     }]
+    let APS:string = component.getAPS('Mathematics', 25);
+    expect(APS).toEqual('0');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 35);
+    expect(APS).toEqual('0');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 45);
+    expect(APS).toEqual('3');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 55);
+    expect(APS).toEqual('4');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 75);
+    expect(APS).toEqual('8');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 85);
+    expect(APS).toEqual('9');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
     let APS:string = component.getAPS('Mathematics', 98);
     expect(APS).toEqual('10');
   })
