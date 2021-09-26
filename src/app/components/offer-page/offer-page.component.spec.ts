@@ -88,6 +88,108 @@ describe('OfferPageComponent', () => {
       Level_39_30: '0',
       Level_29_0: '0',
     }]
+    let APS:string = component.getAPS('Mathematics', 25);
+    expect(APS).toEqual('0');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 35);
+    expect(APS).toEqual('0');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 45);
+    expect(APS).toEqual('3');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 55);
+    expect(APS).toEqual('4');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 75);
+    expect(APS).toEqual('8');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 85);
+    expect(APS).toEqual('9');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
     let APS:string = component.getAPS('Mathematics', 98);
     expect(APS).toEqual('10');
   })
@@ -293,6 +395,41 @@ describe('OfferPageComponent', () => {
     component.dataSource = [{},{},{},{},{},{},{}];
     component.add(event);    
     expect(window.alert).toBeTruthy();
+  })
+
+  it ('should edit a subject selection', ()=>{
+    spyOn(component, 'editSubjectSelection')
+    let event:any = {newData: {
+      Subject: '',
+      Mark: '',
+      APS: '',
+    }, 
+    source: component.dataSource,
+    confirm: new Promise<void>((resolve, reject) => {
+      
+    })}
+
+    component.dataSource = [{},{},{},{},{},{},{}];
+    component.editSubjectSelection(event);      
+    expect(component).toBeTruthy();
+  })
+
+  it ('should delete a subject selection', ()=>{
+    spyOn(component, 'deleteSubjectSelection')
+    let event:any = {newData: {
+      Subject: '',
+      Mark: '',
+      APS: '',
+    }, 
+    source: component.dataSource,
+    confirm: new Promise<void>((resolve, reject) => {
+      
+    })}
+
+    component.dataSource = [];
+    let result:any = [];
+    component.deleteSubjectSelection(event);      
+    expect(result).toEqual(component.subjectSelection);
   })
 
   it(" initSubjectSelection should call getSubjects and return list of subjects", fakeAsync(() => {
