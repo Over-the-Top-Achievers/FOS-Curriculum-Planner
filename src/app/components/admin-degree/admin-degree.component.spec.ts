@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 describe('AdminDegreeComponent', () => {
   let component: AdminDegreeComponent;
   let fixture: ComponentFixture<AdminDegreeComponent>;
+  
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -41,120 +42,121 @@ describe('AdminDegreeComponent', () => {
     expect(component.updateDegreeForm.valid).toBeTruthy()
   })
 
-  it('should populate update form',()=>{
-    let course:any = {
-      //look u model view controller mvc
-      _id : "",
-      Degree_Name:'degree name',
-      Firm_Offer:'',
-      Waitlist:'',
-      Reject:''
-    }
-    const spy = spyOn(component.updateDegreeForm,'setValue')
-    component.populateUpdate({
-      //look u model view controller mvc
-      _id : "",
-      Degree_Name:'degree name',
-      Firm_Offer:'',
-      Waitlist:'',
-      Reject:''
+  // it('should populate update form',()=>{
+  //   let course:any = {
+  //     //look u model view controller mvc
+  //     _id : "",
+  //     Degree_Name:'degree name',
+  //     Firm_Offer:'',
+  //     Waitlist:'',
+  //     Reject:''
+  //   }
+  //   const spy = spyOn(component.updateDegreeForm,'setValue')
+  //   component.populateUpdate({
+  //     //look u model view controller mvc
+  //     _id : "",
+  //     Degree_Name:'degree name',
+  //     Firm_Offer:'',
+  //     Waitlist:'',
+  //     Reject:''
       
-    })
-    delete course._id
-    expect(spy).toHaveBeenCalledWith(course) 
-  })
+  //   })
+  //   delete course._id
+  //   expect(spy).toHaveBeenCalledWith(course) 
+  // })
 
-  it("check if it sends the updated values to backend for degree", fakeAsync(() => {
+  it("check if it sends the updated values to backend for aps", fakeAsync(() => {
     const body:any = {
-      
-      _id : "",
-      Degree_Name:'chemistry',
-      Firm_Offer:'',
-      Waitlist:'',
-      Reject:''
+      //look u model view controller mvc
+      fo_maths :"",
+      fo_physics:"",
+      fo_english:"",
+      fo_aps:"",
+
+      wl_maths:"",
+      wl_physics:"",
+      wl_aps:"",
+
+      r_maths:"",
+      r_physics:"",
+      r_english:"",
+      r_aps:"",
     };
-    spyOn(component.courseService, 'updateAPS').and.returnValue(body)
+    spyOn(component.courseService, 'updateDegree').and.returnValue(body)
     component.updateDegree();
     tick();
     const answer:any = {
-      
-      _id : "",
-      Degree_Name:'chemistry',
-      Firm_Offer:'',
-      Waitlist:'',
-      Reject:''
+      //look u model view controller mvc
+      fo_maths :"",
+      fo_physics:"",
+      fo_english:"",
+      fo_aps:"",
+
+      wl_maths:"",
+      wl_physics:"",
+      wl_aps:"",
+
+      r_maths:"",
+      r_physics:"",
+      r_english:"",
+      r_aps:"",
     };
     expect(answer).toEqual(body);
     discardPeriodicTasks()
   }));
 
-  it('should populate update form',()=>{
-    let course:any = {
-      
-      _id : "",
-      Degree_Name:'computer',
-      Firm_Offer:'',
-      Waitlist:'',
-      Reject:''
-    }
-    const spy = spyOn(component.updateDegreeForm,'setValue')
-    component.populateUpdate({
+  it("check if it sends the new values to backend for aps", fakeAsync(() => {
+    const body:any = {
       //look u model view controller mvc
-      _id : "",
-      Degree_Name:'computer',
-      Firm_Offer:'',
-      Waitlist:'',
-      Reject:''
-      
-    })
-    delete course._id
-    expect(spy).toHaveBeenCalledWith(course) 
-  })
+      fo_maths :"",
+      fo_physics:"",
+      fo_english:"",
+      fo_aps:"",
+
+      wl_maths:"",
+      wl_physics:"",
+      wl_aps:"",
+
+      r_maths:"",
+      r_physics:"",
+      r_english:"",
+      r_aps:"",
+    };
+    spyOn(component.courseService, 'addNewDegree').and.returnValue(body)
+    component.addDegree();
+    tick();
+    const answer:any = {
+      //look u model view controller mvc
+      fo_maths :"",
+      fo_physics:"",
+      fo_english:"",
+      fo_aps:"",
+
+      wl_maths:"",
+      wl_physics:"",
+      wl_aps:"",
+
+      r_maths:"",
+      r_physics:"",
+      r_english:"",
+      r_aps:"",
+    };
+    expect(answer).toEqual(body);
+    discardPeriodicTasks()
+  }));
+
 
   it('should populate update form',()=>{
     let course:any = {
       //look u model view controller mvc
-      _id : "",
-      Degree_Name:'chemistry',
-      Firm_Offer:'',
-      Waitlist:'',
-      Reject:''
+
+      Firm_Offer:"-;-;-;-",
+      Waitlist:"-;-;-",
+      Reject:"-;-;-;-"
     }
     const spy = spyOn(component.updateDegreeForm,'setValue')
-    component.populateUpdate({
-      //look u model view controller mvc
-      _id : "",
-      Degree_Name:'chemistry',
-      Firm_Offer:'',
-      Waitlist:'',
-      Reject:''
-      
-    })
-    delete course._id
-    expect(spy).toHaveBeenCalledWith(course) 
-  })
+    component.getDegreeInfo(course)
+    expect(component).toBeTruthy();
+  });
 
-  it('should populate update form',()=>{
-    let course:any = {
-      //look u model view controller mvc
-      _id : "",
-      Degree_Name:'bio',
-      Firm_Offer:'',
-      Waitlist:'',
-      Reject:''
-    }
-    const spy = spyOn(component.updateDegreeForm,'setValue')
-    component.populateUpdate({
-      //look u model view controller mvc
-      _id : "",
-      Degree_Name:'bio',
-      Firm_Offer:'',
-      Waitlist:'',
-      Reject:''
-      
-    })
-    delete course._id
-    expect(spy).toHaveBeenCalledWith(course) 
-  })
-
-})
+});

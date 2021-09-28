@@ -3,16 +3,24 @@ import { LocalDataSource, Ng2SmartTableModule } from 'ng2-smart-table';
 import { SubjectService } from 'src/app/shared/services/subject.services';
 import { Subject } from 'src/app/shared/models';
 import { DegreeRequirement } from 'src/app/shared/models';
+import { DisclaimerDialogComponent } from '../disclaimer-dialog/disclaimer-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DisclaimerService } from 'src/app/shared/services/disclaimer.service';
 
 @Component({
   selector: 'app-offer-page',
   templateUrl: './offer-page.component.html',
-  styleUrls: ['./offer-page.component.scss']
+  styleUrls: ['./offer-page.component.scss'],
 })
+
 export class OfferPageComponent implements OnInit {
+  
 
   constructor(
-    public subjectService: SubjectService
+    private dialog:MatDialog,
+    public subjectService: SubjectService,
+    public disclaimer: DisclaimerDialogComponent,
+    public viewDialog: DisclaimerService
   ) { }  
 
 
@@ -48,6 +56,10 @@ export class OfferPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.viewDialog.openDialog();
+    }, 1);
+    //this.disclaimer.openDialog();
     this.initSubjectSelection();
     this.initDegreeReqs();
     
@@ -89,12 +101,13 @@ export class OfferPageComponent implements OnInit {
       // console.log(this.getOffer(this.degreeReqs[i]))
       this.offerList[i].Offer = this.getOffer(this.degreeReqs[i]);
     }
+    
     this.qualifiedCoursesIII.load(this.offerList);
     this.qualifiedCoursesIII.refresh();
   }
   getOfferAPS(course:DegreeRequirement):number //0 reject 1 wait 2 firm
   {
-    console.log(course);
+    //console.log(course);
     let firm = Number(course.Firm_Offer.split(";")[3]);
     //let waitlist = Number(course.Waitlist.split(";")[3]);
     let reject = Number(course.Reject.split(";")[3]);
@@ -122,7 +135,7 @@ export class OfferPageComponent implements OnInit {
     let mathLevel = this.checkSubjectOffer(math,mathMark);
     let engLevel =  this.checkSubjectOffer(eng,engMark);
     offer = Math.min(physLevel,mathLevel,engLevel,apsOffer);
-    console.log(course.Degree_Name,physMark,mathMark,engMark,apsOffer);
+    //console.log(course.Degree_Name,physMark,mathMark,engMark,apsOffer);
     if(offer===0) return "Reject";
     else if (offer===1) return "Waitlist";
     else if (offer===2) return "Firm Offer";
@@ -140,7 +153,7 @@ export class OfferPageComponent implements OnInit {
 
   addAPS(){
     const sum = this.dataSource.reduce((sum: any, subject: { APS: any; }) => sum + Number(subject.APS), 0);
-    console.log('APS ' + sum);
+    //console.log('APS ' + sum);
     this.totalAPS = sum;
   }
 
@@ -189,6 +202,32 @@ export class OfferPageComponent implements OnInit {
     return APS;
   }
 
+  editSubjectSelection(event: any){
+    this.subjectSelection = this.subjectSelection.filter((a: any) => {
+      return (a.value !== event.newData.Subject)
+    })
+    this.settings.columns.Subject.editor.config.list = this.subjectSelection;
+    this.settings = Object.assign({},this.settings);     
+    event.newData.APS = this.getAPS(event.newData.Subject, event.newData.Mark);         
+    event.confirm.resolve(event.newData);
+    
+    //console.log(this.subjectSelection);
+  }
+
+  deleteSubjectSelection(event: any){
+    
+    if (this.subjectSelection === null){
+    }
+    this.subjectSelection = this.subjectSelection.filter((a: any) => {
+      return (a.value !== event.data)
+    })
+    this.settings.columns.Subject.editor.config.list = this.subjectSelection;
+    this.settings = Object.assign({},this.settings);     
+    event.data.APS = 0;    
+
+    event.confirm.resolve(event.data);    
+  }
+
   data: Subject[] = [];
   subjectSelection: any = [];
   dataSource: any = [];
@@ -198,11 +237,19 @@ export class OfferPageComponent implements OnInit {
   qualifiedCoursesII: any = [];
   qualifiedCoursesIII!: LocalDataSource;
   offerList:any = [];
+
+
   settings = {
     actions: {
-      delete: false,
-      edit: false,
-    },     
+      delete: true,
+      edit: true,
+    },   
+    delete: {
+      confirmDelete: true
+    },
+    edit:{
+      confirmSave: true
+    },  
     add: {
       confirmCreate: true,
     }, 

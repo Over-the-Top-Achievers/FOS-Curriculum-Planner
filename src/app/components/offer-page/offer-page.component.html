@@ -1,6 +1,6 @@
 <div class="offer-page">
     <mat-card>
-        <ng2-smart-table [settings]="settings" [source]="dataSource" (createConfirm)='add($event)'></ng2-smart-table>
+        <ng2-smart-table [settings]="settings" [source]="dataSource" (createConfirm)='add($event)' (editConfirm)='editSubjectSelection($event)' (deleteConfirm)='deleteSubjectSelection($event)'></ng2-smart-table>
     </mat-card>    
 
     <mat-card>

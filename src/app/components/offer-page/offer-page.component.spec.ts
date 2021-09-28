@@ -6,12 +6,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatCard, MatCardHeader } from '@angular/material/card';
 import { LocalDataSource, Ng2SmartTableModule } from 'ng2-smart-table';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ExpectedConditions } from 'protractor';
 import { LocalizedString } from '@angular/compiler';
 import { of } from 'rxjs';
-
+import {DisclaimerDialogComponent} from '../disclaimer-dialog/disclaimer-dialog.component';
+import { DisclaimerService } from 'src/app/shared/services/disclaimer.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('OfferPageComponent', () => {
   let component: OfferPageComponent;
@@ -22,9 +24,11 @@ describe('OfferPageComponent', () => {
       imports: [
         HttpClientTestingModule,
         Ng2SmartTableModule,
+        MatDialogModule,    
+        BrowserAnimationsModule 
       ],
-      providers:[SubjectService],
-      declarations: [ OfferPageComponent ]
+      providers:[SubjectService, DisclaimerDialogComponent, DisclaimerService],
+      declarations: [ OfferPageComponent, DisclaimerDialogComponent ]
     })
     .compileComponents();
   });
@@ -69,6 +73,108 @@ describe('OfferPageComponent', () => {
     }]
     let APS:string = component.getAPS('Mathematics', 65);
     expect(APS).toEqual('7');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 25);
+    expect(APS).toEqual('0');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 35);
+    expect(APS).toEqual('0');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 45);
+    expect(APS).toEqual('3');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 55);
+    expect(APS).toEqual('4');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 75);
+    expect(APS).toEqual('8');
+  })
+
+  it('should return your respective APS score', () =>{
+    component.data = [{
+      _id: '' ,
+      Subject: 'Mathematics',
+      Level_100_90: '10',
+      Level_89_80: '9',
+      Level_79_70: '8',
+      Level_69_60: '7',
+      Level_59_50: '4',
+      Level_49_40: '3',
+      Level_39_30: '0',
+      Level_29_0: '0',
+    }]
+    let APS:string = component.getAPS('Mathematics', 85);
+    expect(APS).toEqual('9');
   })
 
   it('should return your respective APS score', () =>{
@@ -291,6 +397,41 @@ describe('OfferPageComponent', () => {
     expect(window.alert).toBeTruthy();
   })
 
+  it ('should edit a subject selection', ()=>{
+    spyOn(component, 'editSubjectSelection')
+    let event:any = {newData: {
+      Subject: '',
+      Mark: '',
+      APS: '',
+    }, 
+    source: component.dataSource,
+    confirm: new Promise<void>((resolve, reject) => {
+      
+    })}
+
+    component.dataSource = [{},{},{},{},{},{},{}];
+    component.editSubjectSelection(event);      
+    expect(component).toBeTruthy();
+  })
+
+  it ('should delete a subject selection', ()=>{
+    spyOn(component, 'deleteSubjectSelection')
+    let event:any = {newData: {
+      Subject: '',
+      Mark: '',
+      APS: '',
+    }, 
+    source: component.dataSource,
+    confirm: new Promise<void>((resolve, reject) => {
+      
+    })}
+
+    component.dataSource = [];
+    let result:any = [];
+    component.deleteSubjectSelection(event);      
+    expect(result).toEqual(component.subjectSelection);
+  })
+
   it(" initSubjectSelection should call getSubjects and return list of subjects", fakeAsync(() => {
     const response: Subject[] = [];
     spyOn(component.subjectService, 'getSubjects').and.returnValue(of(response))
@@ -309,23 +450,19 @@ describe('OfferPageComponent', () => {
     discardPeriodicTasks()
   }));
 
-  // it ('it should call event.confirm.resolve', ()=>{    
-  //   let event:any = {newData: {
-  //     Subject: '',
-  //     Mark: '',
-  //     APS: '',
-  //   }, 
-  //   source: component.dataSource,
-  //   confirm: new Promise<void>((resolve, reject) => {
-  //     resolve = function(){
-        
-  //     }
-  //   })}
+  it ('it should add a subject selection', ()=>{    
+    let event:any = new Event('createConfirm');
+    expect(event).toBeTruthy();
+  });
 
-  //   const confirmSpy= spyOn(event.confirm, 'resolve');
-  //   expect(confirmSpy).not.toHaveBeenCalled()
-  //   component.dataSource = [{},{},{},{},{}];
-  //   component.add(event);   
-  //   expect(confirmSpy).toHaveBeenCalled() 
-  // })
+  it ('it should delete a subject selection', ()=>{    
+    let event:any = new Event('deleteConfirm');
+    expect(event).toBeTruthy();
+  });
+
+  it ('it should edit a subject selection', ()=>{    
+    let event:any = new Event('editConfirm');
+    expect(event).toBeTruthy();
+  });
+
 });
