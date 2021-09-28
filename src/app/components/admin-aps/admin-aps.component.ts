@@ -40,13 +40,11 @@ export class AdminApsComponent implements OnInit {
   ngOnInit(): void {
     //this.updateAPSForm.get('Subject')!.disable();
 
-    this.courseService.getSubject().subscribe(
-      data => {
-        this.dataSource = data as [];
-        console.log(this.dataSource.length)
-        // console.log(this.dataSource[1]['Subject']) way to reference the particular attribute
-      }
-    )
+    // this.courseService.getSubject().subscribe(
+    //   data => {
+    //     this.dataSource = data as [];
+    //   }
+    // )
   }
 
   populateUpdate(subject:any){

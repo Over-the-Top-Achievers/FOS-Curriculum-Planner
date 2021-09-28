@@ -6,12 +6,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatCard, MatCardHeader } from '@angular/material/card';
 import { LocalDataSource, Ng2SmartTableModule } from 'ng2-smart-table';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ExpectedConditions } from 'protractor';
 import { LocalizedString } from '@angular/compiler';
 import { of } from 'rxjs';
-
+import {DisclaimerDialogComponent} from '../disclaimer-dialog/disclaimer-dialog.component';
+import { DisclaimerService } from 'src/app/shared/services/disclaimer.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('OfferPageComponent', () => {
   let component: OfferPageComponent;
@@ -22,9 +24,11 @@ describe('OfferPageComponent', () => {
       imports: [
         HttpClientTestingModule,
         Ng2SmartTableModule,
+        MatDialogModule,    
+        BrowserAnimationsModule 
       ],
-      providers:[SubjectService],
-      declarations: [ OfferPageComponent ]
+      providers:[SubjectService, DisclaimerDialogComponent, DisclaimerService],
+      declarations: [ OfferPageComponent, DisclaimerDialogComponent ]
     })
     .compileComponents();
   });
