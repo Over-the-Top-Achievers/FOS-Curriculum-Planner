@@ -190,7 +190,7 @@ export class UserPageComponent implements OnInit {
     {
       selection = this.year3Courses;      
     }
-    this.newMessage(year,this.year1Courses); //submits year to view-course component
+    this.newMessage(year,selection); //submits year to view-course component
   }
   newMessage(year:string,selection:Course[]) {
     // this.userService.changeMessage(year);
