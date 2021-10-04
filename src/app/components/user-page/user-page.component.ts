@@ -27,7 +27,7 @@ import { Subscription } from 'rxjs';
 })
 export class UserPageComponent implements OnInit {
   viewDetailsDialogRef!: MatDialogRef<ViewCourseComponent>;
-  message='yo';
+  message='{}';
   subscription: Subscription | undefined;
   year1Courses: Course[] = [];
 
@@ -124,17 +124,18 @@ export class UserPageComponent implements OnInit {
   }
   ngOnInit(): void {
     this.userService.currentCourse.subscribe((message:any) => {
-   
-    if(this.message =="1"){
-      this.year1Courses=this.year1Courses.concat(message);
+      let year = JSON.parse(this.message).year;
+      console.log('user page',message);
+    if(year =="1"){
+      this.year1Courses=message;
     }
-    if(this.message =="2"){
-      this.year2Courses=this.year2Courses.concat(message);
+    if(year =="2"){
+      this.year2Courses=message;
     }
-    if(this.message =="3"){
-      this.year3Courses=this.year3Courses.concat(message);
+    if(year =="3"){
+      this.year3Courses=message;
     }
-   // console.log(this.year1Courses,this.year2Courses,this.year3Courses)
+   console.log(this.year1Courses,this.year2Courses,this.year3Courses)
     })
 
 
@@ -175,10 +176,27 @@ export class UserPageComponent implements OnInit {
       this.year3Clashes= this.ValidateDiagonals(this.year3Courses);
 
     });
-    this.newMessage(year); //submits year to view-course component
+    // let year = JSON.parse(this.message).year;
+    let selection:Course[]= [];
+    if(year=="1")
+    {
+      selection = this.year1Courses;      
+    }
+    if(year=="2")
+    {
+      selection = this.year2Courses;      
+    }
+    if(year=="3")
+    {
+      selection = this.year3Courses;      
+    }
+    this.newMessage(year,this.year1Courses); //submits year to view-course component
   }
-  newMessage(message:string) {
-    this.userService.changeMessage(message)
+  newMessage(year:string,selection:Course[]) {
+    // this.userService.changeMessage(year);
+
+    const message = {year:year,selection:selection};
+    this.userService.changeMessage(JSON.stringify(message));
   }
 
   displayMissingCourse(): any[]{
