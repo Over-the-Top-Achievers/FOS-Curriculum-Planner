@@ -177,7 +177,7 @@ export class UserPageComponent implements OnInit {
 
     });
     // let year = JSON.parse(this.message).year;
-    let selection:Course[]= [];
+    let selection:Course[]=[];
     if(year=="1")
     {
       selection = this.year1Courses;      

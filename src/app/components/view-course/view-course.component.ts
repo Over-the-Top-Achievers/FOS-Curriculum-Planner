@@ -24,7 +24,7 @@ export class ViewCourseComponent implements OnInit {
   selectedYear:string | undefined;
   subscription: Subscription | undefined;
   selection = new SelectionModel<String>(true, []);
-  givenSelectionFromMessage: Course[] = [];
+  givenSelectionFromMessage: String[] = [];
   constructor(
     public dialogRef: MatDialogRef<ViewCourseComponent>,
     public courseService:CourseService,
@@ -73,7 +73,7 @@ export class ViewCourseComponent implements OnInit {
         // setTimeout(()=>{
         // // console.log('72 view course',this.givenSelectionFromMessage);
           for (let i=0 ; i< this.givenSelectionFromMessage.length;i++){
-            this.selection.toggle(this.givenSelectionFromMessage[i].Course_Code);
+            this.selection.toggle(this.givenSelectionFromMessage[i]);
           }
         // },5000);
 

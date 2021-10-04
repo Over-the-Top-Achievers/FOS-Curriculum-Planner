@@ -75,21 +75,31 @@ export class AdminPageComponent implements OnInit {
     //  console.log(this.updateForm)
   }
   openCourseView(paramater:string):void{//opens the course viewer
-
+    let selection:String[];
+    let values: String ="";
+    if(this.currentForm=='0' && this.currentEdit== "Pre_requisite") values = this.updateForm.value.Pre_requisite;
+    else if(this.currentForm =='0' && this.currentEdit== "Co_requisite") values =  this.updateForm.value.Co_requisite;
+    else if(this.currentForm =='1' && this.currentEdit== "Pre_requisite") values =  this.checkoutForm.value.Pre_requisite;
+    else if(this.currentForm =='1' && this.currentEdit== "Co_requisite") values =  this.checkoutForm.value.Co_requisite;
+    console.log('form content',values)
+    values = values.replace("(",";");
+    values = values.replace(")",";");
+    selection = values.split(";")
+    const message = JSON.stringify({year:paramater,selection:selection});
     this.subscription = this.userService.currentMessage.subscribe((message:any) => this.message = message)
     this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent);
-    this.userService.changeMessage(paramater);
+    this.userService.changeMessage(message);
   }
   //change the form input to change
   setPreReqs(x:string):void{
-    this.openCourseView('0')
     this.currentEdit="Pre_requisite"
     this.currentForm = x
+    this.openCourseView('0')
   }
   setCoReqs(x:string):void {
-    this.openCourseView('0')
     this.currentEdit="Co_requisite"
     this.currentForm = x
+    this.openCourseView('0')
   }
   getCSV():any{
     this.csv$.subscribe((data) => { 
@@ -122,11 +132,11 @@ export class AdminPageComponent implements OnInit {
 
 
     //Turns the inputs grey
-    this.checkoutForm.get('Pre_requisite')!.disable();
-    this.checkoutForm.get('Co_requisite')!.disable();
+    // this.checkoutForm.get('Pre_requisite')!.disable();
+    // this.checkoutForm.get('Co_requisite')!.disable();
 
-    this.updateForm.get('Pre_requisite')!.disable();
-    this.updateForm.get('Co_requisite')!.disable();
+    // this.updateForm.get('Pre_requisite')!.disable();
+    // this.updateForm.get('Co_requisite')!.disable();
 
     this.userService.currentCourse.subscribe((message:any) => {
     
