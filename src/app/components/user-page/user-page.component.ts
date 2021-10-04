@@ -178,21 +178,25 @@ export class UserPageComponent implements OnInit {
     });
     // let year = JSON.parse(this.message).year;
     let selection:Course[]=[];
-    if(year=="1")
-    {
+    if(year=="1"){
       selection = this.year1Courses;      
     }
-    if(year=="2")
-    {
+    if(year=="2"){
       selection = this.year2Courses;      
     }
-    if(year=="3")
-    {
+    if(year=="3"){
       selection = this.year3Courses;      
     }
-    this.newMessage(year,selection); //submits year to view-course component
+    this.newMessage(year,this.getCourseCodes(selection)); //submits year to view-course component
   }
-  newMessage(year:string,selection:Course[]) {
+  getCourseCodes(array:Course[]):String[] {
+    let result:String[] =[];
+    for(let i =0; i<array.length;i++){
+      result.push(array[i].Course_Code);
+    }
+    return result;
+  }
+  newMessage(year:string,selection:String[]) {
     // this.userService.changeMessage(year);
 
     const message = {year:year,selection:selection};
