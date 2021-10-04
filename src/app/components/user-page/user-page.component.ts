@@ -194,15 +194,20 @@ export class UserPageComponent implements OnInit {
   }
   newMessage(year:string,selection:Course[]) {
     // this.userService.changeMessage(year);
+    //console.log("aaaaa: " + selection)
 
-    const message = {year:year,selection:selection};
+    let modified_selection: String[] = selection.map(function(course){
+      return course['Course_Code'];
+    })
+    const message = {year:year,selection:modified_selection};
+    //console.log("aaaaa:" + message)
     this.userService.changeMessage(JSON.stringify(message));
+    console.log("ccccccccc: " + JSON.stringify(message))
   }
 
   displayMissingCourse(): any[]{
     return(this.ValidateCourseRequirements());
   }
-
 
   countcoursecredits1(): any[]{
     let counter1:number = 0;
