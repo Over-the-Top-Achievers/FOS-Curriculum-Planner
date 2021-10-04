@@ -114,6 +114,14 @@ html, body {
   padding: 0;
 }
 
+.scrollable{
+
+  overflow: scroll;
+  height: 50vh;
+  width: 110vw;
+
+}
+
 .content {
   margin: 20px;
 }
