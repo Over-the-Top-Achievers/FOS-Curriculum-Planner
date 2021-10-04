@@ -54,6 +54,13 @@ export class ViewCourseComponent implements OnInit {
         this.dataSource = filteredData as Course[];
 
         this.dataSource = new MatTableDataSource(this.dataSource)
+
+        // Filter only based on course code and name
+        this.dataSource.filterPredicate = (data: Course, filter: string) => {
+          var result = (data.Course_Code.toLowerCase().includes(filter) || data.Course_Name.toLowerCase().includes(filter));
+          return result;
+         };
+
         let filterValue;
         if(event.target){
           filterValue = (event.target as HTMLInputElement).value;
