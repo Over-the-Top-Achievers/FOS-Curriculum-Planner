@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2%">
 
     <mat-card fxFlex="35%">
-        <mat-card-title>Visitors</mat-card-title>
+        <mat-card-title>Course Planning</mat-card-title>
         <mat-card-subtitle>Explore our subjects and build your curriculum</mat-card-subtitle>
         <img mat-card-image src="./../assets/images/students.png" alt="Visitor's Image">
         <mat-card-content>
@@ -15,18 +15,20 @@
         </mat-card-actions>
     </mat-card>
     <mat-card fxFlex="35%">
-        <mat-card-title>Administrators</mat-card-title>
-        <mat-card-subtitle>System maintenance and configuration</mat-card-subtitle>
+        <mat-card-title>Offer Page</mat-card-title>
+        <mat-card-subtitle>Check available degrees at Wits.</mat-card-subtitle>
         <img mat-card-image src="../../../assets/images/admin.png" alt="Admin Image">
         <mat-card-content>
             <p>
-                Do you crave control?  Feel the need to micro-manage other people's choices? This is the place for you... But not anymore, this card will now be for APS stuff
+               calculate your APS here and see what you are qualified for.
                 <br />
             </p>
         </mat-card-content>
         <mat-card-actions>
-            <button *ngIf="!this.isLoggedIn" mat-raised-button color="primary" routerLink="/signin">Sign In</button>
-            <button *ngIf="this.isLoggedIn" mat-raised-button color="primary" routerLink="/admin-page">Admin Page</button>
+            <!-- <button *ngIf="!this.isLoggedIn" mat-raised-button color="primary" routerLink="/signin">Sign In</button>
+            <button *ngIf="this.isLoggedIn" mat-raised-button color="primary" routerLink="/admin-page">Admin Page</button> -->
+            <button mat-raised-button color="primary" routerLink="/offer-page">Check Offer</button>
+
         </mat-card-actions>
     </mat-card>
   
