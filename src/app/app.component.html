@@ -7,7 +7,10 @@
     <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-aps">Edit Subject APS</button>
     <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-degree">Edit Degree Requirements</button>
     <button *ngIf='this.isLoggedIn' mat-button (click)="logout()">Logout</button>
-    <button mat-button type="button" (click)="changeTheme()">Change Theme</button>
+    <button mat-button type="button" (click)="changeTheme()">
+        <mat-icon>nightlight_round</mat-icon>
+    </button>
+
 </mat-toolbar>
 
 <mat-card *ngIf='!this.isLoggedIn'>
