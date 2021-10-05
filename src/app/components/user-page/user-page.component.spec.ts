@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { UserService } from 'src/app/shared/services/user.services';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Course } from 'src/app/shared/models';
+import { ViewCourseComponent } from '../view-course/view-course.component';
 describe('UserPageComponent', () => {
   let component: UserPageComponent;
   let fixture: ComponentFixture<UserPageComponent>;
@@ -604,17 +605,35 @@ describe('UserPageComponent', () => {
 
   it('openCourseView should call newMessage()',()=>{
     const spy= spyOn(component, 'newMessage').and.callThrough();
-    expect(spy).not.toHaveBeenCalled()
+    component.year1Courses = []
     component.openCourseView("1")
-    component.viewDetailsDialogRef.close()
     expect(spy).toHaveBeenCalled()
   })
 
   it('should pass new message to userService ',()=>{
-    let selection:Course[] = component.year1Courses;
+    spyOn(component, 'newMessage')
+    let selection:Course[] = [];
     let year: string = "1";
     component.newMessage(year, selection);
     expect(component).toBeTruthy();
+  })
+
+  it('... ',()=>{
+    spyOn(component, 'openCourseView')
+    //let selection:Course[] = component.year1Courses;
+    let year: string = "1";
+    component.subscription = component.userService.currentMessage.subscribe((message:any) => component.message = message);
+    //component.viewDetailsDialogRef = component.dialog.open(ViewCourseComponent);
+    //component.newMessage(year, selection);
+    component.openCourseView(year);
+    
+    expect(component).toBeTruthy();
+  })
+
+  it('should open viewCourse dialog',()=>{
+    const spy = spyOn(component, 'openCourseView');
+    component.openCourseView("1")
+    expect(spy).toHaveBeenCalled()
   })
 
 });
