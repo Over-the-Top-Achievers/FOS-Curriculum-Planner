@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { UserService } from 'src/app/shared/services/user.services';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Course } from 'src/app/shared/models';
+import { ViewCourseComponent } from '../view-course/view-course.component';
 describe('UserPageComponent', () => {
   let component: UserPageComponent;
   let fixture: ComponentFixture<UserPageComponent>;
@@ -614,6 +615,18 @@ describe('UserPageComponent', () => {
     let selection:Course[] = [];
     let year: string = "1";
     component.newMessage(year, selection);
+    expect(component).toBeTruthy();
+  })
+
+  it('... ',()=>{
+    spyOn(component, 'openCourseView')
+    //let selection:Course[] = component.year1Courses;
+    let year: string = "1";
+    component.subscription = component.userService.currentMessage.subscribe((message:any) => component.message = message);
+    //component.viewDetailsDialogRef = component.dialog.open(ViewCourseComponent);
+    //component.newMessage(year, selection);
+    component.openCourseView(year);
+    
     expect(component).toBeTruthy();
   })
 
