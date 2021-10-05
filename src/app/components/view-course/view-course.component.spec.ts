@@ -45,6 +45,8 @@ describe('ViewCourseComponent', () => {
 it('submitSelection should call service',()=>{
   const userServiceSpy= spyOn(component.userService, 'changeCourse').and.callThrough();
   expect(userServiceSpy).not.toHaveBeenCalled()
+  let selection = component.filteredData.filter((v)=>{return component.selection.selected.includes(v.Course_Code)});
+  component.userService.changeCourse(selection);
   component.submitSelection()
   expect(userServiceSpy).toHaveBeenCalled()
 })

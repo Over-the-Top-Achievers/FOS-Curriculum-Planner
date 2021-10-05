@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { UserService } from 'src/app/shared/services/user.services';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Course } from 'src/app/shared/models';
 describe('UserPageComponent', () => {
   let component: UserPageComponent;
   let fixture: ComponentFixture<UserPageComponent>;
@@ -422,11 +423,11 @@ describe('UserPageComponent', () => {
       Semester: "",
       Year: "2",
       Co_requisite: "",
-      Pre_requisite: "1;",
+      Pre_requisite: "1",
       Shareable:"",
     }]
     component.ValidateCourseRequirements()
-    expect(component.MissingFirstYear).toEqual(['None'])
+    expect(component.MissingFirstYear).toEqual([''])
   })
 
   it('should have missing course 2',()=>{
@@ -448,7 +449,7 @@ describe('UserPageComponent', () => {
     {
       //look u model view controller mvc
       _id : "",
-      Course_Code:"1",
+      Course_Code:"test2",
       Course_Name:"test2" ,
       Credits:"",
       NQF: "",
@@ -575,5 +576,45 @@ describe('UserPageComponent', () => {
     expect(component.year3Courses).toEqual([])
   })
 
+  it('openCourseView should call service',()=>{
+    const userServiceSpy= spyOn(component.userService, 'changeMessage').and.callThrough();
+    expect(userServiceSpy).not.toHaveBeenCalled()
+    component.openCourseView("1")
+    component.viewDetailsDialogRef.close()
+    expect(userServiceSpy).toHaveBeenCalled()
+  })
+
+  it('should populate course selection for year 1',()=>{
+    let selection:Course[]=[];
+    component.openCourseView('1');
+    expect(selection).toEqual(component.year1Courses);
+
+  })
+  it('should populate course selection for year 2',()=>{
+    let selection:Course[]=[];
+    component.openCourseView('2');
+    expect(selection).toEqual(component.year2Courses);
+  })
+  it('should populate course selection for year 3',()=>{
+    let selection:Course[]=[];
+    component.openCourseView('3');
+    expect(selection).toEqual(component.year3Courses);
+
+  })
+
+  it('openCourseView should call newMessage()',()=>{
+    const spy= spyOn(component, 'newMessage').and.callThrough();
+    expect(spy).not.toHaveBeenCalled()
+    component.openCourseView("1")
+    component.viewDetailsDialogRef.close()
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it('should pass new message to userService ',()=>{
+    let selection:Course[] = component.year1Courses;
+    let year: string = "1";
+    component.newMessage(year, selection);
+    expect(component).toBeTruthy();
+  })
 
 });
