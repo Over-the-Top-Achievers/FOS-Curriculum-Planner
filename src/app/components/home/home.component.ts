@@ -9,7 +9,7 @@ import { ComponentBase } from '../component-base';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends ComponentBase implements OnInit {
-  title = 'FOS-Curriculum-Planner';
+  //title = 'FOS-Curriculum-Planner';
   currentUser: any;
 
   ngOnInit(): void {
