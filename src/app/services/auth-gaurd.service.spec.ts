@@ -6,12 +6,14 @@ import { HttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthenticationService } from '.';
+import { HomeComponent } from '../components/home/home.component';
 describe('AuthGaurdService', () => {
   let service: AuthGuard;
   let httpmock:HttpTestingController;
   let httpclient: HttpClient;
   let router:RouterTestingModule;
   let routerSpy: jasmine.SpyObj<Router>;
+  const authMock = jasmine.createSpyObj('AuthenticationService', ['isLoggedIn']);
   const fakeUrls = ['/', '/admin', '/crisis-center', '/a/deep/route'];
   const dummyRoute = {} as ActivatedRouteSnapshot;
   // beforeEach( ()=>{
@@ -36,6 +38,13 @@ describe('AuthGaurdService', () => {
     expect(service).toBeTruthy();
   });
   
+  it('should call canActivate', () => {
+    authMock.isLoggedIn.and.returnValue(true);
+    const result = service.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: 'testUrl'});
+    expect(result).toBe(true);
+    expect(authMock.redirectUrl).toBeUndefined();
+  });
+
   // it('checks if routes',()=>{
   //   const spy = spyOn(service.router,'navigate')
   //   service.canActivate(dummyRoute,fakeRouterState(fakeUrls[0]))
