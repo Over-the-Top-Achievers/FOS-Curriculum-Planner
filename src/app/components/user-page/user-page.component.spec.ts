@@ -630,4 +630,10 @@ describe('UserPageComponent', () => {
     expect(component).toBeTruthy();
   })
 
+  it('should open viewCourse dialog',()=>{
+    const spy = spyOn(component, 'openCourseView');
+    component.openCourseView("1")
+    expect(spy).toHaveBeenCalled()
+  })
+
 });
