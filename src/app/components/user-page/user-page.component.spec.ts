@@ -610,6 +610,7 @@ describe('UserPageComponent', () => {
   })
 
   it('should pass new message to userService ',()=>{
+    spyOn(component, 'newMessage')
     let selection:Course[] = [];
     let year: string = "1";
     component.newMessage(year, selection);
