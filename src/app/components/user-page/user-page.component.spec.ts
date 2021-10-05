@@ -604,14 +604,13 @@ describe('UserPageComponent', () => {
 
   it('openCourseView should call newMessage()',()=>{
     const spy= spyOn(component, 'newMessage').and.callThrough();
-    expect(spy).not.toHaveBeenCalled()
+    component.year1Courses = []
     component.openCourseView("1")
-    component.viewDetailsDialogRef.close()
     expect(spy).toHaveBeenCalled()
   })
 
   it('should pass new message to userService ',()=>{
-    let selection:Course[] = component.year1Courses;
+    let selection:Course[] = [];
     let year: string = "1";
     component.newMessage(year, selection);
     expect(component).toBeTruthy();
