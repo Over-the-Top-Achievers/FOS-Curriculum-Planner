@@ -636,4 +636,21 @@ describe('UserPageComponent', () => {
     expect(spy).toHaveBeenCalled()
   })
 
+  it('openCourseView should validate Requirements',()=>{
+    const spy = spyOn(component, 'ValidateCourseRequirements')
+    component.ValidateCourseRequirements();
+    expect(spy).toHaveBeenCalled();
+  })
+
+  it('openCourseView should validate Diagonals',()=>{
+    const spy = spyOn(component, 'ValidateDiagonals');
+    component.year1Courses = [];
+    component.year2Courses = [];
+    component.year3Courses = [];
+    component.ValidateDiagonals(component.year1Courses);
+    component.ValidateDiagonals(component.year2Courses);
+    component.ValidateDiagonals(component.year3Courses);
+    expect(spy).toHaveBeenCalled();
+  })  
+
 });
