@@ -141,26 +141,29 @@ export class AdminPageComponent implements OnInit {
     this.userService.currentCourse.subscribe((message:any) => {
     
       //uses an observable because this happens async. changing this may lead to no changes due to value changing after expected
-      message = message as Course[];
-      this.currentReqHolder="";
-      for(let i=0;i<message.length;i++){
-       if(message[i].Course_Code){//Checks if valid entry
-         this.currentReqHolder =this.currentReqHolder.concat(message[i].Course_Code+';')
-       }
-     }
-     if(this.currentForm === '1'){
-      this.checkoutForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
-     }
-     
-     if(this.currentForm === '0'){
-      let something =  this.updateForm.value.Course_Code
-      this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder, Course_Code: something}) //changes the form value 
-      console.log('hello', something)
-     }
 
+        message = message as Course[];
+        this.currentReqHolder="";
+        this.updateFormValues(message);
       })
   }
+  updateFormValues(message:Course[]):void {
 
+    for(let i=0;i<message.length;i++){
+     if(message[i].Course_Code){//Checks if valid entry
+       this.currentReqHolder =this.currentReqHolder.concat(message[i].Course_Code+';')
+     }
+   }
+   if(this.currentForm === '1'){ // new
+    this.checkoutForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
+   }
+   
+   if(this.currentForm === '0'){ //update
+    let something =  this.updateForm.value.Course_Code
+    this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder, Course_Code: something}) //changes the form value 
+    // console.log('hello', something)
+   }
+  }
   selectedCourse?: Course;
   displayCourseInfo(courseCode:any){
     this.selectedCourse = courseCode;
