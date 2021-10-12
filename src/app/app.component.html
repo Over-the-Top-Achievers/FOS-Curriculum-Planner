@@ -1,27 +1,29 @@
-<mat-toolbar color="primary">
-    <a class="title" routerLink="/">Science Curriculum Planner</a>
-    <span class="toolbar-spacer"></span>
-    <!-- <button mat-raised-button routerLink="/aps-calculator">APS Calculator</button> -->
-    <!-- <button mat-button color="Accent" routerLink="/offer-page">Check Offers</button> -->
+<div class="app-container" [class.alternative]="isDark">
+    <mat-toolbar color="primary">
+        <a class="title" routerLink="/">Science Curriculum Planner</a>
+        <span class="toolbar-spacer"></span>
+        <!-- <button mat-raised-button routerLink="/aps-calculator">APS Calculator</button> -->
+        <!-- <button mat-button color="Accent" routerLink="/offer-page">Check Offers</button> -->
 
-    <button  *ngIf='!this.isLoggedIn' mat-button routerLink="/signin">Administrator</button>
+        <button  *ngIf='!this.isLoggedIn' mat-button routerLink="/signin">Administrator</button>
 
-    <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-page">Manage Courses</button>
-    <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-aps">Edit Subject APS</button>
-    <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-degree">Edit Degree Requirements</button>
-    <button *ngIf='this.isLoggedIn' mat-button (click)="logout()">Logout</button>
-    <button mat-button type="button" (click)="changeTheme()">
-        <mat-icon>nightlight_round</mat-icon>
-    </button>
+        <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-page">Manage Courses</button>
+        <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-aps">Edit Subject APS</button>
+        <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-degree">Edit Degree Requirements</button>
+        <button *ngIf='this.isLoggedIn' mat-button (click)="logout()">Logout</button>
+        <button mat-button type="button" (click)="changeTheme()">
+            <mat-icon class="theme-icon">nightlight_round</mat-icon>
+        </button>
 
-</mat-toolbar>
+    </mat-toolbar>
 
-<mat-card *ngIf='!this.isLoggedIn'>
-    <mat-card-content>
-        <b> DISCLAIMER: The offers returned on this page do not guarantee the offer type you will receive from Wits University </b>
-    </mat-card-content>
-</mat-card>
+    <mat-card *ngIf='!this.isLoggedIn'>
+        <mat-card-content>
+            <b> DISCLAIMER: The offers returned on this page do not guarantee the offer type you will receive from Wits University </b>
+        </mat-card-content>
+    </mat-card>
 
-<div class="content" [class.alternative]="isDark">
-    <router-outlet></router-outlet>
+    <div class="content" [class.alternative]="isDark">
+        <router-outlet></router-outlet>
+    </div>
 </div>
