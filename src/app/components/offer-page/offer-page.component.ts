@@ -246,14 +246,22 @@ export class OfferPageComponent implements OnInit {
       edit: true,
     },   
     delete: {
-      confirmDelete: true
+      confirmDelete: true,
+      deleteButtonContent: '<i class="nb-edit mat-raised-button mat-warn">Delete</i>',
+      cancelButtonContent: '<i class="nb-close mat-raised-button">Cancel</i>'
     },
     edit:{
-      confirmSave: true
+      confirmSave: true,
+      editButtonContent: '<i class="nb-edit mat-raised-button mat-primary">Edit</i>',
+      cancelButtonContent: '<i class="nb-close mat-raised-button">Cancel</i>',
+      saveButtonContent: '<i class="nb-checkmark mat-raised-button mat-accent">Update</i>'
     },  
     add: {
       confirmCreate: true,
-    }, 
+      addButtonContent: '<i class="nb-plus mat-raised-button mat-primary">Create New</i>',
+      cancelButtonContent: '<i class="nb-close mat-raised-button">Cancel</i>',
+      createButtonContent: '<i class="nb-checkmark mat-raised-button mat-accent">Create</i>'
+    },
     hideSubHeader: false,    
     mode: 'inline',    
     columns: {
