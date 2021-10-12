@@ -197,4 +197,15 @@ it('should populate update form',()=>{
   expect(spy).toHaveBeenCalledWith(course)
 
 })
+it ('should expect an alert if all fields are empty', ()=>{
+  spyOn(window, "alert");
+  component.addCourse();    
+  expect(window.alert).toBeTruthy();
+})
+it ('should call courseService on getCSV', ()=>{
+  const courseServiceSpy= spyOn(component.courseService, 'getCSV').and.callThrough()
+  expect(courseServiceSpy).not.toHaveBeenCalled()
+  component.getCSV();
+  expect(courseServiceSpy).toHaveBeenCalled()
+})
 });

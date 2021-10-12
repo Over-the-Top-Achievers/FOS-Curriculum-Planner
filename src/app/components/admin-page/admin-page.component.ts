@@ -31,7 +31,7 @@ export class AdminPageComponent implements OnInit {
 
   data: Course[] = [];
   courses$ = this.courseService.getCourses();//this is an observable
-  csv$ = this.courseService.getCSV();
+  // csv$ = this.courseService.getCSV();
   csvdata :string | undefined;
   items = this.courseService.getCourses();
  
@@ -102,7 +102,7 @@ export class AdminPageComponent implements OnInit {
     this.openCourseView('0')
   }
   getCSV():any{
-    this.csv$.subscribe((data) => { 
+    this.courseService.getCSV().subscribe((data) => { 
       this.downloadCSV(data);
       this.csvdata = data} 
       );
@@ -186,7 +186,8 @@ export class AdminPageComponent implements OnInit {
       //delete stuff here 
       this.http.delete('http://localhost:8080/courses', options).subscribe((s) => {
 
-        this.refresh()
+        // this.refresh()
+        window.location.reload();
       });
       
     }    
@@ -229,15 +230,7 @@ addCourse(): void {
   this.checkoutForm.reset();
 }
 
-  refresh(): void {
-    window.location.reload();
-}
 
-
-  close(){    
-    // console.log('Close button clicked');
-    window.location.reload();
-  }
 
   years: string[] = [
     'First year',
