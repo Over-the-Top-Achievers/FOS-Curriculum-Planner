@@ -147,25 +147,21 @@ export class AdminPageComponent implements OnInit {
 
         message = message as Course[];
         this.currentReqHolder="";
-        this.updateFormValues(message);
+        for(let i=0;i<message.length;i++){
+          if(message[i].Course_Code){//Checks if valid entry
+            this.currentReqHolder =this.currentReqHolder.concat(message[i].Course_Code+';')
+          }
+        }
+        if(this.currentForm === '1'){ // new
+         this.checkoutForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
+        }
+        
+        if(this.currentForm === '0'){ //update
+         let something =  this.updateForm.value.Course_Code
+         this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder, Course_Code: something}) //changes the form value 
+         // console.log('hello', something)
+        }
       })
-  }
-  updateFormValues(message:Course[]):void {
-
-    for(let i=0;i<message.length;i++){
-     if(message[i].Course_Code){//Checks if valid entry
-       this.currentReqHolder =this.currentReqHolder.concat(message[i].Course_Code+';')
-     }
-   }
-   if(this.currentForm === '1'){ // new
-    this.checkoutForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
-   }
-   
-   if(this.currentForm === '0'){ //update
-    let something =  this.updateForm.value.Course_Code
-    this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder, Course_Code: something}) //changes the form value 
-    // console.log('hello', something)
-   }
   }
   selectedCourse?: Course;
   displayCourseInfo(courseCode:any){

@@ -42,50 +42,6 @@ describe('OfferPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  // it('should update APS after editing', () => {
-  //   const apsSpy = spyOn(component, "getAPS");
-  //   let event:any = {newData: {
-  //     Subject: '',
-  //     Mark: '',
-  //     APS: '',
-  //   }, 
-  //   source: component.dataSource,
-  //   confirm: new Promise<any>((resolve, reject) => {
-
-  //   })}
-  //   component.editSubjectSelection(event);
-  //   expect(apsSpy).toHaveBeenCalled()
-  // });
-  // it('should resolve APS after editing', () => {
-  //   let event:any = {newData: {
-  //     Subject: '',
-  //     Mark: '',
-  //     APS: '',
-  //   }, 
-  //   source: component.dataSource,
-  //   confirm: new Promise<any>((resolve, reject) => {
-    
-  //   })}
-  //   const resolveSpy = spyOn(event.confirm, "resolve");
-
-  //   component.editSubjectSelection(event);
-  //   expect(resolveSpy).toHaveBeenCalled()
-  // })
-  // it('should resolve APS after deleting', () => {
-  //   let event:any = {newData: {
-  //     Subject: '',
-  //     Mark: '',
-  //     APS: '',
-  //   }, 
-  //   source: component.dataSource,
-  //   confirm: new Promise<any>((resolve, reject) => {
-      
-  //   })}
-  //   const resolveSpy = spyOn(event.confirm, "resolve");
-
-  //   component.deleteSubjectSelection(event);
-  //   expect(resolveSpy).toHaveBeenCalled()
-  // })
 
   it('Should sum the APS of the selected subjects', () => {
     component.dataSource = [{

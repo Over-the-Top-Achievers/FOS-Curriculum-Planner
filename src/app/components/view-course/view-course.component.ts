@@ -44,6 +44,7 @@ export class ViewCourseComponent implements OnInit {
       this.applyFilter("");
     
     }
+
   close(): void {
     this.dialogRef.close();
   }
