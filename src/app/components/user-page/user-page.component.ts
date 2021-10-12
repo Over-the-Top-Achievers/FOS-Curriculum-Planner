@@ -125,7 +125,7 @@ export class UserPageComponent implements OnInit {
   ngOnInit(): void {
     this.userService.currentCourse.subscribe((message:any) => {
       let year = JSON.parse(this.message).year;
-      console.log('user page',message);
+      // console.log('user page',message);
     if(year =="1"){
       this.year1Courses=message;
     }
@@ -135,7 +135,7 @@ export class UserPageComponent implements OnInit {
     if(year =="3"){
       this.year3Courses=message;
     }
-   console.log(this.year1Courses,this.year2Courses,this.year3Courses)
+  //  console.log(this.year1Courses,this.year2Courses,this.year3Courses)
     })
 
 
@@ -202,7 +202,7 @@ export class UserPageComponent implements OnInit {
     const message = {year:year,selection:modified_selection};
     //console.log("aaaaa:" + message)
     this.userService.changeMessage(JSON.stringify(message));
-    console.log("ccccccccc: " + JSON.stringify(message))
+    // console.log("ccccccccc: " + JSON.stringify(message))
   }
 
   displayMissingCourse(): any[]{

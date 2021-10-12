@@ -204,8 +204,48 @@ it ('should expect an alert if all fields are empty', ()=>{
 })
 it ('should call courseService on getCSV', ()=>{
   const courseServiceSpy= spyOn(component.courseService, 'getCSV').and.callThrough()
+  // const downloadSpy = spyOn(component,'downloadCSV');
   expect(courseServiceSpy).not.toHaveBeenCalled()
   component.getCSV();
   expect(courseServiceSpy).toHaveBeenCalled()
+  // expect(downloadSpy).toHaveBeenCalled()
+})
+it ('should update Update form values', ()=>{
+  const course = [{
+    //look u model view controller mvc
+    _id : "",
+    Course_Code:"1",
+    Course_Name:"test1" ,
+    Credits:"",
+    NQF: "",
+    Slot: "",
+    Semester: "",
+    Year: "1",
+    Co_requisite: "",
+    Pre_requisite: "",
+  }] as Course[]
+  const formSpy = spyOn(component.updateForm, "patchValue");
+  component.currentForm = '0'
+  component.updateFormValues(course);    
+  expect(formSpy).toHaveBeenCalled();
+})
+it ('should update New form values', ()=>{
+  const course = [{
+    //look u model view controller mvc
+    _id : "",
+    Course_Code:"1",
+    Course_Name:"test1" ,
+    Credits:"",
+    NQF: "",
+    Slot: "",
+    Semester: "",
+    Year: "1",
+    Co_requisite: "",
+    Pre_requisite: "",
+  }] as Course[]
+  const formSpy = spyOn(component.checkoutForm, "patchValue");
+  component.currentForm = '1'
+  component.updateFormValues(course);    
+  expect(formSpy).toHaveBeenCalled();
 })
 });
