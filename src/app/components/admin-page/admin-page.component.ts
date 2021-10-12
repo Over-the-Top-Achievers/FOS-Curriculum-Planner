@@ -107,6 +107,9 @@ export class AdminPageComponent implements OnInit {
       this.csvdata = data} 
       );
   }
+  refresh():void { // called from HTML
+    window.location.reload();
+  }
   downloadCSV(data:Blob):HTMLElement{
     const blob: Blob = new Blob([data], { type: 'text/csv' });
     const fileName = 'budget.csv';
