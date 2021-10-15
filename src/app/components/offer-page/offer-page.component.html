@@ -1,3 +1,10 @@
+<!-- <style>
+    body {
+      background-image: url('./../assets/images/bg6.jpg');
+    }
+</style> -->
+<body>
+    
 <div class="offer-page">
     <mat-card>
         <ng2-smart-table [settings]="settings" [source]="dataSource" (createConfirm)='add($event)' (editConfirm)='editSubjectSelection($event)' (deleteConfirm)='deleteSubjectSelection($event)'></ng2-smart-table>

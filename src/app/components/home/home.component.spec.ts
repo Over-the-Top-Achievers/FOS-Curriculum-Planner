@@ -4,13 +4,15 @@ import { HomeComponent } from './home.component';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [ HomeComponent ]
+      declarations: [ HomeComponent ],
+      providers: [HttpClient, HttpHandler]
     })
     .compileComponents();
   });

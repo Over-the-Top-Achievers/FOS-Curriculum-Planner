@@ -31,7 +31,7 @@ export class AdminPageComponent implements OnInit {
 
   data: Course[] = [];
   courses$ = this.courseService.getCourses();//this is an observable
-  csv$ = this.courseService.getCSV();
+  // csv$ = this.courseService.getCSV();
   csvdata :string | undefined;
   items = this.courseService.getCourses();
  
@@ -75,27 +75,40 @@ export class AdminPageComponent implements OnInit {
     //  console.log(this.updateForm)
   }
   openCourseView(paramater:string):void{//opens the course viewer
-
+    let selection:String[];
+    let values: String ="";
+    if(this.currentForm=='0' && this.currentEdit== "Pre_requisite") values = this.updateForm.value.Pre_requisite;
+    else if(this.currentForm =='0' && this.currentEdit== "Co_requisite") values =  this.updateForm.value.Co_requisite;
+    else if(this.currentForm =='1' && this.currentEdit== "Pre_requisite") values =  this.checkoutForm.value.Pre_requisite;
+    else if(this.currentForm =='1' && this.currentEdit== "Co_requisite") values =  this.checkoutForm.value.Co_requisite;
+    console.log('form content',values)
+    values = values.replace("(",";");
+    values = values.replace(")",";");
+    selection = values.split(";")
+    const message = JSON.stringify({year:paramater,selection:selection});
     this.subscription = this.userService.currentMessage.subscribe((message:any) => this.message = message)
     this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent);
-    this.userService.changeMessage(paramater);
+    this.userService.changeMessage(message);
   }
   //change the form input to change
   setPreReqs(x:string):void{
-    this.openCourseView('0')
     this.currentEdit="Pre_requisite"
     this.currentForm = x
+    this.openCourseView('0')
   }
   setCoReqs(x:string):void {
-    this.openCourseView('0')
     this.currentEdit="Co_requisite"
     this.currentForm = x
+    this.openCourseView('0')
   }
   getCSV():any{
-    this.csv$.subscribe((data) => { 
+    this.courseService.getCSV().subscribe((data) => { 
       this.downloadCSV(data);
       this.csvdata = data} 
       );
+  }
+  refresh():void { // called from HTML
+    window.location.reload();
   }
   downloadCSV(data:Blob):HTMLElement{
     const blob: Blob = new Blob([data], { type: 'text/csv' });
@@ -122,35 +135,34 @@ export class AdminPageComponent implements OnInit {
 
 
     //Turns the inputs grey
-    this.checkoutForm.get('Pre_requisite')!.disable();
-    this.checkoutForm.get('Co_requisite')!.disable();
+    // this.checkoutForm.get('Pre_requisite')!.disable();
+    // this.checkoutForm.get('Co_requisite')!.disable();
 
-    this.updateForm.get('Pre_requisite')!.disable();
-    this.updateForm.get('Co_requisite')!.disable();
+    // this.updateForm.get('Pre_requisite')!.disable();
+    // this.updateForm.get('Co_requisite')!.disable();
 
     this.userService.currentCourse.subscribe((message:any) => {
     
       //uses an observable because this happens async. changing this may lead to no changes due to value changing after expected
-      message = message as Course[];
-      this.currentReqHolder="";
-      for(let i=0;i<message.length;i++){
-       if(message[i].Course_Code){//Checks if valid entry
-         this.currentReqHolder =this.currentReqHolder.concat(message[i].Course_Code+';')
-       }
-     }
-     if(this.currentForm === '1'){
-      this.checkoutForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
-     }
-     
-     if(this.currentForm === '0'){
-      let something =  this.updateForm.value.Course_Code
-      this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder, Course_Code: something}) //changes the form value 
-      console.log('hello', something)
-     }
 
+        message = message as Course[];
+        this.currentReqHolder="";
+        for(let i=0;i<message.length;i++){
+          if(message[i].Course_Code){//Checks if valid entry
+            this.currentReqHolder =this.currentReqHolder.concat(message[i].Course_Code+';')
+          }
+        }
+        if(this.currentForm === '1'){ // new
+         this.checkoutForm.patchValue({[this.currentEdit]:this.currentReqHolder}) //changes the form value 
+        }
+        
+        if(this.currentForm === '0'){ //update
+         let something =  this.updateForm.value.Course_Code
+         this.updateForm.patchValue({[this.currentEdit]:this.currentReqHolder, Course_Code: something}) //changes the form value 
+         // console.log('hello', something)
+        }
       })
   }
-
   selectedCourse?: Course;
   displayCourseInfo(courseCode:any){
     this.selectedCourse = courseCode;
@@ -176,7 +188,8 @@ export class AdminPageComponent implements OnInit {
       //delete stuff here 
       this.http.delete('http://localhost:8080/courses', options).subscribe((s) => {
 
-        this.refresh()
+        // this.refresh()
+        window.location.reload();
       });
       
     }    
@@ -219,15 +232,7 @@ addCourse(): void {
   this.checkoutForm.reset();
 }
 
-  refresh(): void {
-    window.location.reload();
-}
 
-
-  close(){    
-    // console.log('Close button clicked');
-    window.location.reload();
-  }
 
   years: string[] = [
     'First year',

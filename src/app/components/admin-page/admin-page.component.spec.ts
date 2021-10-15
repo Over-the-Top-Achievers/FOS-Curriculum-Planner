@@ -12,6 +12,7 @@ import { Course } from 'src/app/shared/models';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionPanelActionRow } from '@angular/material/expansion';
+import { HttpHeaders } from '@angular/common/http';
 
 
 describe('AdminPageComponent', () => {
@@ -78,7 +79,23 @@ describe('AdminPageComponent', () => {
   it('add course should calls service',()=>{
     const courseServiceSpy= spyOn(component.courseService, 'addCourse').and.callThrough();
     expect(courseServiceSpy).not.toHaveBeenCalled()
-    component.addCourse()
+    var options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {Course_Code:component.checkoutForm.value.Course_Code,
+        Course_Name:component.checkoutForm.value.Course_Name,
+        Credits:component.checkoutForm.value.Credits,
+        NQF:component.checkoutForm.value.NQF,
+        Slot:component.checkoutForm.value.Slot,
+        Semester:component.checkoutForm.value.Semester,
+        Year:component.checkoutForm.value.Year,
+        Pre_requisite:component.checkoutForm.value.Pre_requisite,
+        Co_requisite:component.checkoutForm.value.Co_requisite,
+        Shareable:component.checkoutForm.value.Shareable
+      },      
+    };
+    component.courseService.addCourse(options.body)
     expect(courseServiceSpy).toHaveBeenCalled()
   })
 
@@ -129,7 +146,23 @@ it('openCourseView should call service',()=>{
 it('openCourseView should call service',()=>{
   const courseServiceSpy= spyOn(component.courseService, 'updateCourse').and.callThrough();
   expect(courseServiceSpy).not.toHaveBeenCalled()
-  component.updateCourse()
+  //component.updateCourse()
+  var body=
+    {
+      oldCourseCode:component.updateForm.value.Course_Code, //means never changes the course code right now 
+      newCourseCode:component.updateForm.value.Course_Code,//but add one for field new name
+      newCourseName:component.updateForm.value.Course_Name,
+      newCred:component.updateForm.value.Credits,
+      newNQF:component.updateForm.value.NQF,
+      newSlot:component.updateForm.value.Slot,
+      newSem:component.updateForm.value.Semester,
+      newYear:component.updateForm.value.Year,
+      newCoReq:(component.updateForm.value.Co_requisite),
+      newPreReq:component.updateForm.value.Pre_requisite,
+      newShareable:component.updateForm.value.Shareable
+    };
+
+  component.courseService.updateCourse(body);
   expect(courseServiceSpy).toHaveBeenCalled()
 })
 it('should populate update form',()=>{
@@ -164,4 +197,55 @@ it('should populate update form',()=>{
   expect(spy).toHaveBeenCalledWith(course)
 
 })
+it ('should expect an alert if all fields are empty', ()=>{
+  spyOn(window, "alert");
+  component.addCourse();    
+  expect(window.alert).toBeTruthy();
+})
+it ('should call courseService on getCSV', ()=>{
+  const courseServiceSpy= spyOn(component.courseService, 'getCSV').and.callThrough()
+  // const downloadSpy = spyOn(component,'downloadCSV');
+  expect(courseServiceSpy).not.toHaveBeenCalled()
+  component.getCSV();
+  expect(courseServiceSpy).toHaveBeenCalled()
+  // expect(downloadSpy).toHaveBeenCalled()
+})
+// it ('should update Update form values', ()=>{
+//   const course = [{
+//     //look u model view controller mvc
+//     _id : "",
+//     Course_Code:"1",
+//     Course_Name:"test1" ,
+//     Credits:"",
+//     NQF: "",
+//     Slot: "",
+//     Semester: "",
+//     Year: "1",
+//     Co_requisite: "",
+//     Pre_requisite: "",
+//   }] as Course[]
+//   const formSpy = spyOn(component.updateForm, "patchValue");
+//   component.currentForm = '0'
+//   component.updateFormValues(course);    
+//   expect(formSpy).toHaveBeenCalled();
+// })
+// it ('should update New form values', ()=>{
+//   const course = [{
+//     //look u model view controller mvc
+//     _id : "",
+//     Course_Code:"1",
+//     Course_Name:"test1" ,
+//     Credits:"",
+//     NQF: "",
+//     Slot: "",
+//     Semester: "",
+//     Year: "1",
+//     Co_requisite: "",
+//     Pre_requisite: "",
+//   }] as Course[]
+//   const formSpy = spyOn(component.checkoutForm, "patchValue");
+//   component.currentForm = '1'
+//   component.updateFormValues(course);    
+//   expect(formSpy).toHaveBeenCalled();
+// })
 });

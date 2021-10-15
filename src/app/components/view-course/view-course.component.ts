@@ -15,6 +15,7 @@ import { UserService } from 'src/app/shared/services/user.services';
 })
 export class ViewCourseComponent implements OnInit {
   dataSource: any;
+  filteredData: Course[] = [];
   displayedColumns: string[] = ['select','Course_Code', 'Course_Name', 'Credits', 'NQF', 'Slot','Semester','Year', 'Co_requisite', 'Pre_requisite'];
   yearCourses: any;
 
@@ -22,7 +23,8 @@ export class ViewCourseComponent implements OnInit {
 
   selectedYear:string | undefined;
   subscription: Subscription | undefined;
-  selection = new SelectionModel<Course>(true, []);
+  selection = new SelectionModel<String>(true, []);
+  givenSelectionFromMessage: String[] = [];
   constructor(
     public dialogRef: MatDialogRef<ViewCourseComponent>,
     public courseService:CourseService,
@@ -30,10 +32,19 @@ export class ViewCourseComponent implements OnInit {
     //public oldSelected: UserPageComponent) {}
 
     ngOnInit() {
-      this.subscription = this.userService.currentMessage.subscribe( (message:any) => this.selectedYear = message)
+      this.subscription = this.userService.currentMessage.subscribe( (message:any) =>{
+        message = JSON.parse(message)
+        // this.selectedYear = message;
+        // console.log(typeof(message));
+        this.selectedYear = message.year;
+        console.log('view course selection',message.selection);
+        this.givenSelectionFromMessage = message.selection;
+        
+      })
       this.applyFilter("");
     
     }
+
   close(): void {
     this.dialogRef.close();
   }
@@ -42,18 +53,24 @@ export class ViewCourseComponent implements OnInit {
 
    this.courseService.getCourses().subscribe(
       data => {
-        let filteredData;
+        // let filteredData;
         if(this.selectedYear!='0'){
-          filteredData = data.filter((t: any)=>t.Year ===this.selectedYear)
+          this.filteredData = data.filter((t: any)=>t.Year ===this.selectedYear)
         }
         else{
-          filteredData = data
+          this.filteredData = data
         }
         
 
-        this.dataSource = filteredData as Course[];
-
+        this.dataSource = this.filteredData as Course[];
         this.dataSource = new MatTableDataSource(this.dataSource)
+
+        // Filter only based on course code and name
+        this.dataSource.filterPredicate = (data: Course, filter: string) => {
+          var result = (data.Course_Code.toLowerCase().includes(filter) || data.Course_Name.toLowerCase().includes(filter));
+          return result;
+         };
+
         let filterValue;
         if(event.target){
           filterValue = (event.target as HTMLInputElement).value;
@@ -61,19 +78,62 @@ export class ViewCourseComponent implements OnInit {
           filterValue =""
         }
         this.dataSource.filter = filterValue.trim().toLowerCase();
+        // setTimeout(()=>{
+        // // console.log('72 view course',this.givenSelectionFromMessage);
+          for (let i=0 ; i< this.givenSelectionFromMessage.length;i++){
+            this.selection.toggle(this.givenSelectionFromMessage[i]);
+          }
+        // },5000);
+
+        // this.selection.toggle(
+        //   {
+        //     _id: "60c770194d5bf927783f1599",
+        //     Course_Code: "COMS1015A",
+        //     Course_Name: "Basic Computer Organisation I",
+        //     Credits: "9",
+        //     NQF: "5",
+        //     Slot: "A",
+        //     Semester: "1",
+        //     Year: "1",
+        //     Co_requisite: "MATH1036A;MATH1034A",
+        //     Pre_requisite: "",
+        //     Shareable: "COMS1018A"
+        //   }
+        // );
+        // var test =this.selection.isSelected(
+        //   {
+        //     _id: "60c770194d5bf927783f1599",
+        //     Course_Code: "COMS1015A",
+        //     Course_Name: "Basic Computer Organisation I",
+        //     Credits: "9",
+        //     NQF: "5",
+        //     Slot: "A",
+        //     Semester: "1",
+        //     Year: "1",
+        //     Co_requisite: "MATH1036A;MATH1034A",
+        //     Pre_requisite: "",
+        //     Shareable: "COMS1018A"
+        //   }
+        // );
+        // console.log("test 106",test);
         // this.dataSource.Year.filter= this.selectedYear;
       }
     )
 
   }
 
-  selectedArray():Course[]{
+  selectedArray():String[]{
     return(this.selection.selected);
   }
 
   submitSelection():void {
-    this.userService.changeCourse(this.selection.selected);
-    //console.log(this.selection.selected);
+    // let selection = this.selection.selected.slice(1,this.selection.selected.length);
+    // console.log(selection);
+    // this.userService.changeCourse(selection);
+    // const data = this.dataSource as Course[];
+    // console.log(data)
+    let selection = this.filteredData.filter((v)=>{return this.selection.selected.includes(v.Course_Code)});
+    this.userService.changeCourse(selection);
     // console.log(this.oldSelected.SelectedFirstYearCourses)
     this.close()
   }
