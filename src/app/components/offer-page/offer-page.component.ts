@@ -75,9 +75,23 @@ export class OfferPageComponent implements OnInit {
 
   add(event: any){
 
+    // Do not do anything if it is the separator
+    if ( event.newData.Subject.includes('---') ) return;
+
+    // Increment the priority of a subject
+    this.subjectService.incrementSubjectPriority(event.newData).subscribe(
+        (response) => { 
+          console.log(response);
+         },
+        (error) => { 
+          console.log(error); 
+        });
+
+    // Remove selected subject from the list
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
       return (a.value !== event.newData.Subject)
     })
+
     this.settings.columns.Subject.editor.config.list = this.subjectSelection;
     this.settings = Object.assign({},this.settings);  
 
@@ -211,8 +225,6 @@ export class OfferPageComponent implements OnInit {
     this.settings = Object.assign({},this.settings);     
     event.newData.APS = this.getAPS(event.newData.Subject, event.newData.Mark);         
     event.confirm.resolve(event.newData);
-    
-    //console.log(this.subjectSelection);
   }
 
   deleteSubjectSelection(event: any){
@@ -222,11 +234,11 @@ export class OfferPageComponent implements OnInit {
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
       return (a.value !== event.data)
     })
+
     this.settings.columns.Subject.editor.config.list = this.subjectSelection;
     this.settings = Object.assign({},this.settings);     
     event.data.APS = 0;    
-
-    event.confirm.resolve(event.data);    
+    event.confirm.resolve(event.data);
   }
 
   data: Subject[] = [];

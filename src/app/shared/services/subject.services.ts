@@ -24,6 +24,10 @@ export class SubjectService {
         return this.http.get(`${API.apiRoot}/degreeReq`);
     }
 
+    incrementSubjectPriority(data:any): Observable<any> {
+        return this.http.put(`${API.apiRoot}/incrementSubjectPriority`, data);
+    }
+
     ngOnInit(): void {
     }
 
