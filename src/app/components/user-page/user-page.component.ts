@@ -30,10 +30,9 @@ export class UserPageComponent implements OnInit {
   message='{}';
   subscription: Subscription | undefined;
   year1Courses: Course[] = [];
-
   year2Courses: Course[] = [];
   year3Courses: Course[]= [];
-
+  missingCourseInfo:any= [];// map of course info e.g missingCourseInfo['COMS1015'] gives MATH1036,MATH1034
   MissingSecondYear:String[]= [];
   MissingThirdYear:String[]= [];
   MissingFirstYear:String[]= [];
@@ -171,6 +170,7 @@ export class UserPageComponent implements OnInit {
     this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent);//opens view-course
     this.viewDetailsDialogRef.afterClosed().subscribe((s:any)=>{ //validation of pre/co reqs
       this.ValidateCourseRequirements()
+      this.validateCourseRequirements();
       this.year1Clashes= this.ValidateDiagonals(this.year1Courses);
       this.year2Clashes= this.ValidateDiagonals(this.year2Courses);
       this.year3Clashes= this.ValidateDiagonals(this.year3Courses);
@@ -341,6 +341,51 @@ export class UserPageComponent implements OnInit {
     return clashes ;
    
   }
+  //returns missing courses for single course 
+  checkCourseRequirements(course :Course ,chosenCourses:String[],field:String):String[]{
+    let result:String[] = [];
+    let req: String[] = []; //doesnt work with or (/) yet
+    if(field=="co") {
+      req = course.Co_requisite.split(";");
+    }
+    else if(field == "pre") {
+      req = course.Pre_requisite.split(";");
+    }
+    for (let index = 0; index < req.length; index++) {
+      const element = req[index];
+      let findIndex = chosenCourses.findIndex(function(value,index) {return value==element});
+      if(findIndex==-1){
+        result.push(element)
+      }
+    }
+    console.log('course req',req,chosenCourses);
+    return result;
+  }
+  //fills in missingCourseInfo
+  validateCourseRequirements():void {
+    this.missingCourseInfo = [];
+    let chosenFirstYear = this.year1Courses.map(function(value,index) { return value.Course_Code});
+    let chosenSecondYear = this.year2Courses.map(function(value,index) { return value.Course_Code});
+    let chosenThirdYear = this.year3Courses.map(function(value,index) { return value.Course_Code});
+
+    for(let i=0;i<this.year1Courses.length;i++){
+      const co = this.checkCourseRequirements(this.year1Courses[i],chosenFirstYear,"co");
+      this.missingCourseInfo[this.year1Courses[i].Course_Code] = co;
+    }
+    for(let i=0;i<this.year2Courses.length;i++){ 
+      const pre = this.checkCourseRequirements(this.year2Courses[i],chosenFirstYear,"pre");
+      const co = this.checkCourseRequirements(this.year2Courses[i],chosenSecondYear,"co");
+
+      this.missingCourseInfo[this.year2Courses[i].Course_Code] = pre.concat(co);
+    }
+    for(let i=0;i<this.year3Courses.length;i++){ 
+      // const pre1 = this.checkCourseRequirements(this.year3Courses[i],chosenFirstYear,"pre");
+      const pre2 = this.checkCourseRequirements(this.year3Courses[i],chosenSecondYear,"pre");
+      const co = this.checkCourseRequirements(this.year3Courses[i],chosenThirdYear,"co");
+
+      this.missingCourseInfo[this.year3Courses[i].Course_Code] =pre2.concat(co);
+    }
+  }
   checkSingleRequirement(courses:String[],requirements:String[]):String[]{
     let missing:String[] = [];
     for(let i=0;i<requirements.length;i++){ 
@@ -357,7 +402,6 @@ export class UserPageComponent implements OnInit {
     //console.log(missing)
     return missing;
   }
-
   ValidateCourseRequirements(): any[] {
 
     // This method populates the missing courses
