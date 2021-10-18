@@ -1,20 +1,15 @@
 <div class="app-container" [class.alternative]="isDark">
     <mat-toolbar color="primary">
-        <a class="title" routerLink="/">Science Curriculum Planner</a>
+        <a class="title" routerLink="/" matTooltip="Redirects to home page.">Science Curriculum Planner</a>
         <span class="toolbar-spacer"></span>
-        <!-- <button mat-raised-button routerLink="/aps-calculator">APS Calculator</button> -->
-        <!-- <button mat-button color="Accent" routerLink="/offer-page">Check Offers</button> -->
-
-        <button  *ngIf='!this.isLoggedIn' mat-button routerLink="/signin">Administrator</button>
-
-        <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-page">Manage Courses</button>
-        <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-aps">Edit Subject APS</button>
-        <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-degree">Edit Degree Requirements</button>
-        <button *ngIf='this.isLoggedIn' mat-button (click)="logout()">Logout</button>
-        <button mat-button type="button" (click)="changeTheme()">
+        <button  *ngIf='!this.isLoggedIn' mat-button routerLink="/signin" matTooltip="Redirect to sign in page for admins.">Administrator</button>
+        <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-page" matTooltip="Create, edit or delete courses.">Manage Courses</button>
+        <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-aps" matTooltip="Edit how much APS a highschool subject offers.">Edit Subject APS</button>
+        <button *ngIf='this.isLoggedIn' mat-button routerLink="/admin-degree" matTooltip="Edit or delete a degrees requirements to enter.">Edit Degree Requirements</button>
+        <button *ngIf='this.isLoggedIn' mat-button (click)="logout()" matTooltip="Logout as admin.">Logout</button>
+        <button mat-button type="button" matTooltip="Change between dark and light mode." (click)="changeTheme()">
             <mat-icon class="theme-icon">nightlight_round</mat-icon>
         </button>
-
     </mat-toolbar>
 
     <mat-card *ngIf='!this.isLoggedIn'>
