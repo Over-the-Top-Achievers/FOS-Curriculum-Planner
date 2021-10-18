@@ -33,7 +33,12 @@
                     </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                <tr mat-row  [matTooltip]="formatRequirementInfo(row.Course_Code)"  matTooltipPosition="right"  *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) != ''}"></tr>
+                <tr mat-row   *matRowDef="let row; columns: displayedColumns;" 
+                    [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) != ''}" 
+                    [matTooltip]="formatRequirementInfo(row.Course_Code)"
+                    matTooltipPosition="right"
+                    [matTooltipClass]="'mat-tooltip'">
+                </tr>
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="4"> No Courses Selected</td>
                 </tr>

@@ -60,7 +60,6 @@ export class UserPageComponent implements OnInit {
   year3Clashes:any=[];
   sharable = [ "COMS","MATH","STAT"];
   diagonals = ["A","B","C","D","E"];
-
   constructor(private dialog:MatDialog,
     public userService:UserService
     ){
@@ -69,9 +68,10 @@ export class UserPageComponent implements OnInit {
   formatRequirementInfo(courseCode:string):string {
     let result:string= "";
     console.log(courseCode)
-    
-    result = "\nMissing co-requisites: \n"  + this.missingCoReqInfo[courseCode]  +
-             "\nMissing pre-requisite: \n" + this.missingPreReqInfo[courseCode] 
+    result = "\nMissing co-requisites: \n"  + this.missingCoReqInfo[courseCode]
+    if(this.missingPreReqInfo[courseCode]!==undefined){
+      result +="\nMissing pre-requisite: \n" + this.missingPreReqInfo[courseCode] 
+    }
 
     return result;
   }
