@@ -32,7 +32,9 @@ export class UserPageComponent implements OnInit {
   year1Courses: Course[] = [];
   year2Courses: Course[] = [];
   year3Courses: Course[]= [];
-  missingCourseInfo:any= [];// map of course info e.g missingCourseInfo['COMS1015'] gives MATH1036,MATH1034
+  missingPreReqInfo:any= [];// map of course info e.g missingCourseInfo['COMS1015'] gives MATH1036,MATH1034
+  missingCoReqInfo:any= [];// map of course info e.g missingCourseInfo['COMS1015'] gives MATH1036,MATH1034
+
   MissingSecondYear:String[]= [];
   MissingThirdYear:String[]= [];
   MissingFirstYear:String[]= [];
@@ -63,6 +65,15 @@ export class UserPageComponent implements OnInit {
     public userService:UserService
     ){
 
+  }
+  formatRequirementInfo(courseCode:string):string {
+    let result:string= "";
+    console.log(courseCode)
+    
+    result = "\nMissing co-requisites: \n"  + this.missingCoReqInfo[courseCode]  +
+             "\nMissing pre-requisite: \n" + this.missingPreReqInfo[courseCode] 
+
+    return result;
   }
   removeCourse(course:Course):void{
     if(course.Year==="1"){
@@ -358,32 +369,34 @@ export class UserPageComponent implements OnInit {
         result.push(element)
       }
     }
-    console.log('course req',req,chosenCourses);
+    // console.log('course req',req,chosenCourses);
     return result;
   }
   //fills in missingCourseInfo
   validateCourseRequirements():void {
-    this.missingCourseInfo = [];
+    this.missingCoReqInfo = [];
+    this.missingPreReqInfo = [];
     let chosenFirstYear = this.year1Courses.map(function(value,index) { return value.Course_Code});
     let chosenSecondYear = this.year2Courses.map(function(value,index) { return value.Course_Code});
     let chosenThirdYear = this.year3Courses.map(function(value,index) { return value.Course_Code});
 
     for(let i=0;i<this.year1Courses.length;i++){
       const co = this.checkCourseRequirements(this.year1Courses[i],chosenFirstYear,"co");
-      this.missingCourseInfo[this.year1Courses[i].Course_Code] = co;
+      this.missingCoReqInfo[this.year1Courses[i].Course_Code] = co;
     }
     for(let i=0;i<this.year2Courses.length;i++){ 
       const pre = this.checkCourseRequirements(this.year2Courses[i],chosenFirstYear,"pre");
       const co = this.checkCourseRequirements(this.year2Courses[i],chosenSecondYear,"co");
+      this.missingCoReqInfo[this.year2Courses[i].Course_Code] = co;
+      this.missingPreReqInfo[this.year2Courses[i].Course_Code] = pre;
 
-      this.missingCourseInfo[this.year2Courses[i].Course_Code] = pre.concat(co);
     }
     for(let i=0;i<this.year3Courses.length;i++){ 
       // const pre1 = this.checkCourseRequirements(this.year3Courses[i],chosenFirstYear,"pre");
       const pre2 = this.checkCourseRequirements(this.year3Courses[i],chosenSecondYear,"pre");
       const co = this.checkCourseRequirements(this.year3Courses[i],chosenThirdYear,"co");
-
-      this.missingCourseInfo[this.year3Courses[i].Course_Code] =pre2.concat(co);
+      this.missingCoReqInfo[this.year3Courses[i].Course_Code] = co;
+      this.missingPreReqInfo[this.year3Courses[i].Course_Code] = pre2;
     }
   }
   checkSingleRequirement(courses:String[],requirements:String[]):String[]{
