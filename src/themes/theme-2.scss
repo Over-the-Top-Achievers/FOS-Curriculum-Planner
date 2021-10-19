@@ -1,5 +1,13 @@
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
+// Import mixin of sidenav component
+@import "src/app/sidenav/sidenav.component";
+
+// Custom themable components
+@mixin custom-components-theme($theme) {
+  @include sidenav-theme($theme);
+  // Include other custom component mixins here...
+}
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -7,111 +15,131 @@
 @include mat-core();
 
 /* For use in src/lib/core/theming/_palette.scss */
-/* For use in src/lib/core/theming/_palette.scss */
-/* For use in src/lib/core/theming/_palette.scss */
-$md-mcgpalette0: (
-    50 : #e2eaf2,
-    100 : #b6cbdf,
-    200 : #85a9ca,
-    300 : #5487b4,
-    400 : #306da4,
-    500 : #0b5394,
-    600 : #0a4c8c,
-    700 : #084281,
-    800 : #063977,
-    900 : #032965,
-    A100 : #95b6ff,
-    A200 : #6294ff,
-    A400 : #2f71ff,
-    A700 : #155fff,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #ffffff,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #ffffff,
-        A700 : #ffffff,
-    )
+$md-light: (
+  50 : #e2eaf2,
+  100 : #b6cbdf,
+  200 : #85a9ca,
+  300 : #5487b4,
+  400 : #306da4,
+  500 : #0b5394,
+  600 : #0a4c8c,
+  700 : #084281,
+  800 : #063977,
+  900 : #032965,
+  A100 : #95b6ff,
+  A200 : #6294ff,
+  A400 : #2f71ff,
+  A700 : #155fff,
+  contrast: (
+      50 : #ffffff,
+      100 : #ffffff,
+      200 : #ffffff,
+      300 : #000000,
+      400 : #000000,
+      500 : #000000,
+      600 : #000000,
+      700 : #000000,
+      800 : #000000,
+      900 : #000000,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #ffffff,
+      A700 : #ffffff,
+  )
 );
 
 $md-dark: (
-    50 : #e7e7e8,
-    100 : #c2c4c6,
-    200 : #9a9da0,
-    300 : #717579,
-    400 : #52585d,
-    500 : #343a40,
-    600 : #2f343a,
-    700 : #272c32,
-    800 : #21252a,
-    900 : #15181c,
-    A100 : #000000,
-    A200 : #000000,
-    A400 : #000000,
-    A700 : #000000,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #ffffff,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #ffffff,
-        A700 : #ffffff,
-    )
+  50 : #e7e7e8,
+  100 : #c2c4c6,
+  200 : #9a9da0,
+  300 : #717579,
+  400 : #52585d,
+  500 : #343a40,
+  600 : #2f343a,
+  700 : #272c32,
+  800 : #21252a,
+  900 : #15181c,
+  A100 : #63b1ff,
+  A200 : #3097ff,
+  A400 : #007efc,
+  A700 : #0071e2,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #ffffff,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #ffffff,
+      A700 : #ffffff,
+  )
 );
 
 // Define the default theme (same as the example above).
-$candy-app-primary: mat-palette($md-mcgpalette0);
-$candy-app-accent:  mat-palette($mat-blue, A200, A100, A400);
-$candy-app-theme:   mat-light-theme($candy-app-primary, $candy-app-accent);
-
+// Light theme
+$light-primary: mat-palette($md-light);
+$light-accent:  mat-palette($mat-blue, A200, A100, A400);
+$light-theme:   mat-light-theme($light-primary, $light-accent);
 // Include the default theme styles.
-@include angular-material-theme($candy-app-theme);
-
+// @media (prefers-color-scheme: light) {
+//   @include angular-material-theme($light-theme);
+// }
 
 // Define an alternate dark theme.
-$dark-primary: mat-palette($mat-blue-grey);
-$dark-accent:  mat-palette($mat-amber, A200, A100, A400);
-$dark-warn:    mat-palette($mat-deep-orange);
-$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+// Dark theme
+$dark-primary: mat-palette($md-dark);
+$dark-accent:  mat-palette($mat-blue, A200, A100, A400);
+$dark-theme:   mat-dark-theme($dark-primary, $dark-accent);
 
 // Include the alternative theme styles inside of a block with a CSS class. You can make this
 // CSS class whatever you want. In this example, any component inside of an element with
 // `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
-.unicorn-dark-theme {
+// @media (prefers-color-scheme: dark) {
+//   @include angular-material-theme($dark-theme);
+// }
+
+.light-theme {
+  @include angular-material-theme($light-theme);
+  //@include custom-components-theme($light-theme);
+}
+
+.dark-theme {
   @include angular-material-theme($dark-theme);
+  //@include custom-components-theme($dark-theme);
+}
+
+@media (prefers-color-scheme: light) {
+  @include angular-material-theme($light-theme);
+}
+
+@media (prefers-color-scheme: dark) {
+  @include angular-material-theme($dark-theme);
+}
+
+@media (prefers-color-scheme: light) {
+  // Apply theme for default Angular Material components
+  @include angular-material-theme($light-theme);
+  
+  // Apply theme for custom components
+  @include custom-components-theme($light-theme);
+}
+
+@media (prefers-color-scheme: dark) {
+  @include angular-material-theme($dark-theme);
+  @include custom-components-theme($dark-theme);
 }
 
 .app-container {
-  background-image: url('../assets/images/sahand-babali-owjrvbyXYyc-unsplash.jpg');
-  //background-repeat: no-repeat;
+  background-image: url('../assets/images/joanna-kosinska-7ACuHoezUYk-unsplash.jpg');
   background-size: cover;
 }
-
-.alternative {
-  // Define an alternate dark theme.
-  $dark-primary: mat-palette($md-dark);
-  $dark-accent:  mat-palette($mat-blue, A200, A100, A400);
-  $dark-warn:    mat-palette($mat-deep-orange);
-  $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
-  
-}
+//'../assets/images/sahand-babali-owjrvbyXYyc-unsplash.jpg'
 
 .app-container.alternative {
   background-image: url('../assets/images/joanna-kosinska-7ACuHoezUYk-unsplash.jpg') !important;
@@ -124,10 +152,13 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 html, body, .app-container {
   width: 100%;
-  height: 100%;
-  margin: 0;
+  // height: 100%;
   padding: 0;
+  min-height: 100vh;
+  margin: 0;
 }
+
+//$background-repeat: round;
 
 .scrollable {
 
