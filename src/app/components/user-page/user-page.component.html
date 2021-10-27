@@ -34,7 +34,7 @@
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                 <tr mat-row   *matRowDef="let row; columns: displayedColumns;" 
-                    [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) != ''}" 
+                    [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) !== ''}" 
                     [matTooltip]="formatRequirementInfo(row.Course_Code)"
                     matTooltipPosition="right"
                     [matTooltipClass]="'mat-tooltip'">
@@ -47,10 +47,10 @@
             <hr />
 
             <div style="margin-bottom: 30px">
-                <strong>Missing Courses:</strong>
-                <div *ngFor="let item of displayMissingCourse()[0]" >
+                <!-- <strong>Missing Courses:</strong> -->
+                <!-- <div *ngFor="let item of displayMissingCourse()[0]" >
                     {{item}}
-                </div>
+                </div> -->
             </div>
     
             <div style="margin-bottom: 30px">
@@ -104,7 +104,10 @@
                     </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                <tr mat-row [matTooltip]="formatRequirementInfo(row.Course_Code)"  matTooltipPosition="right" *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) != ''}"></tr>
+                <tr mat-row [matTooltip]="formatRequirementInfo(row.Course_Code)"  
+                    matTooltipPosition="right" 
+                    *matRowDef="let row; columns: displayedColumns;" 
+                    [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) !== ''}"></tr>
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="4"> No Courses Selected</td>
                 </tr>
@@ -113,10 +116,10 @@
             <hr />
 
             <div style="margin-bottom: 30px">
-                <strong>Missing Courses:</strong>
-                <div *ngFor="let item of displayMissingCourse()[1]" >
+                <!-- <strong>Missing Courses:</strong> -->
+                <!-- <div *ngFor="let item of displayMissingCourse()[1]" >
                     {{item}}
-                </div>
+                </div> -->
             </div>
     
             <div style="margin-bottom: 30px">
@@ -170,7 +173,10 @@
                     </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                <tr mat-row [matTooltip]="formatRequirementInfo(row.Course_Code)"  matTooltipPosition="right" *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) != ''}"></tr>
+                <tr mat-row [matTooltip]="formatRequirementInfo(row.Course_Code)"  
+                    matTooltipPosition="right" 
+                    *matRowDef="let row; columns: displayedColumns;" 
+                    [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) !== ''}"></tr>
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="4"> No Courses Selected</td>
                 </tr>
@@ -179,10 +185,10 @@
             <hr />
 
             <div style="margin-bottom: 30px">
-                <strong>Missing Courses:</strong>
+                <!-- <strong>Missing Courses:</strong>
                 <div *ngFor="let item of displayMissingCourse()[2]" >
                     {{item}}
-                </div>
+                </div> -->
             </div>
     
             <div style="margin-bottom: 30px">
