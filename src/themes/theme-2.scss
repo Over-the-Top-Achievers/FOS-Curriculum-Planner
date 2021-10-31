@@ -128,19 +128,11 @@ html, body, .app-container {
   margin: 0;
   padding: 0;
 }
-mat-tooltip-component .mat-tooltip.mat-tooltip{
-  color: green !important;
-  background: black;
-  font-weight: 500;
-  font-size:medium;
 
-}
 .scrollable {
-
   overflow: scroll;
   height: 50vh;
   width: 110vw;
-
 }
 
 $header-height: 100px;
