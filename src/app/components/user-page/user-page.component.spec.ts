@@ -482,7 +482,7 @@ describe('UserPageComponent', () => {
       Co_requisite: "math2",
       Pre_requisite: "",
       Shareable:"",
-    },]
+    }]
     component.validateCourseRequirements()
     expect(component.missingCoReqInfo['math1']).toEqual(['math2'])
     // expect(component.missingPreReqInfo['year31']).toBeFalsy()
