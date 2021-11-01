@@ -572,16 +572,6 @@ describe('UserPageComponent', () => {
     expect(spy).toHaveBeenCalled()
     // array should be empty
   })
-  it('should format string correctly',()=>{
-
-    component.missingCoReqInfo['test2'] = ['testco1','testco2']
-    component.missingPreReqInfo['test2'] = ['testpre1','testpre2']
-    let course:Course = {} as Course;
-    course.Course_Code = 'test2'
-    component.allYearClashes['test2'] = [course]
-    const result = component.formatRequirementInfo('test2')
-    expect(result).toEqual('Missing co-requisites: testco1,testco2 Missing pre-requisite: testpre1,testpre2 Possible clash:  testclash1')
-  })
 
   it('openCourseView should call service',()=>{
     const userServiceSpy= spyOn(component.userService, 'changeMessage').and.callThrough();
