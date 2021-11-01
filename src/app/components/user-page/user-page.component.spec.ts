@@ -552,8 +552,7 @@ describe('UserPageComponent', () => {
   })
 
   it('should update cours info on remove',()=>{
-    const spy = spyOn(component,"validateCourseRequirements");
-    const spy2 = spyOn(component,"ValidateDiagonals")
+    const spy = spyOn(component,"updateRequirements");
     component.year3Courses =[{
       //look u model view controller mvc
       _id : "",

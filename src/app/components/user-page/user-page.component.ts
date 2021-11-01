@@ -140,21 +140,27 @@ export class UserPageComponent implements OnInit {
       this.year3Clashes = this.year3Courses
       this.afterRemoveYear3 = []
     }
-    // Update hover and highlight info after removing
-    this.validateCourseRequirements()
-    for (let index = 0; index < this.year1Courses.length; index++) {
-      const element = this.year1Courses[index];
-      this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year1Courses);
-    }
-    for (let index = 0; index < this.year2Courses.length; index++) {
-      const element = this.year2Courses[index];
-      this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year2Courses);
-    }
-    for (let index = 0; index < this.year3Courses.length; index++) {
-      const element = this.year3Courses[index];
-      this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year3Courses);
-    }
+    this.updateRequirements()
+
   }
+
+  updateRequirements():void {
+        // Update hover and highlight info after removing
+        this.validateCourseRequirements()
+        for (let index = 0; index < this.year1Courses.length; index++) {
+          const element = this.year1Courses[index];
+          this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year1Courses);
+        }
+        for (let index = 0; index < this.year2Courses.length; index++) {
+          const element = this.year2Courses[index];
+          this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year2Courses);
+        }
+        for (let index = 0; index < this.year3Courses.length; index++) {
+          const element = this.year3Courses[index];
+          this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year3Courses);
+        }
+  }
+  
   ngOnInit(): void {
     this.userService.currentCourse.subscribe((message:any) => {
       let year = JSON.parse(this.message).year;
@@ -204,23 +210,7 @@ export class UserPageComponent implements OnInit {
     this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent);//opens view-course
     this.viewDetailsDialogRef.afterClosed().subscribe((s:any)=>{ //validation of pre/co reqs
       // this.ValidateCourseRequirements()
-     
-      this.validateCourseRequirements();
-      // this.year1Clashes= this.ValidateDiagonals(this.year1Courses);
-      // this.year2Clashes= this.ValidateDiagonals(this.year2Courses);
-      // this.year3Clashes= this.ValidateDiagonals(this.year3Courses);
-      for (let index = 0; index < this.year1Courses.length; index++) {
-        const element = this.year1Courses[index];
-        this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year1Courses);
-      }
-      for (let index = 0; index < this.year2Courses.length; index++) {
-        const element = this.year2Courses[index];
-        this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year2Courses);
-      }
-      for (let index = 0; index < this.year3Courses.length; index++) {
-        const element = this.year3Courses[index];
-        this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year3Courses);
-      }
+      this.updateRequirements()
     });
     // let year = JSON.parse(this.message).year;
     let selection:Course[]=[];
@@ -436,144 +426,8 @@ export class UserPageComponent implements OnInit {
       this.missingPreReqInfo[this.year3Courses[i].Course_Code] = pre2;
     }
   }
-  checkSingleRequirement(courses:String[],requirements:String[]):String[]{
-    let missing:String[] = [];
-  //   for(let i=0;i<requirements.length;i++){ 
-  //     if(!courses.includes(requirements[i])){
-  //       let index = missing.findIndex(element => element.includes(requirements[i] as string))
-  //       if(index ===-1){
-  //         missing.push(requirements[i])
-  //       }
-  //       // if(!missing.includes(requirements[i])){
-  //         // missing.push(requirements[i])
-  //       // }
-  //     }
-  //   }
-  //   //console.log(missing)
-    return missing;
-  }
-  ValidateCourseRequirements(): any[] {
-
-//     // This method populates the missing courses
-//     // section on each of the cards.
-
-//     // RULES:
-//     // 1. Co-Requisites that are not in the current list of courses for the year
-//     // are missing for that year
-
-//     // 2. Pre-Requisites that are not in the current list of courses for the 
-//     // previous year are missing for that year
-
-//     let PreReqs1:string="";
-//     let CoReqs1:string="";
-//     let firstyearcredits:string="";
-//     let PreReqs2:string="";
-//     let CoReqs2:string="";
-//     let PreReqs3:string="";
-//     let CoReqs3:string="";
-//     this.MissingFirstYear= [];
-//     this.MissingSecondYear= [];
-//     this.MissingThirdYear= [];
-
-//     for(let i=0;i<this.year1Courses.length;i++){
-//       PreReqs1 = PreReqs1.concat(this.year1Courses[i].Pre_requisite)
-//       CoReqs1 = CoReqs1.concat(this.year1Courses[i].Co_requisite)
-//       if(this.year1Courses[i].Pre_requisite[this.year1Courses[i].Pre_requisite.length - 1]!==';'){
-//         PreReqs1 = PreReqs1.concat(";")
-//       }
-//       if(this.year1Courses[i].Co_requisite[this.year1Courses[i]. Co_requisite.length - 1]!==';'){
-//         CoReqs1 = CoReqs1.concat(";")
-//       }
-//       firstyearcredits = firstyearcredits.concat(this.year1Courses[i].Credits)
-//     }
-//     let FirstPreReqs:string[] =PreReqs1.split(";");
-//     let FirstCoReqs:string[] =CoReqs1.split(";");
-//     let FirstCredits:string[] = firstyearcredits.split(" ");
-//     if(FirstPreReqs[FirstPreReqs.length -1]===""){
-//       FirstPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-//     }
-//     if(FirstCoReqs[FirstCoReqs.length -1]===""){
-//       FirstCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-//     }
-//     FirstCredits.pop();
 
 
-//     for(let i=0;i<this.year2Courses.length;i++){
-//       PreReqs2 = PreReqs2.concat(this.year2Courses[i].Pre_requisite)
-//       CoReqs2 = CoReqs2.concat(this.year2Courses[i].Co_requisite)
-//       if(this.year2Courses[i].Pre_requisite[this.year2Courses[i].Pre_requisite.length - 1]!==';'){
-//         PreReqs2 = PreReqs2.concat(";")
-//       }
-//       if(this.year2Courses[i].Co_requisite[this.year2Courses[i]. Co_requisite.length - 1]!==';'){
-//         CoReqs2 = CoReqs2.concat(";")
-//       }
-//     }
-//     let SecondPreReqs:string[] =PreReqs2.split(";");
-//    // console.log(SecondPreReqs)
-//     let SecondCoReqs:string[] =CoReqs2.split(";");
-//     if(SecondPreReqs[SecondPreReqs.length -1]===""){
-//       SecondPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-//     }
-//     if(SecondCoReqs[SecondCoReqs.length -1]===""){
-//       SecondCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-//     }
-
-
-//     for(let i=0;i<this.year3Courses.length;i++){
-//       PreReqs3 = PreReqs3.concat(this.year3Courses[i].Pre_requisite)
-//       CoReqs3 = CoReqs3.concat(this.year3Courses[i].Co_requisite)
-//     }
-//     let ThirdPreReqs:string[] =PreReqs3.split(";");
-//     let ThirdCoReqs:string[] =CoReqs3.split(";");
-//     if(ThirdPreReqs[ThirdPreReqs.length -1]===""){
-//       ThirdPreReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-//     }
-//     if(ThirdCoReqs[ThirdCoReqs.length -1]===""){
-//       ThirdCoReqs.pop(); // TO REMOVE LAST EMPTRY ARRAY
-//     }
-
-//     let AllThirdYearCourses:String[] =[];
-//     let AllSecondYearCourses:String[] =[];
-//     let AllFirstYearCourses:String[] =[];
-//     let AllFirstYearCredits:String[] = [];
-//     //garthers all 2nd year courses in array
-//     for(let i=0;i<this.year1Courses.length;i++){ 
-//       AllFirstYearCourses.push(this.year1Courses[i].Course_Code)
-//     }
-//     for(let i=0;i<this.year2Courses.length;i++){ 
-//       AllSecondYearCourses.push(this.year2Courses[i].Course_Code)
-//     }
-    
-//     for(let i=0;i<this.year3Courses.length;i++){ 
-//       AllThirdYearCourses.push(this.year3Courses[i].Course_Code)
-//     }
-
-//     for(let i=0;i<this.year1Courses.length;i++){ 
-//       AllFirstYearCredits.push(this.year1Courses[i].Credits)
-//     }
-    
-//     this.MissingFirstYear = this.checkSingleRequirement(AllFirstYearCourses,FirstCoReqs); 
-//     this.MissingFirstYear = this.MissingFirstYear.concat(this.checkSingleRequirement(AllFirstYearCourses,SecondPreReqs));  
-//     this.MissingSecondYear = this.checkSingleRequirement(AllSecondYearCourses,SecondCoReqs);
-//     this.MissingSecondYear = this.MissingSecondYear.concat(this.checkSingleRequirement(AllSecondYearCourses,ThirdPreReqs));  
-//     this.MissingThirdYear = this.checkSingleRequirement(AllThirdYearCourses,ThirdCoReqs);
-//   if (this.MissingFirstYear.length === 0){
-//     this.MissingFirstYear.push("None");
-//   }
-
-//   if (this.MissingSecondYear.length === 0){
-//     this.MissingSecondYear.push("None");
-//   }
-
-//   if (this.MissingThirdYear.length === 0){
-//     this.MissingThirdYear.push("None");
-//   }
-
-//  // console.log(this.MissingFirstYear)
-  return [this.MissingFirstYear, this.MissingSecondYear, this.MissingThirdYear] // returning the missing year courses for display purposes
- 
-  }
-  
   majors: string[] = [
     'Computer Science Major I', 'Mathematics Major I', 'Physics Major I', 'Computational and Applied Mathematics Major I'
   ]
