@@ -29,7 +29,7 @@ export class ViewCourseComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ViewCourseComponent>,
     public courseService:CourseService,
-    public userService:UserService,
+    public userService:UserService
     // private _overlayContainer: OverlayContainer
     ){}
     //public oldSelected: UserPageComponent) {}
