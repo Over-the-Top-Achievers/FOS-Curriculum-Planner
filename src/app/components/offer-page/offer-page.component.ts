@@ -7,6 +7,7 @@ import { PRIMARY_OUTLET } from '@angular/router';
 import { DisclaimerDialogComponent } from '../disclaimer-dialog/disclaimer-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DisclaimerService } from 'src/app/shared/services/disclaimer.service';
+// import { StickyStyler, STICKY_DIRECTIONS } from '@angular/cdk/table';
 
 @Component({
   selector: 'app-offer-page',
@@ -317,8 +318,11 @@ export class OfferPageComponent implements OnInit {
       edit: false,
       add: false,
     },  
+    hideHeader:true,
     hideSubHeader: false,   
-
+    pager: { 
+      display: false,
+    },
     columns: {
       Degree_Name: {
         title: 'Degree',
