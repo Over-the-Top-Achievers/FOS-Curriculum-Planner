@@ -34,10 +34,11 @@
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                 <tr mat-row   *matRowDef="let row; columns: displayedColumns;" 
+
                     [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) !== ''}" 
                     [matTooltip]="formatRequirementInfo(row.Course_Code)"
                     matTooltipPosition="right"
-                    [matTooltipClass]="'mat-tooltip'">
+                    matTooltipClass="tooltip">
                 </tr>
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="4"> No Courses Selected</td>
@@ -45,20 +46,6 @@
             </table>
 
             <hr />
-
-            <div style="margin-bottom: 30px">
-                <!-- <strong>Missing Courses:</strong> -->
-                <!-- <div *ngFor="let item of displayMissingCourse()[0]" >
-                    {{item}}
-                </div> -->
-            </div>
-    
-            <div style="margin-bottom: 30px">
-                <strong>Possible Clashes:</strong>
-                <div *ngFor="let item of year1Clashes;">
-                    {{item.Course_Code}}
-                </div>
-            </div>
     
             <div>
                 <strong>Current Credit:</strong>
@@ -107,7 +94,8 @@
                 <tr mat-row [matTooltip]="formatRequirementInfo(row.Course_Code)"  
                     matTooltipPosition="right" 
                     *matRowDef="let row; columns: displayedColumns;" 
-                    [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) !== ''}"></tr>
+                    [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) !== ''}"
+                    matTooltipClass = "tooltip"></tr>
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="4"> No Courses Selected</td>
                 </tr>
@@ -115,20 +103,7 @@
 
             <hr />
 
-            <div style="margin-bottom: 30px">
-                <!-- <strong>Missing Courses:</strong> -->
-                <!-- <div *ngFor="let item of displayMissingCourse()[1]" >
-                    {{item}}
-                </div> -->
-            </div>
-    
-            <div style="margin-bottom: 30px">
-                <strong>Possible Clashes:</strong>
-                <div *ngFor="let item of year2Clashes;">
-                    {{item.Course_Code}}
-                </div>
-            </div>
-    
+
             <div>
                 <strong>Current Credit:</strong>
                 <div *ngFor="let credit of countcoursecredits2()[0]">
@@ -176,7 +151,8 @@
                 <tr mat-row [matTooltip]="formatRequirementInfo(row.Course_Code)"  
                     matTooltipPosition="right" 
                     *matRowDef="let row; columns: displayedColumns;" 
-                    [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) !== ''}"></tr>
+                    [ngClass]="{'highlight': formatRequirementInfo(row.Course_Code) !== ''}"
+                    matTooltipClass="tooltip"></tr>
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="4"> No Courses Selected</td>
                 </tr>
@@ -184,19 +160,6 @@
 
             <hr />
 
-            <div style="margin-bottom: 30px">
-                <!-- <strong>Missing Courses:</strong>
-                <div *ngFor="let item of displayMissingCourse()[2]" >
-                    {{item}}
-                </div> -->
-            </div>
-    
-            <div style="margin-bottom: 30px">
-                <strong>Possible Clashes:</strong>
-                <div *ngFor="let item of year3Clashes;">
-                    {{item.Course_Code}}
-                </div>
-            </div>
     
             <div>
                 <strong>Current Credit:</strong>

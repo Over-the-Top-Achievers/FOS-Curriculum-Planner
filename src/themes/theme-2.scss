@@ -102,13 +102,26 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   //background-repeat: no-repeat;
   background-size: cover;
 }
-
+.highlight{
+  .mat-cell{
+     color:#fb6944  ; 
+     background: transparent;
+     font-weight: bold;
+  }
+}
 .alternative {
   // Define an alternate dark theme.
   $dark-primary: mat-palette($md-dark);
   $dark-accent:  mat-palette($mat-blue, A200, A100, A400);
   $dark-warn:    mat-palette($mat-deep-orange);
   $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+  .highlight{
+    .mat-cell{
+       color:#fb6944  ; 
+       background: transparent;
+       font-weight: 300;
+    }
+  }
   @include angular-material-theme($dark-theme);
   
 }
@@ -248,4 +261,33 @@ li.ng2-smart-page-item.page-item {
 
 a.ng2-smart-action.ng2-smart-action-add-create {
   margin-right: 10px;
+}
+#tooltip {
+  text-decoration:none;
+  position:absolute;
+  z-index: 1000;
+  background: white;
+  box-shadow:  1px 2px 5px black;
+  padding: 10px;
+  border-radius: 5px;
+}
+// #tooltip {
+//   display:none;
+// }
+
+#tooltip:hover {
+  display:block;
+  position:absolute;
+  overflow:hidden;
+}
+.tooltip {
+  text-decoration:none;
+  position:absolute;
+  z-index: 1000;
+  color: #fb6944 !important; 
+  background: #2f3542;
+  box-shadow:  1px 2px 5px black;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: medium;
 }
