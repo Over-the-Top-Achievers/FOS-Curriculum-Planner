@@ -78,7 +78,6 @@ export class OfferPageComponent implements OnInit {
     //   {Subject:"Mathematics",Mark:"65",APS:""},
     // ]
 
-    document.getElementsByClassName('')
   }
 
   add(event: any){
@@ -281,7 +280,7 @@ export class OfferPageComponent implements OnInit {
     },   
     delete: {
       confirmDelete: true,
-      deleteButtonContent: '<i class="nb-edit mat-raised-button mat-warn">Delete <span class="tooltip"> yes</span> </i>',
+      deleteButtonContent: '<i class="nb-edit mat-raised-button mat-warn">Delete </i>',
       cancelButtonContent: '<i class="nb-close mat-raised-button">Cancel</i>'
     },
     edit:{

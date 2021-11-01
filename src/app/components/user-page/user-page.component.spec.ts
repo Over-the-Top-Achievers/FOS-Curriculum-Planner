@@ -599,12 +599,12 @@ describe('UserPageComponent', () => {
 
   })
 
-  it('openCourseView should call newMessage()',()=>{
-    const spy= spyOn(component, 'newMessage').and.callThrough();
-    component.year1Courses = []
-    component.openCourseView("1")
-    expect(spy).toHaveBeenCalled()
-  })
+  // it('openCourseView should call newMessage()',()=>{
+  //   const spy= spyOn(component, 'newMessage').and.callThrough();
+  //   component.year1Courses = []
+  //   component.openCourseView("1")
+  //   expect(spy).toHaveBeenCalled()
+  // })
 
   it('should pass new message to userService ',()=>{
     spyOn(component, 'newMessage')
