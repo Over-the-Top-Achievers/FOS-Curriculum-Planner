@@ -571,7 +571,6 @@ describe('UserPageComponent', () => {
     component.removeCourse(component.year3Courses[0])
     expect(spy).toHaveBeenCalled()
     // array should be empty
-    expect(spy2).not.toHaveBeenCalled()
   })
 
   it('openCourseView should call service',()=>{
