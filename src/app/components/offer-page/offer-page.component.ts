@@ -49,7 +49,14 @@ export class OfferPageComponent implements OnInit {
         this.qualifiedCoursesIII = new LocalDataSource();
         for(let i =0 ;i<this.degreeReqs.length;i++)
         {
-          this.offerList.push({Degree_Name:this.degreeReqs[i].Degree_Name,Offer:"Reject"});
+          this.offerList.push({
+            Degree_Name:this.degreeReqs[i].Degree_Name,
+            Offer:"Reject",
+            Physics:  this.degreeReqs[i].Firm_Offer.split(";")[0],
+            Math:  this.degreeReqs[i].Firm_Offer.split(";")[1],
+            English:  this.degreeReqs[i].Firm_Offer.split(";")[2],
+
+          });
         }
         this.qualifiedCoursesIII.load(this.offerList);
         this.qualifiedCoursesIII.refresh();
@@ -71,7 +78,7 @@ export class OfferPageComponent implements OnInit {
     //   {Subject:"Mathematics",Mark:"65",APS:""},
     //   {Subject:"Mathematics",Mark:"65",APS:""},
     // ]
- 
+
   }
 
   add(event: any){
@@ -217,6 +224,20 @@ export class OfferPageComponent implements OnInit {
 
     return APS;
   }
+  hover(event:any):void {
+    let tooltip = document.getElementById("tooltip")
+    const element = this.offerList.find((v:any)=>v.Degree_Name==event.srcElement.innerHTML)
+    if(element){
+      let formattedText = "<b>" +element.Degree_Name+ "</b>"
+       + "<br> English HL: " + element.English +"<br> Mathematics: "+ element.Math+ "<br> Physical Sciences: " +element.Physics
+      tooltip.innerHTML = formattedText
+      var x = event.clientX,y = event.clientY;
+      tooltip.style.top = (y + 20) + 'px';
+      tooltip.style.left = (x + 20) + 'px';
+    }
+
+    // event.srcElement.innerHTML ="<div matTooltip='yo' > yo</div>"
+  }
 
   editSubjectSelection(event: any){
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
@@ -260,7 +281,7 @@ export class OfferPageComponent implements OnInit {
     },   
     delete: {
       confirmDelete: true,
-      deleteButtonContent: '<i class="nb-edit mat-raised-button mat-warn">Delete</i>',
+      deleteButtonContent: '<i class="nb-edit mat-raised-button mat-warn">Delete </i>',
       cancelButtonContent: '<i class="nb-close mat-raised-button">Cancel</i>'
     },
     edit:{

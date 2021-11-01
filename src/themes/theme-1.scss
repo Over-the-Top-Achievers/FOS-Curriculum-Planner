@@ -94,6 +94,12 @@ $light-theme:   mat-light-theme($light-primary, $light-accent);
   $dark-accent:  mat-palette($mat-blue, A200, A100, A400);
   $dark-warn:    mat-palette($mat-deep-orange);
   $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+  .highlight{
+    .mat-cell{
+       color:green  ; 
+       background: transparent;
+    }
+  }
   @include angular-material-theme($dark-theme);
 }
 
@@ -198,4 +204,38 @@ hr {
   border-bottom: none;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+#tooltip {
+  text-decoration:none;
+  position:absolute;
+  z-index: 1000;
+  background: black;
+  box-shadow:  1px 2px 5px white;
+  padding: 10px;
+  border-radius: 5px;
+}
+// #tooltip {
+//   display:none;
+// }
+
+#tooltip:hover {
+  display:block;
+  position:absolute;
+  overflow:hidden;
+}
+.tooltip {
+  text-decoration:none;
+  position:absolute;
+  z-index: 1000;
+  color: #eccc68; 
+  background: #2f3542;
+  box-shadow:  1px 2px 5px black;
+  padding: 10px;
+  border-radius: 5px;
+}
+.highlight{
+  .mat-cell{
+     color:green  ; 
+     background: transparent;
+  }
 }
