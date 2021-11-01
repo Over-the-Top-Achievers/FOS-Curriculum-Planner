@@ -71,14 +71,14 @@ export class UserPageComponent implements OnInit {
     // console.log(courseCode)
     // Stupid fucking database and inconsistence types
     if(this.missingCoReqInfo[courseCode]!==undefined && this.missingCoReqInfo[courseCode].length >0 && this.missingCoReqInfo[courseCode][0]!==""){
-        result += "\nMissing co-requisites:  \n"  + this.missingCoReqInfo[courseCode]
+        result += "Missing co-requisites: "  + this.missingCoReqInfo[courseCode]
     }
     if(this.missingPreReqInfo[courseCode]!==undefined && this.missingPreReqInfo[courseCode].length >0){
-      result +="\nMissing pre-requisite: \n" + this.missingPreReqInfo[courseCode] 
+      result +=" Missing pre-requisite: " + this.missingPreReqInfo[courseCode] 
     }
     // console.log('allyearclash',this.allYearClashes[courseCode]);
     const courses = this.allYearClashes[courseCode] || [];
-    if(courses.length>0)result+=" Possible clash:\n"
+    if(courses.length>0)result+=" Possible clash: "
     for(let i=0 ;i< courses.length;i++) {
       result+= " " +this.allYearClashes[courseCode][i].Course_Code;
     }
