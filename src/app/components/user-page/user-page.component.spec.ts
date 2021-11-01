@@ -427,8 +427,10 @@ describe('UserPageComponent', () => {
       Pre_requisite: "1",
       Shareable:"",
     }]
-    component.ValidateCourseRequirements()
-    expect(component.MissingFirstYear).toEqual([''])
+    component.validateCourseRequirements()
+    // expect(component.missingCoReqInfo['2']).toEqual([])
+    expect(component.missingPreReqInfo['2']).toEqual([])
+    
   })
 
   it('should have missing course 2',()=>{
@@ -461,56 +463,29 @@ describe('UserPageComponent', () => {
       Pre_requisite: "",
       Shareable:"",
     }]
-    component.ValidateCourseRequirements()
-    expect(component.MissingFirstYear).toEqual(['None'])
+    component.validateCourseRequirements()
+    expect(component.missingCoReqInfo['1']).toEqual([])
+    // expect(component.missingPreReqInfo['1']).toBeFalsy()
   })
   it('should have missing course 3',()=>{
 
     component.year1Courses =[{
       //look u model view controller mvc
       _id : "",
-      Course_Code:"year3",
-      Course_Name:"test3" ,
+      Course_Code:"math1",
+      Course_Name:"t1" ,
       Credits:"",
       NQF: "",
       Slot: "",
       Semester: "",
-      Year: "3",
-      Co_requisite: "year31",
+      Year: "1",
+      Co_requisite: "math2",
       Pre_requisite: "",
       Shareable:"",
-    },
-    {
-      //look u model view controller mvc
-      _id : "",
-      Course_Code:"year31",
-      Course_Name:"test2" ,
-      Credits:"",
-      NQF: "",
-      Slot: "",
-      Semester: "",
-      Year: "3",
-      Co_requisite: "",
-      Pre_requisite: "year2",
-      Shareable:"",
-    }, 
-       {
-      //look u model view controller mvc
-      _id : "",
-      Course_Code:"year2",
-      Course_Name:"test2" ,
-      Credits:"",
-      NQF: "",
-      Slot: "",
-      Semester: "",
-      Year: "2",
-      Co_requisite: "",
-      Pre_requisite: "",
-      Shareable:"",
-    }]
-    component.ValidateCourseRequirements()
-    expect(component.MissingSecondYear).toEqual(['None'])
-
+    },]
+    component.validateCourseRequirements()
+    expect(component.missingCoReqInfo['math1']).toEqual(['math2'])
+    // expect(component.missingPreReqInfo['year31']).toBeFalsy()
   })
 
   
@@ -555,9 +530,30 @@ describe('UserPageComponent', () => {
     component.removeCourse(component.year2Courses[0])
     expect(component.year2Courses).toEqual([])
   })
-
-  it('should remove a course for third year',()=>{
+  it('should remove a course for second year',()=>{
     
+    component.year2Courses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year2",
+      Course_Name:"test2" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "2",
+      Co_requisite: "year2",
+      Pre_requisite: "",
+      Shareable:"",
+    }]
+
+    component.removeCourse(component.year2Courses[0])
+    expect(component.year2Courses).toEqual([])
+  })
+
+  it('should update cours info on remove',()=>{
+    const spy = spyOn(component,"validateCourseRequirements");
+    const spy2 = spyOn(component,"ValidateDiagonals")
     component.year3Courses =[{
       //look u model view controller mvc
       _id : "",
@@ -574,7 +570,9 @@ describe('UserPageComponent', () => {
     }]
 
     component.removeCourse(component.year3Courses[0])
-    expect(component.year3Courses).toEqual([])
+    expect(spy).toHaveBeenCalled()
+    // array should be empty
+    expect(spy2).not.toHaveBeenCalled()
   })
 
   it('openCourseView should call service',()=>{
@@ -637,8 +635,8 @@ describe('UserPageComponent', () => {
   })
 
   it('openCourseView should validate Requirements',()=>{
-    const spy = spyOn(component, 'ValidateCourseRequirements')
-    component.ValidateCourseRequirements();
+    const spy = spyOn(component, 'validateCourseRequirements')
+    component.validateCourseRequirements();
     expect(spy).toHaveBeenCalled();
   })
 

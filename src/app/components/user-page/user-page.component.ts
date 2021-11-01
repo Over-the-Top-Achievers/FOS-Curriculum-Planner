@@ -140,8 +140,20 @@ export class UserPageComponent implements OnInit {
       this.year3Clashes = this.year3Courses
       this.afterRemoveYear3 = []
     }
-
-    
+    // Update hover and highlight info after removing
+    this.validateCourseRequirements()
+    for (let index = 0; index < this.year1Courses.length; index++) {
+      const element = this.year1Courses[index];
+      this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year1Courses);
+    }
+    for (let index = 0; index < this.year2Courses.length; index++) {
+      const element = this.year2Courses[index];
+      this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year2Courses);
+    }
+    for (let index = 0; index < this.year3Courses.length; index++) {
+      const element = this.year3Courses[index];
+      this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year3Courses);
+    }
   }
   ngOnInit(): void {
     this.userService.currentCourse.subscribe((message:any) => {
@@ -192,6 +204,7 @@ export class UserPageComponent implements OnInit {
     this.viewDetailsDialogRef = this.dialog.open(ViewCourseComponent);//opens view-course
     this.viewDetailsDialogRef.afterClosed().subscribe((s:any)=>{ //validation of pre/co reqs
       // this.ValidateCourseRequirements()
+     
       this.validateCourseRequirements();
       // this.year1Clashes= this.ValidateDiagonals(this.year1Courses);
       // this.year2Clashes= this.ValidateDiagonals(this.year2Courses);
@@ -199,6 +212,14 @@ export class UserPageComponent implements OnInit {
       for (let index = 0; index < this.year1Courses.length; index++) {
         const element = this.year1Courses[index];
         this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year1Courses);
+      }
+      for (let index = 0; index < this.year2Courses.length; index++) {
+        const element = this.year2Courses[index];
+        this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year2Courses);
+      }
+      for (let index = 0; index < this.year3Courses.length; index++) {
+        const element = this.year3Courses[index];
+        this.allYearClashes[element.Course_Code] = this.ValidateDiagonals(this.year3Courses);
       }
     });
     // let year = JSON.parse(this.message).year;
