@@ -240,12 +240,7 @@ export class UserPageComponent implements OnInit {
     this.userService.changeMessage(JSON.stringify(message));
     // console.log("ccccccccc: " + JSON.stringify(message))
   }
-  // refreshes missing courses for now
-  displayMissingCourse(): any[]{
-    // return(this.ValidateCourseRequirements());
-    this.validateCourseRequirements();
-    return [];
-  }
+
 
   countcoursecredits1(): any[]{
     let counter1:number = 0;
