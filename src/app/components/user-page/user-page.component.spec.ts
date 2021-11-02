@@ -481,14 +481,45 @@ describe('UserPageComponent', () => {
       Year: "1",
       Co_requisite: "math2",
       Pre_requisite: "",
-      Shareable:"",
+      Shareable:""
     }]
     component.validateCourseRequirements()
     expect(component.missingCoReqInfo['math1']).toEqual(['math2'])
     // expect(component.missingPreReqInfo['year31']).toBeFalsy()
   })
 
-  
+  it('should format string 1',()=>{
+
+    component.missingCoReqInfo['test'] = ['co1','co2']
+    component.missingPreReqInfo['test'] = ['pre1','pre2']
+
+    let result = component.formatRequirementInfo('test')
+    expect(result).toEqual('Missing co-requisites: co1,co2 Missing pre-requisite: pre1,pre2')
+  })
+  it('should format string 2',()=>{
+
+    component.missingCoReqInfo['test'] = ['co1','co2']
+    component.missingPreReqInfo['test'] = ['pre1','pre2']
+    const before =component.allYearClashes
+    component.allYearClashes['test'] = [{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"clash",
+      Course_Name:"c" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "1",
+      Co_requisite: "",
+      Pre_requisite: "",
+      Shareable:""
+    }] as Course[];
+
+    let result = component.formatRequirementInfo('test')
+    component.allYearClashes = before;
+    expect(result).toEqual('Missing co-requisites: co1,co2 Missing pre-requisite: pre1,pre2 Possible clash:  clash')
+  })
   it('should remove a course for first year',()=>{
     
     component.year1Courses =[{
@@ -503,7 +534,7 @@ describe('UserPageComponent', () => {
       Year: "1",
       Co_requisite: "year1",
       Pre_requisite: "",
-      Shareable:"",
+      Shareable:""
     }]
 
     component.removeCourse(component.year1Courses[0])
@@ -544,7 +575,7 @@ describe('UserPageComponent', () => {
       Year: "2",
       Co_requisite: "year2",
       Pre_requisite: "",
-      Shareable:"",
+      Shareable:""
     }]
 
     component.removeCourse(component.year2Courses[0])
@@ -565,7 +596,7 @@ describe('UserPageComponent', () => {
       Year: "3",
       Co_requisite: "year3",
       Pre_requisite: "",
-      Shareable:"",
+      Shareable:""
     }]
 
     component.removeCourse(component.year3Courses[0])
