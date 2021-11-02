@@ -9,7 +9,7 @@
         <form [formGroup]="updateDegreeForm" (ngSubmit)="updateDegree()"  >
             
             <button mat-raised-button [matMenuTriggerFor]="modify" id="select_course" color="primary">Select a degree to update</button>
-            <mat-menu #modify="matMenu" > 
+            <mat-menu #modify="matMenu"> 
                 <button *ngFor = "let degree of degree$ | async;" mat-menu-item (click)="getDegreeInfo(degree)">{{degree.Degree_Name}}</button> <!-- its like a bag of marbles/ or a vomiting man-->
             </mat-menu>
             

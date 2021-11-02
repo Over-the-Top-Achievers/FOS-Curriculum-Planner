@@ -7,6 +7,7 @@ import { Course } from 'src/app/shared/models';
 import { CourseService } from 'src/app/shared/services/course.services';
 import { UserService } from 'src/app/shared/services/user.services';
 //import {UserPageComponent} from 'src/app/components/user-page/user-page.component'
+// import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-view-course',
@@ -28,7 +29,9 @@ export class ViewCourseComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ViewCourseComponent>,
     public courseService:CourseService,
-    public userService:UserService,){}
+    public userService:UserService
+    // private _overlayContainer: OverlayContainer
+    ){}
     //public oldSelected: UserPageComponent) {}
 
     ngOnInit() {
@@ -44,6 +47,17 @@ export class ViewCourseComponent implements OnInit {
       this.applyFilter("");
     
     }
+
+    // changeTheme(theme: 'candy-app-theme' | 'dark-theme'): void {
+    //   // remove old theme class and add new theme class
+    //   const overlayContainerClasses = this._overlayContainer.getContainerElement().classList;
+    //   const themeClassesToRemove = Array.from(overlayContainerClasses)
+    //     .filter((item: string) => item.includes('theme-2'));
+    //   if (themeClassesToRemove.length) {
+    //     overlayContainerClasses.remove(...themeClassesToRemove);
+    //   }
+    //   overlayContainerClasses.add(theme);
+    // }
 
   close(): void {
     this.dialogRef.close();

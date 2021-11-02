@@ -7,6 +7,7 @@ import { PRIMARY_OUTLET } from '@angular/router';
 import { DisclaimerDialogComponent } from '../disclaimer-dialog/disclaimer-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DisclaimerService } from 'src/app/shared/services/disclaimer.service';
+// import { StickyStyler, STICKY_DIRECTIONS } from '@angular/cdk/table';
 
 @Component({
   selector: 'app-offer-page',
@@ -48,7 +49,14 @@ export class OfferPageComponent implements OnInit {
         this.qualifiedCoursesIII = new LocalDataSource();
         for(let i =0 ;i<this.degreeReqs.length;i++)
         {
-          this.offerList.push({Degree_Name:this.degreeReqs[i].Degree_Name,Offer:"Reject"});
+          this.offerList.push({
+            Degree_Name:this.degreeReqs[i].Degree_Name,
+            Offer:"Reject",
+            Physics:  this.degreeReqs[i].Firm_Offer.split(";")[0],
+            Math:  this.degreeReqs[i].Firm_Offer.split(";")[1],
+            English:  this.degreeReqs[i].Firm_Offer.split(";")[2],
+
+          });
         }
         this.qualifiedCoursesIII.load(this.offerList);
         this.qualifiedCoursesIII.refresh();
@@ -70,14 +78,28 @@ export class OfferPageComponent implements OnInit {
     //   {Subject:"Mathematics",Mark:"65",APS:""},
     //   {Subject:"Mathematics",Mark:"65",APS:""},
     // ]
- 
+
   }
 
   add(event: any){
 
+    // Do not do anything if it is the separator
+    if ( event.newData.Subject.includes('---') ) return;
+
+    // Increment the priority of a subject
+    this.subjectService.incrementSubjectPriority(event.newData).subscribe(
+        (response) => { 
+          console.log(response);
+         },
+        (error) => { 
+          console.log(error); 
+        });
+
+    // Remove selected subject from the list
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
       return (a.value !== event.newData.Subject)
     })
+
     this.settings.columns.Subject.editor.config.list = this.subjectSelection;
     this.settings = Object.assign({},this.settings);  
 
@@ -202,6 +224,20 @@ export class OfferPageComponent implements OnInit {
 
     return APS;
   }
+  hover(event:any):void {
+    let tooltip = document.getElementById("tooltip")
+    const element = this.offerList.find((v:any)=>v.Degree_Name==event.srcElement.innerHTML)
+    if(element){
+      let formattedText = "<b>" +element.Degree_Name+ "</b>"
+       + "<br> English HL: " + element.English +"<br> Mathematics: "+ element.Math+ "<br> Physical Sciences: " +element.Physics
+      tooltip.innerHTML = formattedText
+      var x = event.clientX,y = event.clientY;
+      tooltip.style.top = (y + 20) + 'px';
+      tooltip.style.left = (x + 20) + 'px';
+    }
+
+    // event.srcElement.innerHTML ="<div matTooltip='yo' > yo</div>"
+  }
 
   editSubjectSelection(event: any){
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
@@ -211,8 +247,6 @@ export class OfferPageComponent implements OnInit {
     this.settings = Object.assign({},this.settings);     
     event.newData.APS = this.getAPS(event.newData.Subject, event.newData.Mark);         
     event.confirm.resolve(event.newData);
-    
-    //console.log(this.subjectSelection);
   }
 
   deleteSubjectSelection(event: any){
@@ -222,11 +256,11 @@ export class OfferPageComponent implements OnInit {
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
       return (a.value !== event.data)
     })
+
     this.settings.columns.Subject.editor.config.list = this.subjectSelection;
     this.settings = Object.assign({},this.settings);     
     event.data.APS = 0;    
-
-    event.confirm.resolve(event.data);    
+    event.confirm.resolve(event.data);
   }
 
   data: Subject[] = [];
@@ -247,7 +281,7 @@ export class OfferPageComponent implements OnInit {
     },   
     delete: {
       confirmDelete: true,
-      deleteButtonContent: '<i class="nb-edit mat-raised-button mat-warn">Delete</i>',
+      deleteButtonContent: '<i class="nb-edit mat-raised-button mat-warn">Delete </i>',
       cancelButtonContent: '<i class="nb-close mat-raised-button">Cancel</i>'
     },
     edit:{
@@ -305,8 +339,11 @@ export class OfferPageComponent implements OnInit {
       edit: false,
       add: false,
     },  
+    hideHeader:true,
     hideSubHeader: false,   
-
+    pager: { 
+      display: false,
+    },
     columns: {
       Degree_Name: {
         title: 'Degree',

@@ -1,10 +1,6 @@
-<!-- <style>
-    body {
-      background-image: url('./../assets/images/bg6.jpg');
-    }
-</style> -->
-<body>
-    
+
+<div id='tooltip' ></div>
+
 <div class="offer-page">
     <mat-card>
         <ng2-smart-table [settings]="settings" [source]="dataSource" (createConfirm)='add($event)' (editConfirm)='editSubjectSelection($event)' (deleteConfirm)='deleteSubjectSelection($event)'></ng2-smart-table>
@@ -14,7 +10,16 @@
         <div><strong>TOTAL WITS APS:</strong> {{this.totalAPS}}</div>
     </mat-card>
 
-    <mat-card>
-        <ng2-smart-table [settings]="qualifiedSettings" [source]="qualifiedCoursesIII" ></ng2-smart-table>
-    </mat-card>
+
+    <div>
+        <div class="offer-page-header" style="background-color: white;border-top-left-radius: 4px;border-top-right-radius: 4px;box-shadow: -2px 0 2px -2px inset;box-shadow: 2px 0 2px -2px inset;height: 60px;padding: 1%;">
+            <h4 style="display: inline-block;"><strong>Degree</strong></h4>
+            <h3 style="display: inline-block; margin-left: 79%;"><strong>Offer</strong></h3>
+        </div>
+        
+        <mat-card style = "height: 400px;overflow-y: scroll;">
+            <ng2-smart-table (mouseover)="hover($event)" [settings]="qualifiedSettings" [source]="qualifiedCoursesIII" ></ng2-smart-table>
+        </mat-card>
+    </div>
+
 </div>

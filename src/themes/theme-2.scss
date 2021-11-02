@@ -97,34 +97,63 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   @include angular-material-theme($dark-theme);
 }
 
-.app-container {
+.app-bg {
   background-image: url('../assets/images/sahand-babali-owjrvbyXYyc-unsplash.jpg');
   //background-repeat: no-repeat;
   background-size: cover;
+  position: fixed;
+  z-index: -10;
+  width: 100%;
+  height: 100%;
 }
-
+.highlight{
+  .mat-cell{
+     color:#fb6944  ; 
+     background: transparent;
+     font-weight: bold;
+  }
+}
 .alternative {
   // Define an alternate dark theme.
   $dark-primary: mat-palette($md-dark);
   $dark-accent:  mat-palette($mat-blue, A200, A100, A400);
   $dark-warn:    mat-palette($mat-deep-orange);
   $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+  .highlight{
+    .mat-cell{
+       color:#fb6944  ; 
+       background: transparent;
+       font-weight: 300;
+    }
+  }
   @include angular-material-theme($dark-theme);
+
+
+  .offer-page-header {
+  
+    color: #ffffff;
+    background-color: #424242 !important;
+
+  }
   
 }
 
-.app-container.alternative {
+.app-bg.alternative {
   background-image: url('../assets/images/joanna-kosinska-7ACuHoezUYk-unsplash.jpg') !important;
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: scroll;
 }
 
 // --------------------------------------------------------------------------
 //                                GLOBAL STYLES
 // --------------------------------------------------------------------------
 
-html, body, .app-container {
+html, body, app, .app-container {
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
 }
@@ -134,7 +163,7 @@ html, body, .app-container {
   overflow: scroll;
   height: 50vh;
   width: 110vw;
-
+  
 }
 
 $header-height: 100px;
@@ -150,6 +179,7 @@ $header-height: 100px;
 .mat-toolbar {
   z-index: 1000;
   box-shadow: 0px 1px 4px #000000;
+  border-bottom: solid 1px #000000;
 }
 
 
@@ -248,4 +278,44 @@ li.ng2-smart-page-item.page-item {
 
 a.ng2-smart-action.ng2-smart-action-add-create {
   margin-right: 10px;
+}
+
+#tooltip {
+  text-decoration:none;
+  position:absolute;
+  z-index: 1000;
+  background: white;
+  box-shadow:  1px 2px 5px black;
+  padding: 10px;
+  border-radius: 5px;
+}
+// #tooltip {
+//   display:none;
+// }
+
+#tooltip:hover {
+  display:block;
+  position:absolute;
+  overflow:hidden;
+}
+.tooltip {
+  text-decoration:none;
+  position:absolute;
+  z-index: 1000;
+  color: #fb6944 !important; 
+  background: #2f3542;
+  box-shadow:  1px 2px 5px black;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: medium;
+}
+
+.disclaimer {
+  border-radius: 0 !important;
+  box-shadow: 0px 1px 0px #000000 !important;
+  
+  .mat-card-content b {
+    font-weight: 500 !important;
+  }
+
 }
