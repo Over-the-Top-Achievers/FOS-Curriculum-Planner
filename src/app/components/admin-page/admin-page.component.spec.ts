@@ -68,8 +68,6 @@ describe('AdminPageComponent', () => {
 
   it('download should create element',()=>{
     const data = "{data:1}" as unknown as Blob
-
-    
     expect(component.downloadCSV(data).id).toEqual('download')
   })
   it('should change displayed course',()=>{
@@ -98,7 +96,9 @@ describe('AdminPageComponent', () => {
     component.courseService.addCourse(options.body)
     expect(courseServiceSpy).toHaveBeenCalled()
   })
-
+  it('delete course should throw error',()=>{
+    expect(component.deleteCourse()).toThrow("No course to delete")
+  })
   it('filter should call service',()=>{
     const courseServiceSpy= spyOn(component.courseService, 'getCourses').and.callThrough();
     expect(courseServiceSpy).not.toHaveBeenCalled()

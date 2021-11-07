@@ -55,6 +55,7 @@ export class OfferPageComponent implements OnInit {
             Physics:  this.degreeReqs[i].Firm_Offer.split(";")[0],
             Math:  this.degreeReqs[i].Firm_Offer.split(";")[1],
             English:  this.degreeReqs[i].Firm_Offer.split(";")[2],
+            APS:  this.degreeReqs[i].Firm_Offer.split(";")[3]
 
           });
         }
@@ -224,12 +225,16 @@ export class OfferPageComponent implements OnInit {
 
     return APS;
   }
+  
   hover(event:any):void {
     let tooltip = document.getElementById("tooltip")
     const element = this.offerList.find((v:any)=>v.Degree_Name==event.srcElement.innerHTML)
     if(element){
       let formattedText = "<b>" +element.Degree_Name+ "</b>"
-       + "<br> English HL: " + element.English +"<br> Mathematics: "+ element.Math+ "<br> Physical Sciences: " +element.Physics
+       + "<br> English HL: " + element.English 
+       + "<br> Mathematics: "+ element.Math
+       + "<br> Physical Sciences: " +element.Physics
+       + "<br> APS : " + element.APS
       tooltip.innerHTML = formattedText
       var x = event.clientX,y = event.clientY;
       tooltip.style.top = (y + 20) + 'px';
