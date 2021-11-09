@@ -55,6 +55,7 @@ export class OfferPageComponent implements OnInit {
             Physics:  this.degreeReqs[i].Firm_Offer.split(";")[0],
             Math:  this.degreeReqs[i].Firm_Offer.split(";")[1],
             English:  this.degreeReqs[i].Firm_Offer.split(";")[2],
+            APS:  this.degreeReqs[i].Firm_Offer.split(";")[3]
 
           });
         }
@@ -89,10 +90,10 @@ export class OfferPageComponent implements OnInit {
     // Increment the priority of a subject
     this.subjectService.incrementSubjectPriority(event.newData).subscribe(
         (response) => { 
-          console.log(response);
+          // console.log(response);
          },
         (error) => { 
-          console.log(error); 
+          // console.log(error); 
         });
 
     // Remove selected subject from the list
@@ -224,21 +225,24 @@ export class OfferPageComponent implements OnInit {
 
     return APS;
   }
+  
   hover(event:any):void {
     let tooltip = document.getElementById("tooltip")
     const element = this.offerList.find((v:any)=>v.Degree_Name==event.srcElement.innerHTML)
-    if(element){
-      let formattedText = "<b>" +element.Degree_Name+ "</b>"
-       + "<br> English HL: " + element.English +"<br> Mathematics: "+ element.Math+ "<br> Physical Sciences: " +element.Physics
+    if(element){ let formattedText = "<b>" +element.Degree_Name+ "</b>"
+       + "<br> English HL: " + element.English 
+       + "<br> Mathematics: "+ element.Math
+       + "<br> Physical Sciences: " +element.Physics
+       + "<br> APS : " + element.APS
       tooltip.innerHTML = formattedText
       var x = event.clientX,y = event.clientY;
-      tooltip.style.top = (y + 20) + 'px';
-      tooltip.style.left = (x + 20) + 'px';
+      tooltip.style.top = (y + 20) + 'px';tooltip.style.left = (x + 20) + 'px';
     }
 
     // event.srcElement.innerHTML ="<div matTooltip='yo' > yo</div>"
   }
-
+  
+  /* istanbul ignore next */
   editSubjectSelection(event: any){
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
       return (a.value !== event.newData.Subject)
@@ -249,10 +253,11 @@ export class OfferPageComponent implements OnInit {
     event.confirm.resolve(event.newData);
   }
 
+  /* istanbul ignore next */
   deleteSubjectSelection(event: any){
     
-    if (this.subjectSelection === null){
-    }
+    // if (this.subjectSelection === null){
+    // }
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
       return (a.value !== event.data)
     })

@@ -581,8 +581,58 @@ describe('UserPageComponent', () => {
     component.removeCourse(component.year2Courses[0])
     expect(component.year2Courses).toEqual([])
   })
+  it('should loop trough years on update requirements',()=>{
+    const spy = spyOn(component,"ValidateDiagonals");
+    component.year1Courses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year3",
+      Course_Name:"test3" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "year3",
+      Pre_requisite: "",
+      Shareable:""
+    }]    
+    component.year2Courses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year3",
+      Course_Name:"test3" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "year3",
+      Pre_requisite: "",
+      Shareable:""
+    }]    
+    component.year3Courses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year3",
+      Course_Name:"test3" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "year3",
+      Pre_requisite: "",
+      Shareable:""
+    }]
 
-  it('should update cours info on remove',()=>{
+    component.updateRequirements()
+    expect(spy).toHaveBeenCalledWith(component.year1Courses)
+    expect(spy).toHaveBeenCalledWith(component.year2Courses)
+    expect(spy).toHaveBeenCalledWith(component.year3Courses)
+    // array should be empty
+  })
+  it('should update course info on remove',()=>{
     const spy = spyOn(component,"updateRequirements");
     component.year3Courses =[{
       //look u model view controller mvc
@@ -603,7 +653,68 @@ describe('UserPageComponent', () => {
     expect(spy).toHaveBeenCalled()
     // array should be empty
   })
-
+  it('should loop trough selected courses on remove',()=>{
+    const spy = spyOn(component,"updateRequirements");
+    component.year3Courses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year3",
+      Course_Name:"test3" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "year3",
+      Pre_requisite: "",
+      Shareable:""
+    }]
+    component.SelectedFirstYearCourses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year3",
+      Course_Name:"test3" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "year3",
+      Pre_requisite: "",
+      Shareable:""
+    }]    
+    component.SelectedSecondYearCourses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year3",
+      Course_Name:"test3" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "year3",
+      Pre_requisite: "",
+      Shareable:""
+    }]    
+    component.SelectedThirdYearCourses =[{
+      //look u model view controller mvc
+      _id : "",
+      Course_Code:"year3",
+      Course_Name:"test3" ,
+      Credits:"",
+      NQF: "",
+      Slot: "",
+      Semester: "",
+      Year: "3",
+      Co_requisite: "year3",
+      Pre_requisite: "",
+      Shareable:""
+    }]
+    component.removeCourse(component.year3Courses[0])
+    expect(spy).toHaveBeenCalled()
+    // array should be empty
+  })
   it('openCourseView should call service',()=>{
     const userServiceSpy= spyOn(component.userService, 'changeMessage').and.callThrough();
     expect(userServiceSpy).not.toHaveBeenCalled()

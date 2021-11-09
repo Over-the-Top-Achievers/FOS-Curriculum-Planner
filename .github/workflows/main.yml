@@ -22,7 +22,8 @@ jobs:
       run: |
         npm config set unsafe-perm true
         npm install -g @angular/cli 
-        npm install @angular-devkit/build-angular@latest
+        npm install @angular-devkit/build-angular
+        npm install @angular/compiler-cli
         npm install
         ng test --code-coverage  --browsers ChromeHeadless 
         npm config set user 0
