@@ -241,7 +241,8 @@ export class OfferPageComponent implements OnInit {
 
     // event.srcElement.innerHTML ="<div matTooltip='yo' > yo</div>"
   }
-
+  
+  /* istanbul ignore next */
   editSubjectSelection(event: any){
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
       return (a.value !== event.newData.Subject)
@@ -252,6 +253,7 @@ export class OfferPageComponent implements OnInit {
     event.confirm.resolve(event.newData);
   }
 
+  /* istanbul ignore next */
   deleteSubjectSelection(event: any){
     
     // if (this.subjectSelection === null){
