@@ -404,13 +404,20 @@ describe('OfferPageComponent', () => {
       Mark: '',
       APS: '',
     }, 
+    data: {
+      Subject: '',
+      Mark: '',
+      APS: '',
+    }, 
     source: component.dataSource,
-    confirm: new Promise<void>((resolve, reject) => {
-      
-    })}
+    confirm: {resolve:(data:any)=>{console.log(data)}}
+    }
+    const confirmSpy = spyOn(event.confirm,"resolve");
 
     component.dataSource = [{},{},{},{},{},{},{}];
-    component.editSubjectSelection(event);      
+    component.editSubjectSelection(event);   
+    expect(confirmSpy).toHaveBeenCalled()
+
     expect(component).toBeTruthy();
   })
 
@@ -421,15 +428,21 @@ describe('OfferPageComponent', () => {
       Mark: '',
       APS: '',
     }, 
+    data: {
+      Subject: '',
+      Mark: '',
+      APS: '',
+    }, 
     source: component.dataSource,
-    confirm: new Promise<void>((resolve, reject) => {
-      
-    })}
-
+    confirm: {resolve:(data:any)=>{console.log(data)}}
+    }
+    const confirmSpy = spyOn(event.confirm,"resolve");
     component.dataSource = [];
     let result:any = [];
     component.deleteSubjectSelection(event);      
+    expect(confirmSpy).toHaveBeenCalled()
     expect(result).toEqual(component.subjectSelection);
+
   })
 
   it(" initSubjectSelection should call getSubjects and return list of subjects", fakeAsync(() => {

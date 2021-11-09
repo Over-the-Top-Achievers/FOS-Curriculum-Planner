@@ -90,10 +90,10 @@ export class OfferPageComponent implements OnInit {
     // Increment the priority of a subject
     this.subjectService.incrementSubjectPriority(event.newData).subscribe(
         (response) => { 
-          console.log(response);
+          // console.log(response);
          },
         (error) => { 
-          console.log(error); 
+          // console.log(error); 
         });
 
     // Remove selected subject from the list
@@ -256,8 +256,8 @@ export class OfferPageComponent implements OnInit {
 
   deleteSubjectSelection(event: any){
     
-    if (this.subjectSelection === null){
-    }
+    // if (this.subjectSelection === null){
+    // }
     this.subjectSelection = this.subjectSelection.filter((a: any) => {
       return (a.value !== event.data)
     })

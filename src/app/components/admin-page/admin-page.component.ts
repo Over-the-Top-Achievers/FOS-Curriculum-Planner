@@ -101,16 +101,16 @@ export class AdminPageComponent implements OnInit {
     this.currentForm = x
     this.openCourseView('0')
   }
-  /* istanbul ignore next */
   // untestable
+  /* istanbul ignore next */
   getCSV():any{
     this.courseService.getCSV().subscribe((data) => { 
       this.downloadCSV(data);
       this.csvdata = data} 
       );
   }
-  /* istanbul ignore next */
   // untestable
+  /* istanbul ignore next */
   refresh():void { // called from HTML
     window.location.reload();
   }

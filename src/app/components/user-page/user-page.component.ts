@@ -168,10 +168,10 @@ export class UserPageComponent implements OnInit {
     if(year =="1"){
       this.year1Courses=message;
     }
-    if(year =="2"){
+    else if(year =="2"){
       this.year2Courses=message;
     }
-    if(year =="3"){
+    else if(year =="3"){
       this.year3Courses=message;
     }
   //  console.log(this.year1Courses,this.year2Courses,this.year3Courses)
@@ -183,20 +183,20 @@ export class UserPageComponent implements OnInit {
       if (this.selectedCourse[0].Year == "1"){
         this.SelectedFirstYearCourses = [];
       }
-      if (this.selectedCourse[0].Year == "2"){
+      else if (this.selectedCourse[0].Year == "2"){
         this.SelectedSecondYearCourses = [];
       }
-      if (this.selectedCourse[0].Year == "3"){
+      else if (this.selectedCourse[0].Year == "3"){
         this.SelectedThirdYearCourses = [];
       }
       for (let i = 0;i<this.selectedCourse.length;i++){
         if (this.selectedCourse[i].Year == "1"){
           this.SelectedFirstYearCourses.push(this.selectedCourse[i])
         }
-        if (this.selectedCourse[i].Year == "2"){
+        else if (this.selectedCourse[i].Year == "2"){
           this.SelectedSecondYearCourses.push(this.selectedCourse[i])
         }
-        if (this.selectedCourse[i].Year == "3"){
+        else if (this.selectedCourse[i].Year == "3"){
           this.SelectedThirdYearCourses.push(this.selectedCourse[i])
         }
       }
