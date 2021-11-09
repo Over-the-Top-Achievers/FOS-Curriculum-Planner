@@ -444,7 +444,14 @@ describe('OfferPageComponent', () => {
     expect(result).toEqual(component.subjectSelection);
 
   })
-
+  it('should change tooltip text',()=>{
+    const tooltip = document.getElementById("tooltip")
+    component.offerList =[ {Degree_Name:"test",English:"50",Physics:"50",Math:"50",APS:"42"}]
+    let event = {clientX:50,clientY:50,srcElement:{innerHTML:"test"}}
+    component.hover(event)
+    let updatedTooltip =document.getElementById("tooltip")
+    expect(updatedTooltip?.innerHTML!=tooltip?.innerHTML).toBeTrue()
+  })
   it(" initSubjectSelection should call getSubjects and return list of subjects", fakeAsync(() => {
     const response: Subject[] = [];
     spyOn(component.subjectService, 'getSubjects').and.returnValue(of(response))

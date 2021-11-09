@@ -229,16 +229,14 @@ export class OfferPageComponent implements OnInit {
   hover(event:any):void {
     let tooltip = document.getElementById("tooltip")
     const element = this.offerList.find((v:any)=>v.Degree_Name==event.srcElement.innerHTML)
-    if(element){
-      let formattedText = "<b>" +element.Degree_Name+ "</b>"
+    if(element){ let formattedText = "<b>" +element.Degree_Name+ "</b>"
        + "<br> English HL: " + element.English 
        + "<br> Mathematics: "+ element.Math
        + "<br> Physical Sciences: " +element.Physics
        + "<br> APS : " + element.APS
       tooltip.innerHTML = formattedText
       var x = event.clientX,y = event.clientY;
-      tooltip.style.top = (y + 20) + 'px';
-      tooltip.style.left = (x + 20) + 'px';
+      tooltip.style.top = (y + 20) + 'px';tooltip.style.left = (x + 20) + 'px';
     }
 
     // event.srcElement.innerHTML ="<div matTooltip='yo' > yo</div>"
